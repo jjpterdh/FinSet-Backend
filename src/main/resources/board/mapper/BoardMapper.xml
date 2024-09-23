@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -7,88 +6,87 @@
 <mapper namespace="board.mapper.BoardMapper">
 
     <resultMap id="attachmentMap" type="board.domain.BoardAttachmentVO">
-        <id column="ano" property="no"/>
+        <id column="ano" property="bno"/>
         <result column="bno" property="bno"/>
-        <result column="filename" property="filename"/>
         <result column="path" property="path"/>
-        <result column="contentType" property="contentType"/>
+        <result column="content_type" property="contentType"/>
         <result column="size" property="size"/>
         <result column="a_reg_date" property="regDate"/>
     </resultMap>
 
     <resultMap id="boardMap" type="board.domain.BoardVO">
-        <id column="no" property="no"/>
-        <result column="title" property="title"/>
+        <id column="bno" property="bno"/>
         <result column="content" property="content"/>
-        <result column="writer" property="writer"/>
-        <result column="reg_date" property="regDate"/>
-        <result column="update_date" property="updateDate"/>
+        <result column="writer" property="writer"/> <!-- This should match the new structure if needed -->
+        <result column="createdAt" property="createdAt"/> <!-- Updated to match the DB schema -->
+        <result column="updatedAt" property="updatedAt"/> <!-- Ensure this column exists in the DB -->
         <collection property="attaches" resultMap="attachmentMap"/>
     </resultMap>
 
-
-
-    <select id="getList" resultType="BoardVO">
+    <select id="getList" resultType="board.domain.BoardVO">
         <![CDATA[
-        select * from tbl_board order by no desc
+        SELECT * FROM tbl_board ORDER BY bno DESC
         ]]>
     </select>
 
     <select id="get" resultMap="boardMap">
-    select b.*, a.no as ano, a.bno, a.filename, a.path,
-    a.content_type, a.size, a.reg_date as a_reg_date
-    from tbl_board b
-    left outer join tbl_board_attachment a
-    on b.no = a.bno
-    where b.no = #{no}
-    order by filename</select>
+        SELECT b.*, a.no AS ano, a.bno, a.path,
+               a.content_type, a.size, a.reg_date AS a_reg_date
+        FROM tbl_board b
+                 LEFT OUTER JOIN tbl_board_attachment a ON b.bno = a.bno
+        WHERE b.bno = #{bno}
+        ORDER BY a.path
+    </select>
 
     <insert id="create">
-            insert into tbl_board (title,content,writer)
-            values (#{title},#{content},#{writer})
-            <selectKey resultType="Long" keyProperty="no" keyColumn="no" order="AFTER">
+        INSERT INTO tbl_board (content, writer) <!-- Removed title -->
+        VALUES (#{content}, #{writer})
+        <selectKey resultType="Long" keyProperty="bno" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        </insert>
+    </insert>
+
     <update id="update">
-        update tbl_board set
-         title=#{title},
-        content=#{content},
-        writer=#{writer},
-        update_date=now()
-        where no=#{no}
+        UPDATE tbl_board
+        SET
+        content = #{content},
+        writer = #{writer},
+        updatedAt = NOW() <!-- Ensure this column exists in the DB -->
+        WHERE bno = #{bno}
     </update>
+
     <delete id="delete">
-        delete from tbl_board where no=#{no}
+        DELETE FROM tbl_board WHERE bno = #{bno}
     </delete>
 
     <insert id="createAttachment">
-        insert into tbl_board_attachment(filename,path,content_type,size,bno)
-        values (#{filename},#{path},#{contentType},#{size},#{bno})
+        INSERT INTO tbl_board_attachment (path, content_type, size, bno)
+        VALUES (#{path}, #{contentType}, #{size}, #{bno})
     </insert>
 
-    <select id="getAttachmentList" resultType="BoardAttachmentVO">
-        select * from tbl_board_attachment
-        where bno=#{bno}
-        order by filename
+    <select id="getAttachmentList" resultType="board.domain.BoardAttachmentVO">
+        SELECT * FROM tbl_board_attachment
+        WHERE bno = #{bno}
+        ORDER BY path
     </select>
 
-    <select id="getAttachment" resultType="BoardAttachmentVO">
-        select * from tbl_board_attachment
-        where no = #{no}
-        </select>
+    <select id="getAttachment" resultType="board.domain.BoardAttachmentVO">
+        SELECT * FROM tbl_board_attachment
+        WHERE bno = #{bno} <!-- Corrected from no to bno -->
+    </select>
+
     <select id="getTotalCount" resultType="java.lang.Integer">
-        select count(*) from tbl_board
+        SELECT COUNT(*) FROM tbl_board
     </select>
+
     <select id="getPage" resultType="board.domain.BoardVO">
-        select * from tbl_board order by no desc
-        limit #{offset},#{amount}
+        SELECT * FROM tbl_board ORDER BY bno DESC
+            LIMIT #{offset}, #{amount}
     </select>
+
     <delete id="deleteAttachment">
-        delete from tbl_board_attachment
-        where no = #{no}
+        DELETE FROM tbl_board_attachment
+        WHERE no = #{bno} <!-- Ensure this is correct based on your schema -->
     </delete>
-
-
 
 </mapper>

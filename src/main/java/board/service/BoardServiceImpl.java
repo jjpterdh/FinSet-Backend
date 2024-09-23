@@ -64,9 +64,9 @@ public class BoardServiceImpl implements BoardService{
 
   List<MultipartFile>files = board.getFiles();
   if (files !=null&&!files.isEmpty()) {
-      upload(boardVo.getNo(),files);
+      upload(boardVo.getBno(),files);
   }
-return get(boardVo.getNo());
+return get(boardVo.getBno());
     }
 
     @Override
@@ -78,9 +78,9 @@ return get(boardVo.getNo());
 
     List<MultipartFile> files=board.getFiles();
     if (files!=null&&!files.isEmpty()) {
-        upload(board.getNo(),files);
+        upload(board.getBno(),files);
     }
-    return get(board.getNo());
+    return get(board.getBno());
             }
 
     @Override

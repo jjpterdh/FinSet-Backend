@@ -16,7 +16,7 @@
     </resultMap>
 
     <select id="get" resultMap="memberMap">
-        SELECT m.uno, m.email, m.password, m.user_name, m.createAt,
+        SELECT m.uno, m.email, m.password, m.user_name, m.createAt
         FROM tbl_member m
         WHERE m.email = #{email}
     </select>

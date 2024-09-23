@@ -17,7 +17,7 @@ public interface BoardMapper {
     public void create(BoardVO board);
 
     public int update(BoardVO board);
-    public int delete(Long no);
+    public int delete(Long bno);
 
 
 
