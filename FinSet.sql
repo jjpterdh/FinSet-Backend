@@ -83,7 +83,7 @@ CREATE TABLE `tbl_board` (
 );
 
 CREATE TABLE `tbl_stock_chart` (
-                                   `scno` INT NOT NULL primary key,
+                                   `scno` INT NOT NULL AUTO_INCREMENT primary key,
                                    `stock_symbol` VARCHAR(10) NOT NULL,
                                    `stock_datetime` DATETIME NOT NULL,
                                    `stock_price` VARCHAR(50) NOT NULL
@@ -91,7 +91,7 @@ CREATE TABLE `tbl_stock_chart` (
 );
 
 CREATE TABLE `tbl_fund_chart` (
-                                  `fcno` VARCHAR(255) NOT NULL primary key,
+                                  `fcno` INT NOT NULL AUTO_INCREMENT primary key,
                                   `fund_name` VARCHAR(50) NOT NULL,
                                   `fund_datetime` VARCHAR(50) NOT NULL,
                                   `fund_val` DOUBLE NOT NULL,
@@ -101,7 +101,7 @@ CREATE TABLE `tbl_fund_chart` (
 );
 
 CREATE TABLE `tbl_forex_chart` (
-                                   `fecno` VARCHAR(255) NOT NULL primary key,
+                                   `fecno` INT NOT NULL AUTO_INCREMENT primary key,
                                    `forex_basic_rate` VARCHAR(50) NOT NULL COMMENT 'deal_bas_r',
                                    `forex_datetime` DATE NOT NULL COMMENT '직접입력',
                                    `forex_name` VARCHAR(50) NOT NULL COMMENT 'cur_unit'
@@ -109,7 +109,7 @@ CREATE TABLE `tbl_forex_chart` (
 );
 
 CREATE TABLE `tbl_news` (
-                            `nno` INT NOT NULL primary key,
+                            `nno` INT NOT NULL AUTO_INCREMENT primary key,
                             `stock_symbol` VARCHAR(10) NOT NULL,
                             `title` TEXT NOT NULL COMMENT 'title',
                             `content` TEXT NOT NULL COMMENT 'summary',
