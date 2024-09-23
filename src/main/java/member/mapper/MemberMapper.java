@@ -7,7 +7,7 @@ import security.account.domain.AuthVO;
 
 public interface MemberMapper {
     MemberVO get(String name);
-    MemberVO findByUsername(String username);
+    MemberVO findByUserId(String username);
 
     int insert(MemberVO member);
     int insertAuth(AuthVO auth);
