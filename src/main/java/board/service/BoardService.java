@@ -11,7 +11,7 @@ import java.util.List;
 public interface BoardService {
     Page<BoardDTO> getPage(PageRequest pageRequest);
     public List<BoardDTO> getList();
-    public BoardDTO get(Long no);
+    public BoardDTO get(Long bno);
     public BoardDTO create(BoardDTO board);
     public BoardDTO update(BoardDTO board);
     public BoardDTO delete(Long no);

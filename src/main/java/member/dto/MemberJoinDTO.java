@@ -16,7 +16,6 @@ import security.account.domain.MemberVO;
 public class MemberJoinDTO {
     String email;
     String password;
-
     String userName;
 
     MultipartFile avatar;

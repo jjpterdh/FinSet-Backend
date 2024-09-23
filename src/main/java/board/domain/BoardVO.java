@@ -1,6 +1,5 @@
 package board.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,12 +13,14 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class BoardVO {
-    private List<BoardAttachmentVO> attaches;
-    private Long no;
-    private String title;
+    private Long bno;                       // Corresponds to bno
+    private Long uno;                   // Corresponds to uno
     private String content;
-    private String writer;
-    private Date regDate;
-    private Date updateDate;
+    private String writer;// Corresponds to content
+    private Date createdAt;                 // Corresponds to createdAt
+    private Date updatedAt;                 // Corresponds to updatedAt
+    private List<BoardAttachmentVO> attaches;
 
+    // Optional: You can include title if needed for future enhancements
+    // private String title;
 }

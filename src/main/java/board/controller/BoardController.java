@@ -52,12 +52,12 @@ public class BoardController {
     return ResponseEntity.ok(service.delete(no));
 }
 
-@GetMapping("/download/{no}")
-    public void download(@PathVariable Long no, HttpServletResponse response) throws Exception{
-        BoardAttachmentVO attachment= service.getAttachment(no);
-    File file=new File(attachment.getPath());
-    UploadFiles.download(response,file,attachment.getFilename());
-    }
+//@GetMapping("/download/{no}")
+//    public void download(@PathVariable Long no, HttpServletResponse response) throws Exception{
+//        BoardAttachmentVO attachment= service.getAttachment(no);
+//    File file=new File(attachment.getPath());
+//    UploadFiles.download(response,file,attachment.getFilename());
+//    }
 @DeleteMapping("/deleteAttachment/{no}")
 public ResponseEntity<Boolean> deleteAttachment(@PathVariable Long no) throws Exception{
     return ResponseEntity.ok(service.deleteAttachment(no));

@@ -7,11 +7,12 @@ CREATE TABLE `tbl_user` (
                             `password` VARCHAR(12) NOT NULL,
                             `user_name` VARCHAR(50) NOT NULL,
                             `user_position` VARCHAR(50) NULL,
-                            `status` CHAR(1) NOT NULL DEFAULT 'Y' COMMENT '탈퇴 여부',
-                            `createAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-
+                            `status` INT(1) NOT NULL DEFAULT '1' COMMENT '탈퇴 여부',
+                            `createAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                            `status_date` TIMESTAMP NULL
 );
-
+ALTER TABLE `tbl_user`
+    ADD INDEX `idx_user_name` (`user_name`);
 CREATE TABLE `tbl_stock` (
                              `sno` INT NOT NULL AUTO_INCREMENT primary key,
                              `stock_symbol` VARCHAR(10) NOT NULL COMMENT '직접입력',
@@ -22,7 +23,7 @@ CREATE TABLE `tbl_stock` (
 
 );
 CREATE TABLE `tbl_type` (
-                            `tno`	VARCHAR(255)	NOT NULL primary key,
+                            `tno`	INT NOT NULL AUTO_INCREMENT primary key,
                             `t_name`	VARCHAR(10)	NOT NULL	COMMENT '예금/ 적금/  펀드/ 주식/ 외환'
 );
 CREATE TABLE `tbl_deposit` (
@@ -74,19 +75,22 @@ CREATE TABLE `tbl_dict` (
 );
 
 CREATE TABLE `tbl_board` (
-                             `bno` INT NOT NULL AUTO_INCREMENT primary key,
+                             `bno` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                              `uno` INT NOT NULL,
+                             `content` TEXT NOT NULL,
+                             `writer` VARCHAR(255) NOT NULL,
                              `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                              `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                             `content` TEXT NOT NULL,
-                             FOREIGN KEY (`uno`) REFERENCES `tbl_user` (`uno`)
+                             FOREIGN KEY (`uno`) REFERENCES `tbl_user` (`uno`),
+                             FOREIGN KEY (`writer`) REFERENCES `tbl_user` (`user_name`)
 );
+
 
 CREATE TABLE `tbl_stock_chart` (
                                    `scno` INT NOT NULL AUTO_INCREMENT primary key,
                                    `stock_symbol` VARCHAR(10) NOT NULL,
                                    `stock_datetime` DATETIME NOT NULL,
-                                   `stock_price` VARCHAR(50) NOT NULL
+                                   `stock_price` INT NOT NULL
 
 );
 

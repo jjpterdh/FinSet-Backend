@@ -12,48 +12,39 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
-import java.util.Date;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class BoardDTO {
-    private Long no;
-    private String title;
-    private String content;
-    private String writer;
-    private Date regDate;
-    private Date updateDate;
+    private Long bno;          // Corresponds to bno
+    private Long uno;     // Corresponds to uno
+    private String content;   // Corresponds to content
+    private Date createdAt;   // Corresponds to createdAt
+    private Date updatedAt;   // Corresponds to updatedAt
 
     private List<BoardAttachmentVO> attaches;
-    List<MultipartFile>files=new ArrayList<>();
+    List<MultipartFile> files = new ArrayList<>();
 
     public static BoardDTO of(BoardVO vo) {
         return BoardDTO.builder()
-                .no(vo.getNo())
-                .title(vo.getTitle())
+                .bno(vo.getBno())
                 .content(vo.getContent())
-                .writer(vo.getWriter())
-                .regDate(vo.getRegDate())
-//                .updateDate(vo.getUpdateDate())
+                .uno(vo.getUno())  // Add this line to map userNo
+                .createdAt(vo.getCreatedAt())
+                .updatedAt(vo.getUpdatedAt())
                 .attaches(vo.getAttaches())
-                .regDate(vo.getRegDate())
-                .updateDate(vo.getUpdateDate())
                 .build();
     }
+
     public BoardVO toVo() {
         return BoardVO.builder()
-                .no(no)
-                .title(title)
+                .bno(bno)
                 .content(content)
-                .writer(writer)
-                .regDate(regDate)
+                .uno(uno)  // Add this line to map userNo
+                .createdAt(createdAt)
+                .updatedAt(updatedAt)
                 .attaches(attaches)
-                .regDate(regDate)
-                .updateDate(updateDate)
                 .build();
     }
-
-
 }
