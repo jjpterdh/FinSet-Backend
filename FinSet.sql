@@ -156,6 +156,11 @@ CREATE TABLE `tbl_installment` (
 
 );
 
+CREATE TABLE `tbl_kospi` (
+                             `kno` INT NOT NULL AUTO_INCREMENT primary key,
+                             `kospi_datetime` VARCHAR(50) NOT NULL COMMENT '날짜',
+                             `kospi_value` DOUBLE NOT NULL COMMENT '종가'
+);
 
 
 
