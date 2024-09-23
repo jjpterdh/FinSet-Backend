@@ -10,16 +10,17 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberUpdateDTO {
-    private String userId;
+
     private String password;
     private String email;
+    private String userName;
 
     MultipartFile avatar;
 
     public MemberVO toVO() {
         return MemberVO.builder()
-                .userId(userId)
                 .email(email)
+                .userName(userName)
                 .build();
 
     }

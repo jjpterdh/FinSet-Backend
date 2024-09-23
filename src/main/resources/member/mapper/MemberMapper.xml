@@ -4,48 +4,53 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="member.mapper.MemberMapper">
-    <resultMap id="authMap" type="AuthVO">
-        <result property="username" column="user_name"/>
-        <result property="auth" column="auth" />
-    </resultMap>
+<!--    <resultMap id="authMap" type="AuthVO">-->
+<!--        <result property="username" column="user_name"/>-->
+<!--        <result property="auth" column="auth" />-->
+<!--    </resultMap>-->
 
     <resultMap id="memberMap" type="MemberVO">
         <id property="uno" column="uno"/>
-        <result property="userId" column="user_id"/>
-        <result property="password" column="password"/>
         <result property="email" column="email"/>
-        <result property="createAt" column="createAt"/>
+        <result property="password" column="password"/>
         <result property="userName" column="user_name"/>
+        <result property="createAt" column="createAt"/>
     </resultMap>
 
+<!--    <select id="get" resultMap="memberMap">  만약에 관리자 사용할거면-->
+<!--        SELECT m.uno, m.user_name, m.password, m.email, m.createAt, a.auth-->
+<!--        FROM tbl_member m-->
+<!--                 LEFT OUTER JOIN tbl_member_auth a ON m.user_name = a.username-->
+<!--        WHERE m.user_name = #{userName}-->
+<!--    </select>-->
+
     <select id="get" resultMap="memberMap">
-        SELECT m.uno, m.user_id, m.password, m.email, m.createAt, m.user_name, a.auth
+        SELECT m.uno, m.email, m.password, m.user_name, m.createAt
         FROM tbl_member m
-                 LEFT OUTER JOIN tbl_member_auth a ON m.user_id = a.username
-        WHERE m.user_id = #{userId}
+        WHERE m.email = #{email}
     </select>
 
     <select id="findByUserId" resultType="security.account.domain.MemberVO">
-        SELECT * FROM tbl_member WHERE user_id = #{userId}
+        SELECT * FROM tbl_member WHERE email = #{email}
     </select>
 
     <insert id="insert">
-        INSERT INTO tbl_member (user_id, password, email, createAt, user_name)
-        VALUES (#{userId}, #{password}, #{email}, now(), #{userName})
+        INSERT INTO tbl_member (email, password, user_name, createAt)
+        VALUES (#{email}, #{password}, #{userName}, now())
     </insert>
 
-    <insert id="insertAuth">
-        INSERT INTO tbl_member_auth (username, auth)
-        VALUES (#{userId}, #{auth})
-    </insert>
+<!--    <insert id="insertAuth"> 관리자 쓸거면 사용-->
+<!--        INSERT INTO tbl_member_auth (username, auth)-->
+<!--        VALUES (#{userName}, #{auth})-->
+<!--    </insert>-->
 
     <update id="update">
         UPDATE tbl_member
         SET
-            email = #{email},
+
             createAt = now(),
             user_name = #{userName}
-        WHERE user_id = #{userId}
+        WHERE email = #{email}
     </update>
 
     <update id="updatePassword">
@@ -53,6 +58,6 @@
         SET
             password = #{newPassword},
             createAt = now()
-        WHERE user_id = #{userId}
+        WHERE email = #{email}
     </update>
 </mapper>

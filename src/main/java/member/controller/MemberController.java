@@ -22,7 +22,7 @@
     public class MemberController {
         final MemberService service;
 
-        @GetMapping("/checkusername/{username}")
+        @GetMapping("/checkemail/{email}")
         public ResponseEntity<Boolean> checkUsername(@PathVariable String username) {
             return ResponseEntity.ok().body(service.checkDuplicate(username));
         }
@@ -31,12 +31,12 @@
 //        회원 가입 처리하고 가입된 회원 정보를 ResponseEntity로 반환
             return ResponseEntity.ok(service.join(member));
         }
-        @PutMapping("/{username}")
+        @PutMapping("/{email}")
         public ResponseEntity<MemberDTO> changeProfile(MemberUpdateDTO member){
             return ResponseEntity.ok(service.update(member));
         }
 
-        @GetMapping("/{username}/avatar")
+        @GetMapping("/{email}/avatar")
         public void getAvatar(@PathVariable String username, HttpServletResponse response){
             String avatarPath="c:/upload/avatar/"+username+".png";
             File file=new File(avatarPath);
@@ -45,7 +45,7 @@
             }
             UploadFiles.downloadImage(response,file);
         }
-        @PutMapping("/{username}/changepassword")
+        @PutMapping("/{email}/changepassword")
         public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO){
             service.changePassword(changePasswordDTO);
             return ResponseEntity.ok().build();

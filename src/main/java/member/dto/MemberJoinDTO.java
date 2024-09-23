@@ -14,17 +14,18 @@ import security.account.domain.MemberVO;
 @Builder
 
 public class MemberJoinDTO {
-    String userId;
-    String password;
     String email;
+    String password;
+
+    String userName;
 
     MultipartFile avatar;
 
     public MemberVO toVO(){
         return MemberVO.builder()
-                .userId(userId)
-                .password(password)
                 .email(email)
+                .password(password)
+                .userName(userName)
                 .build();
     }
 }

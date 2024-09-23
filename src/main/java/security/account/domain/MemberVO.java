@@ -14,10 +14,11 @@ import java.util.List;
 @Builder
 public class MemberVO {
     private int uno; // 자동 증가 키
-    private String userId; // user_id
+    private String email; // user_id
     private String password;
-    private String email;
+    private String userName;
+    private String user_position;
+    private Character user_status;
     private Timestamp createAt; // createAt
-    private String userName; // user_name
     private List<AuthVO> authList;
 }
