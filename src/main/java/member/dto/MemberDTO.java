@@ -25,8 +25,7 @@ public class MemberDTO {
 
     // MemberVO에서 MemberDTO로 변환
     public static MemberDTO of(MemberVO m) {
-        return MemberDTO.builder()
-                .userId(m.getUserId()) // userId
+        return MemberDTO.builder()// userId
                 .email(m.getEmail())
                 .createAt(m.getCreateAt()) // createAt
                // updateAt 추가
@@ -38,7 +37,6 @@ public class MemberDTO {
     // MemberDTO에서 MemberVO로 변환
     public MemberVO toVO() {
         return MemberVO.builder()
-                .userId(userId) // user_id에 userId 매핑
                 .email(email)
                 .createAt(createAt) // createAt에 해당
                 .userName(userName) // user_name에 해당

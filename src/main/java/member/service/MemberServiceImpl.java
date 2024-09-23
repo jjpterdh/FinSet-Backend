@@ -32,7 +32,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public boolean checkDuplicate(String username) {
-        MemberVO member = mapper.findByUsername(username);
+        MemberVO member = mapper.findByUserId(username);
         return member != null ? true : false;
     }
 
@@ -63,30 +63,30 @@ public class MemberServiceImpl implements MemberService {
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         mapper.insert(member);
 
-        AuthVO auth=new AuthVO();
-        auth.setUsername(member.getUserId());
-        auth.setAuth(("ROLE_MEMBER"));
-        mapper.insertAuth(auth);
+//        AuthVO auth=new AuthVO();
+//        auth.setUsername(member.getUserId());
+//        auth.setAuth(("ROLE_MEMBER"));
+//        mapper.insertAuth(auth);
 
-        saveAvatar(dto.getAvatar(),member.getUserId());
+        saveAvatar(dto.getAvatar(),member.getEmail());
 
-        return get(member.getUserId());
+        return get(member.getEmail());
     }
 
     @Override
     public MemberDTO update(MemberUpdateDTO member) {
-        MemberVO vo=mapper.get(member.getUserId());
+        MemberVO vo=mapper.get(member.getEmail());
         if (!passwordEncoder.matches(member.getPassword(), vo.getPassword())) {
             throw new PasswordMissmatchException();
         }
         mapper.update(member.toVO());
-        saveAvatar(member.getAvatar(),member.getUserId());
-        return get(member.getUserId());
+        saveAvatar(member.getAvatar(),member.getEmail());
+        return get(member.getEmail());
     }
 
     @Override
     public void changePassword(ChangePasswordDTO changePassword) {
-        MemberVO member=mapper.get(changePassword.getUserId());
+        MemberVO member=mapper.get(changePassword.getEmail());
 
         if (!passwordEncoder.matches(changePassword.getOldPassword(),member.getPassword())){
             throw new PasswordMissmatchException();

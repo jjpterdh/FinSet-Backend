@@ -3,25 +3,21 @@
 
 <mapper namespace="security.account.mapper.UserDetailsMapper">
     <resultMap id="authMap" type="AuthVO">
-        <result property="username" column="user_name"/>
-        <result property="auth" column="auth"/>
+        <result property="userName" column="user_name"/>
     </resultMap>
 
     <resultMap id="memberMap" type="MemberVO">
         <id property="uno" column="uno"/>
-        <result property="userId" column="user_id"/>
-        <result property="password" column="password"/>
         <result property="email" column="email"/>
+        <result property="password" column="password"/>
+        <result property="userName" column="user_name"/>
         <result property="createAt" column="createAt"/>
-
-
         <collection property="authList" resultMap="authMap"/>
     </resultMap>
 
     <select id="get" resultMap="memberMap">
-        SELECT m.uno, m.user_id, m.password, m.email, m.createAt, m.user_name, a.auth
+        SELECT m.uno, m.email, m.password, m.user_name, m.createAt,
         FROM tbl_member m
-                 LEFT OUTER JOIN tbl_member_auth a ON m.user_id = a.username
-        WHERE m.username = #{userId}
+        WHERE m.email = #{email}
     </select>
 </mapper>

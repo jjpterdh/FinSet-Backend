@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 @Data
 @NoArgsConstructor
 public class LoginDTO {
-    private String userId;
+    private String email;
     private String password;
 
     public static LoginDTO of(HttpServletRequest request)throws AuthenticationException {
