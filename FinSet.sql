@@ -4,7 +4,7 @@ USE finset;
 CREATE TABLE `tbl_user` (
                             `uno` INT NOT NULL AUTO_INCREMENT primary key,
                             `email` VARCHAR(50) NOT NULL,
-                            `password` VARCHAR(12) NOT NULL,
+                            `password` VARCHAR(255) NOT NULL,
                             `user_name` VARCHAR(50) NOT NULL,
                             `user_position` VARCHAR(50) NULL,
                             `status` INT(1) NOT NULL DEFAULT '1' COMMENT '탈퇴 여부',
@@ -124,9 +124,9 @@ CREATE TABLE `tbl_news` (
 
 
 CREATE TABLE `tbl_wish` (
-                            `wno` VARCHAR(255) NOT NULL,
+                            `wno` INT NOT NULL,
                             `uno` INT NOT NULL,
-                            `tno` VARCHAR(255) NOT NULL,
+                            `tno` INT NOT NULL,
                             `pno` INT NOT NULL,
                             `createAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                             PRIMARY KEY (`wno`, `uno`, `tno`),

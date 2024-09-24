@@ -29,7 +29,9 @@
         @PostMapping("")
         public ResponseEntity<MemberDTO> join(MemberJoinDTO member) {
 //        회원 가입 처리하고 가입된 회원 정보를 ResponseEntity로 반환
+
             return ResponseEntity.ok(service.join(member));
+
         }
         @PutMapping("/{email}")
         public ResponseEntity<MemberDTO> changeProfile(MemberUpdateDTO member){

@@ -30,7 +30,7 @@ public class MemberDTO {
                 .createAt(m.getCreateAt()) // createAt
                // updateAt 추가
                 .userName(m.getUserName()) // userName
-                .authList(m.getAuthList().stream().map(a -> a.getAuth()).toList())
+//                .authList(m.getAuthList().stream().map(a -> a.getAuth()).toList())
                 .build();
     }
 
