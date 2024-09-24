@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp; // createAt을 Timestamp로 변경
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -13,12 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class MemberVO {
-    private int uno; // 자동 증가 키
-    private String email; // user_id
+    private int uno;
+    private String email;
     private String password;
     private String userName;
-    private String user_position;
-    private Character user_status;
-    private Timestamp createAt; // createAt
+    private String userPosition;
+    private Character userStatus;
+    private Timestamp createdAt;
     private List<AuthVO> authList;
 }

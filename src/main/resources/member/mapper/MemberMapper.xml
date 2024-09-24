@@ -9,37 +9,20 @@
         <result property="email" column="email"/>
         <result property="password" column="password"/>
         <result property="userName" column="user_name"/>
-        <result property="createAt" column="createAt"/>
+        <result property="createdAt" column="createdAt"/>
     </resultMap>
 
     <select id="get" resultMap="memberMap">
-        SELECT m.uno, m.email, m.password, m.user_name, m.createAt
+        SELECT m.uno, m.email, m.password, m.user_name, m.createdAt
         FROM tbl_user m
         WHERE m.email = #{email}
     </select>
 
-    <select id="findByUserId" resultType="security.account.domain.MemberVO">
-        SELECT * FROM tbl_user WHERE email = #{email}
-    </select>
 
     <insert id="insert">
-        INSERT INTO tbl_user (email, password, user_name, createAt)
+        INSERT INTO tbl_user (email, password, user_name, createdAt)
         VALUES (#{email}, #{password}, #{userName}, now())
     </insert>
 
-    <update id="update">
-        UPDATE tbl_user
-        SET
-            createAt = now(),
-            user_name = #{userName}
-        WHERE email = #{email}
-    </update>
 
-    <update id="updatePassword">
-        UPDATE tbl_user
-        SET
-            password = #{newPassword},
-            createAt = now()
-        WHERE email = #{email}
-    </update>
 </mapper>

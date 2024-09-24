@@ -13,12 +13,12 @@ import java.util.Collection;
 public class CustomUser extends User {
     private MemberVO member;
 
-    public CustomUser(String email, String password,
+    public CustomUser(String username, String password,
                       Collection<? extends GrantedAuthority> authorities) {
-        super(email,password,authorities);
+        super(username,password,authorities);
     }
 
-    public CustomUser(security.account.domain.MemberVO vo) {
+    public CustomUser(MemberVO vo) {
         super(vo.getEmail(),vo.getPassword(),vo.getAuthList());
         this.member=vo;
     }

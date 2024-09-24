@@ -1,16 +1,14 @@
 package config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
-import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-//@EnableWebMvc : mvc 패턴(frontcontroller 패턴) 사용하겠다
+
 @EnableWebMvc
-//controller 패키지 내부에서 컴포넌트를 찾아라
+
 @ComponentScan(basePackages = {
         "exception",
         "controller",
@@ -35,22 +33,4 @@ public class ServletConfig implements WebMvcConfigurer {
 
     }
 
-////    View의 이름을 설정해주는 메소드
-//    @Override
-//    public void configureViewResolvers(ViewResolverRegistry registry) {
-//        InternalResourceViewResolver bean = new InternalResourceViewResolver();
-//
-//        bean.setViewClass(JstlView.class);
-//        bean.setPrefix("/WEB-INF/views/");
-//        bean.setSuffix(".jsp");
-//
-//        registry.viewResolver(bean);
-//    }
-
-    //    multipart 해석을 위한 메소드
-    @Bean
-    public MultipartResolver multipartResolver() {
-        StandardServletMultipartResolver resolver = new StandardServletMultipartResolver();
-        return resolver;
-    }
 }

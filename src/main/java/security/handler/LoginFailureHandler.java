@@ -1,4 +1,4 @@
-package security.handelr;
+package security.handler;
 
 import security.util.JsonResponse;
 import org.springframework.http.HttpStatus;
