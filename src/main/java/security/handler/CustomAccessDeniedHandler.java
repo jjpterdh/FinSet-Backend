@@ -1,4 +1,4 @@
-package security.handelr;
+package security.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import security.util.JsonResponse;

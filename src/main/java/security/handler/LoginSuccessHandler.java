@@ -1,4 +1,4 @@
-package security.handelr;
+package security.handler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;

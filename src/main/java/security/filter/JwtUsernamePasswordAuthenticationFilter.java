@@ -2,8 +2,8 @@ package security.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import security.dto.LoginDTO;
-import security.handelr.LoginFailureHandler;
-import security.handelr.LoginSuccessHandler;
+import security.handler.LoginFailureHandler;
+import security.handler.LoginSuccessHandler;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

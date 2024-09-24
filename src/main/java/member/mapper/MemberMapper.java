@@ -1,9 +1,7 @@
 package member.mapper;
 
 import member.dto.ChangePasswordDTO;
-import security.account.domain.AuthVO;
 import security.account.domain.MemberVO;
-import security.account.domain.AuthVO;
 
 public interface MemberMapper {
     MemberVO get(String name);

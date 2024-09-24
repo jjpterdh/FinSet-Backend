@@ -10,16 +10,11 @@ import member.exception.PasswordMissmatchException;
 
 import member.mapper.MemberMapper;
 
-import security.account.domain.AuthVO;
 import security.account.domain.MemberVO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Member;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -44,17 +39,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-    private void saveAvatar(MultipartFile avatar, String username) {
 
-        if(avatar != null && !avatar.isEmpty()) {
-            File dest = new File("c:/upload/avatar", username + ".png");
-            try{
-                avatar.transferTo(dest);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
     @Transactional
     @Override
     public MemberDTO join(MemberJoinDTO dto) {
@@ -63,12 +48,6 @@ public class MemberServiceImpl implements MemberService {
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         mapper.insert(member);
 
-//        AuthVO auth=new AuthVO();
-//        auth.setUsername(member.getUserId());
-//        auth.setAuth(("ROLE_MEMBER"));
-//        mapper.insertAuth(auth);
-
-        saveAvatar(dto.getAvatar(),member.getEmail());
 
         return get(member.getEmail());
     }
@@ -80,7 +59,6 @@ public class MemberServiceImpl implements MemberService {
             throw new PasswordMissmatchException();
         }
         mapper.update(member.toVO());
-        saveAvatar(member.getAvatar(),member.getEmail());
         return get(member.getEmail());
     }
 
