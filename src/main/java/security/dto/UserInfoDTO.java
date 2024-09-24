@@ -14,15 +14,15 @@ import java.util.stream.Collectors;
 public class UserInfoDTO {
     private String username;
     private String email;
-    private List<String> roles;
+//    private List<String> roles;
 
     public static UserInfoDTO of(MemberVO member) {
         return new UserInfoDTO(
                 member.getUserName(), // userName에 맞춰 수정
-                member.getEmail(),
-                member.getAuthList().stream()
-                        .map(auth -> auth.getAuth()) // auth가 있는지 확인
-                        .collect(Collectors.toList()) // .toList() 대신 collect 사용
+                member.getEmail()
+//                member.getAuthList().stream()
+//                        .map(auth -> auth.getAuth()) // auth가 있는지 확인
+//                        .collect(Collectors.toList()) // .toList() 대신 collect 사용
         );
     }
 }
