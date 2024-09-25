@@ -8,14 +8,14 @@
         <id property="uno" column="uno"/>
         <result property="email" column="email"/>
         <result property="password" column="password"/>
-        <result property="username" column="user_name"/>
+        <result property="name" column="user_name"/>
         <result property="status" column="status"/>
         <result property="createdAt" column="createdAt"/>
         <result property="statusDate" column="statusDate"/>
     </resultMap>
 
     <select id="getMember" resultMap="memberMap">
-        SELECT uno, email, password, user_name, status, createdAt, status_date FROM tbl_user WHERE status = 1 AND uno = #{uno}
+        SELECT * FROM tbl_user WHERE status = 1 AND uno = #{uno}
     </select>
 
     <select id="findByUserName" resultMap="memberMap">
@@ -26,14 +26,13 @@
 
     </select>
     <select id="selectByEmail" resultMap="memberMap" parameterType="string">
-        SELECT uno, email, password, user_name, status, createdAt, status_date FROM tbl_user WHERE status = 1 AND email = #{email}
+        SELECT * FROM tbl_user WHERE status = 1 AND email = #{email}
     </select>
 
 
     <insert id="insertMember">
         INSERT INTO tbl_user (email, password, user_name)
-        VALUES (#{email}, #{password}, #{username})
+        VALUES (#{email}, #{password}, #{name})
     </insert>
-
 
 </mapper>

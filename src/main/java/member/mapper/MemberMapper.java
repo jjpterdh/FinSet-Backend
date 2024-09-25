@@ -9,7 +9,7 @@ public interface MemberMapper {
 //    int update(Member member);
 
     Member selectByEmail(String id);
-    Member findByUserName(String username);
+    Member findByUserName(String name);
     Member findByUserEmail(String email);
 
 }

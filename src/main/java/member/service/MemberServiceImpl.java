@@ -27,8 +27,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean checkNameDuplicate(String username) {
-        Member member = mapper.findByUserName(username);
+    public boolean checkNameDuplicate(String name) {
+        Member member = mapper.findByUserName(name);
         return member != null ? true : false;
     }
 
@@ -50,6 +50,17 @@ public class MemberServiceImpl implements MemberService {
             throw new IllegalAccessException();
         }
         return mapper.selectByEmail(member.getEmail());
+    }
+
+    public Member login(Member member) {
+        Member saveMember = mapper.selectByEmail(member.getEmail());
+        if(passwordEncoder.matches(member.getPassword(), saveMember.getPassword())) {
+            saveMember.setPassword("");
+            saveMember.setUno(0);
+            return saveMember;
+        }else{
+            return null;
+        }
     }
 
 }

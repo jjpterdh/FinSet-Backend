@@ -20,7 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = mapper.selectByEmail(username);
         if(member == null) {
-            throw new UsernameNotFoundException(username + "은 없는 id 입니다.");
+            throw new UsernameNotFoundException(username + "은 없는 email 입니다.");
         }
         return member;
     }
