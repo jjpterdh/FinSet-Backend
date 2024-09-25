@@ -1,15 +1,15 @@
 package security.filter;
 
 import lombok.extern.slf4j.Slf4j;
-import security.dto.LoginDTO;
+import member.dto.LoginDTO;
 import security.handler.LoginFailureHandler;
-import security.handler.LoginSuccessHandler;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
+import security.handler.LoginSuccessHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,13 +29,14 @@ public class JwtUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
+
         LoginDTO login = LoginDTO.of(request);
 
-        UsernamePasswordAuthenticationToken authenticationToken=
-                new UsernamePasswordAuthenticationToken(login.getEmail(),login.getPassword());
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword());
 
         return getAuthenticationManager().authenticate(authenticationToken);
-
     }
 }

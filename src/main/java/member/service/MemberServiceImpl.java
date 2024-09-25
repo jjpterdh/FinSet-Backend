@@ -2,15 +2,10 @@ package member.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import member.dto.ChangePasswordDTO;
-import member.dto.MemberDTO;
-import member.dto.MemberJoinDTO;
-import member.dto.MemberUpdateDTO;
-import member.exception.PasswordMissmatchException;
+import member.dto.Member;
 
 import member.mapper.MemberMapper;
 
-import security.account.domain.MemberVO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,53 +21,35 @@ public class MemberServiceImpl implements MemberService {
     final MemberMapper mapper;
 
     @Override
-    public boolean checkDuplicate(String username) {
-        MemberVO member = mapper.findByUserId(username);
+    public boolean checkEmailDuplicate(String email) {
+        Member member = mapper.findByUserEmail(email);
         return member != null ? true : false;
     }
 
     @Override
-    public MemberDTO get(String username) {
-        MemberVO member = Optional.ofNullable(mapper.get(username))
+    public boolean checkNameDuplicate(String username) {
+        Member member = mapper.findByUserName(username);
+        return member != null ? true : false;
+    }
+
+    @Override
+    public Member getMember(int uno) {
+        return Optional.ofNullable(mapper.getMember(uno))
                 .orElseThrow(NoSuchElementException::new);
-        return MemberDTO.of(member);
     }
 
-
-
-    @Transactional
     @Override
-    public MemberDTO join(MemberJoinDTO dto) {
-        MemberVO member = dto.toVO();
-
+    @Transactional(rollbackFor = Exception.class)
+    public Member join(Member member) throws IllegalAccessException {
+        if(member.checkRequiredValue()){
+            throw new IllegalAccessException();
+        }
         member.setPassword(passwordEncoder.encode(member.getPassword()));
-        mapper.insert(member);
-
-
-        return get(member.getEmail());
-    }
-
-    @Override
-    public MemberDTO update(MemberUpdateDTO member) {
-        MemberVO vo=mapper.get(member.getEmail());
-        if (!passwordEncoder.matches(member.getPassword(), vo.getPassword())) {
-            throw new PasswordMissmatchException();
+        int result = mapper.insertMember(member);
+        if(result != 1){
+            throw new IllegalAccessException();
         }
-        mapper.update(member.toVO());
-        return get(member.getEmail());
-    }
-
-    @Override
-    public void changePassword(ChangePasswordDTO changePassword) {
-        MemberVO member=mapper.get(changePassword.getEmail());
-
-        if (!passwordEncoder.matches(changePassword.getOldPassword(),member.getPassword())){
-            throw new PasswordMissmatchException();
-        }
-
-        changePassword.setNewPassword(passwordEncoder.encode(changePassword.getNewPassword()));
-
-        mapper.updatePassword(changePassword);
+        return mapper.selectByEmail(member.getEmail());
     }
 
 }
