@@ -2,6 +2,7 @@
 
     import lombok.RequiredArgsConstructor;
     import lombok.extern.slf4j.Slf4j;
+    import member.dto.LoginDTO;
     import member.dto.Member;
     import member.dto.MemberDTO;
     import member.service.MemberService;
@@ -21,9 +22,9 @@
             return ResponseEntity.ok().body(service.checkEmailDuplicate(email));
         }
 
-        @GetMapping("/checkname/{username}") // 닉네임 중복 확인
-        public ResponseEntity<Boolean> checkUsername(@PathVariable String username) {
-            return ResponseEntity.ok().body(service.checkNameDuplicate(username));
+        @GetMapping("/checkname/{name}") // 닉네임 중복 확인
+        public ResponseEntity<Boolean> checkName(@PathVariable String name) {
+            return ResponseEntity.ok().body(service.checkNameDuplicate(name));
         }
 
         @GetMapping("/{uno}") // 회원 조회
@@ -31,20 +32,11 @@
             return ResponseEntity.ok(service.getMember(uno));
         }
 
-        @PostMapping("/signup")
+        @PostMapping("/signup") // 회원가입
         public ResponseEntity<Member> join(@RequestBody MemberDTO memberDTO) throws IllegalAccessException {
             Member member = memberDTO.toMember();
             return ResponseEntity.ok(service.join(member));
         }
-//        @PostMapping("")
-//        public ResponseEntity<Member> join(MemberJoinDTO member) {
-//
-//
-//            return ResponseEntity.ok(service.join(member));
-//
-//        }
-//        @PutMapping("/{email}")
-//        public ResponseEntity<Member> changeProfile(MemberUpdateDTO member){
-//            return ResponseEntity.ok(service.update(member));
-//        }
+
+
     }

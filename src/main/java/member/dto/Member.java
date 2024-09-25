@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,15 +18,15 @@ public class Member implements UserDetails {
     private int uno;
     private String email;
     private String password;
-    private String username;
+    private String name;
     private int status;
-    private Timestamp createdAt;
-    private Timestamp statusDate;
+    private String createdAt;
+    private String statusDate;
     private String token; // JWT 토큰값, DB로는 저장하지 않음
 
     public boolean checkRequiredValue(){
         try {
-            return email.isEmpty() || password.isEmpty() || username.isEmpty();
+            return email.isEmpty() || password.isEmpty() || name.isEmpty();
         }catch (Exception e){
             return false;
         }

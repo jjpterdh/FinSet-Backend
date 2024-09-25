@@ -10,7 +10,7 @@ import lombok.*;
 public class MemberDTO {
     private String email;
     private String password;
-    private String username;
+    private String name;
 
-    public Member toMember() {return Member.builder().email(email).password(password).username(username).build();}
+    public Member toMember() {return Member.builder().email(email).password(password).name(name).build();}
 }

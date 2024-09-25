@@ -34,6 +34,8 @@ public class JwtUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
 
         LoginDTO login = LoginDTO.of(request);
 
+        System.out.println(login);
+
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword());
 

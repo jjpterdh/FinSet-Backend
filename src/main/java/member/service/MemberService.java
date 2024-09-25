@@ -7,12 +7,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface MemberService {
     boolean checkEmailDuplicate(String email);
-    boolean checkNameDuplicate(String username);
+    boolean checkNameDuplicate(String name);
     Member getMember(int uno);
 
     @Transactional(rollbackFor = Exception.class)
     Member join(Member member) throws IllegalAccessException;
 
+    Member login(Member member);
 
 //    Member update(MemberDTO member);
 }
