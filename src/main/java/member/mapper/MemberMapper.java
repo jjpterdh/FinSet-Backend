@@ -1,14 +1,15 @@
 package member.mapper;
 
-import member.dto.ChangePasswordDTO;
-import security.account.domain.MemberVO;
+import member.dto.Member;
 
 public interface MemberMapper {
-    MemberVO get(String name);
-    MemberVO findByUserId(String email);
+    Member getMember(int uno);
 
-    int insert(MemberVO member);
-//    int insertAuth(AuthVO auth);
-    int update(MemberVO member);
-    int updatePassword(ChangePasswordDTO changePasswordDTO);
+    int insertMember(Member member);
+//    int update(Member member);
+
+    Member selectByEmail(String id);
+    Member findByUserName(String username);
+    Member findByUserEmail(String email);
+
 }
