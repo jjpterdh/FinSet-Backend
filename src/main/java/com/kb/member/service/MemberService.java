@@ -66,4 +66,13 @@ public class MemberService{
         }
         return mapper.selectById(member.getId());
     }
+
+    public Member deleteMember(String id) {
+        Member member = mapper.selectById(id);
+        if(member == null){
+            throw new NoSuchElementException();
+        }
+         mapper.deleteMember(member.getUno());
+        return member;
+    }
 }

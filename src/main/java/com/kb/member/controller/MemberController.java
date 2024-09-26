@@ -3,6 +3,7 @@ package com.kb.member.controller;
 import com.kb.member.dto.Member;
 import com.kb.member.dto.MemberDTO;
 import com.kb.member.service.MemberService;
+import com.sun.net.httpserver.Request;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,16 +29,22 @@ public class MemberController {
         return ResponseEntity.ok().body(service.checkNameDuplicate(name));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // 회원 조회
     public ResponseEntity<Member> get(@PathVariable String id) {
         return ResponseEntity.ok(service.getMember(id));
     }
 
 
-    @PostMapping("/signup")
+    @PostMapping("/signup") // 회원 가입
     public ResponseEntity<Member> join(@RequestBody MemberDTO memberDTO) throws IllegalAccessException {
         System.out.println(memberDTO.toString());
         Member member = memberDTO.toMember();
         return ResponseEntity.ok(service.join(member));
+    }
+
+    @DeleteMapping("/{id}/withdrawal") // 회원 탈퇴
+    public ResponseEntity<String> withdrawal(@PathVariable String id) {
+        service.deleteMember(id);
+        return ResponseEntity.ok("withdrawal successful");
     }
 }

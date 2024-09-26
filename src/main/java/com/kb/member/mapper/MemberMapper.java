@@ -12,4 +12,5 @@ public interface MemberMapper {
     int insertMember(Member member);
     int insertAuth(Auth auth);
     int deleteAuth(Auth auth);
+    int deleteMember(long uno);
 }
