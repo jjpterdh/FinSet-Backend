@@ -3,7 +3,6 @@ package com.kb.member.controller;
 import com.kb.member.dto.Member;
 import com.kb.member.dto.MemberDTO;
 import com.kb.member.service.MemberService;
-import com.sun.net.httpserver.Request;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

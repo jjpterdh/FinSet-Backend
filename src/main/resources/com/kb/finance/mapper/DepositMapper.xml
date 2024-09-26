@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.kb.finance.mapper.DepositMapper">
+    <resultMap id="depositResultMap" type="com.kb.finance.dto.Deposit">
+        <id property="dno" column="dno" />
+        <result property="depositCategory"  column="deposit_category"/>
+        <result property="depositName"  column="deposit_name"/>
+        <result property="depositBank" column="deposit_bank"/>
+        <result property="depositMaxRate" column="deposit_max_rate"/>
+        <result property="depositNormalRate" column="deposit_normal_rate"/>
+        <result property="depositJoin" column="deposit_join"/>
+        <result property="depositStream" column="deposit_stream"/>
+        <result property="depositAmount" column="deposit_amount"/>
+        <result property="depositWay" column="deposit_way"/>
+        <result property="depositTarget" column="deposit_target"/>
+        <result property="depositLink" column="deposit_link"/>
+
+
+    </resultMap>
+    
+    <select id="selectAll" resultMap="depositResultMap">
+        SELECT
+            *
+        FROM tbl_deposit
+    </select>
+
+    <select id="selectById" resultMap="depositResultMap" parameterType="long">
+        SELECT
+            *
+        FROM
+            tbl_deposit
+        WHERE dno=#{dno}
+    </select>
+
+</mapper>

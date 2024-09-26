@@ -5,6 +5,7 @@ import com.kb.member.dto.Member;
 
 import java.util.List;
 
+
 public interface MemberMapper {
     List<Member> selectMemberAll();
     Member selectById(String id);
