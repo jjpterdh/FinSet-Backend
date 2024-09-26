@@ -11,7 +11,7 @@
     </appender>
 
     <!-- Application Loggers -->
-    <logger name="secserver.ex04.vet">
+    <logger name="com.multi">
         <level value="info" />
     </logger>
 
@@ -20,7 +20,6 @@
         <level value="info" />
     </logger>
     <logger name="org.springframework.beans">
-<!--        어느 수준으로 로그를 찍을지 결정해준다 (debug가 info보다 낮은 수준)-->
         <level value="info" />
     </logger>
 
@@ -31,20 +30,15 @@
     <logger name="org.springframework.web">
         <level value="info" />
     </logger>
+    
+    <logger name="jdbc">
+        <level value="warn" />
+    </logger>
 
-<!--    sql을 제외한 나머지 부분들의 레벨은 출력되지 않도록 warn으로 올린다-->
-    <logger name="jdbc.audit">
-        <level value="warn" />
-    </logger>
-    <logger name="jdbc.resultset">
-        <level value="warn" />
-    </logger>
-    <logger name="jdbc.connection">
-        <level value="warn" />
-    </logger>
     <logger name="jdbc.sqlonly">
         <level value="info" />
     </logger>
+
     <!-- Root Logger -->
     <root>
         <priority value="info" />

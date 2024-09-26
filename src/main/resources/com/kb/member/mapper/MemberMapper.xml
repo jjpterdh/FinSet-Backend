@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.member.mapper.MemberMapper">
+
+    <resultMap id="memberResultMap"  type="com.kb.member.dto.Member">
+        <id property="uno" 				column="uno" />
+        <result property="id"		    column="email" />
+        <result property="password"		column="password" />
+        <result property="name" 		column="user_name" />
+        <result property="status" 		column="status" />
+        <result property="createdAt"	column="createdAt" />
+        <result property="statusDate"	column="status_date" />
+        <collection property="authorities"
+                    javaType="arraylist"
+                    ofType="org.springframework.security.core.authority.SimpleGrantedAuthority"
+                    resultMap="authoritiesMap"/>
+    </resultMap>
+
+    <resultMap type="org.springframework.security.core.authority.SimpleGrantedAuthority" id="authoritiesMap">
+        <constructor>
+            <arg column="authority" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <select id="selectMemberAll" resultMap="memberResultMap">
+        SELECT
+            u.uno, u.email, u.password, u.name, u.status, u.createdAt, u.status_date, a.authority
+        FROM
+            tbl_user u
+            LEFT OUTER JOIN tbl_auth a ON u.email = a.id
+        WHERE u.status = 1
+    </select>
+
+
+    <select id="selectById" resultMap="memberResultMap" parameterType="string">
+        SELECT
+            u.uno, u.email, u.password, u.user_name, u.status, u.createdAt, u.status_date, a.authority
+        FROM
+            tbl_user u
+            LEFT OUTER JOIN tbl_auth a ON u.email = a.id
+        WHERE u.status = 1 and u.email = #{id}
+    </select>
+
+    <insert id="insertMember" parameterType="com.kb.member.dto.Member">
+        INSERT INTO tbl_user(uno, email, password, user_name, status)
+        VALUES(default, #{id}, #{password}, #{name}, default)
+    </insert>
+
+
+    <insert id="insertAuth"  parameterType="com.kb.member.dto.Auth">
+        INSERT INTO tbl_auth(id, authority)
+        VALUES(#{id}, #{authority})
+    </insert>
+
+    <delete id="deleteAuth"  parameterType="com.kb.member.dto.Auth">
+        DELETE FROM  member_auth
+        WHERE id = #{id} AND authority = #{auth}
+    </delete>
+</mapper>

@@ -4,13 +4,21 @@ use finset;
 
 CREATE TABLE `tbl_user` (
     `uno` INT NOT NULL AUTO_INCREMENT,
-    `email` VARCHAR(50) NOT NULL,
+    `email` VARCHAR(50) NOT NULL UNIQUE,
     `password` VARCHAR(255) NOT NULL,
     `user_name` VARCHAR(50) NOT NULL,
     `status` INT NOT NULL DEFAULT 1 COMMENT '기본: 1 / 탈퇴: 0',
     `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `status_date` TIMESTAMP NULL,
     PRIMARY KEY (`uno`)
+);
+
+create table tbl_auth
+(
+    id varchar(50) not null,       -- 사용자 id
+    authority char(50) not null, -- 권한 문자열 role_admin, role_manager, role_member,
+    primary key (id, authority),   -- 복합키
+    constraint fk_authorities_users foreign key (id) references tbl_user (email)
 );
 
 CREATE TABLE `tbl_stock` (
