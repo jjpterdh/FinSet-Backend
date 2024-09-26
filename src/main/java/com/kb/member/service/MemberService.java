@@ -79,13 +79,25 @@ public class MemberService{
 
     @Transactional(rollbackFor = Exception.class)
     public Member updateName(String id, String name) {
-        log.info("update...");
+        log.info("start update...");
 
         Member member = mapper.selectById(id);
         if(member == null){
             throw new NoSuchElementException();
         }
         mapper.updateName(id, name);
+        return member;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Member updateType(String id, int type) {
+        log.info("start update...");
+
+        Member member = mapper.selectById(id);
+        if(member == null){
+            throw new NoSuchElementException();
+        }
+        mapper.updateType(id, type);
         return member;
     }
 }

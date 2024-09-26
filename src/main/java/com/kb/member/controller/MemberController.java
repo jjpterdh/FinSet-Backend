@@ -51,7 +51,14 @@ public class MemberController {
     public ResponseEntity<String> updateName(@PathVariable String id, @RequestBody MemberDTO memberDTO) {
         String name = memberDTO.getName();
         service.updateName(id, name);
-        return ResponseEntity.ok("modify successful");
+        return ResponseEntity.ok("modify name successful");
+    }
+
+    @PatchMapping("/{id}/type") // 회원 투자성향 타입 변경
+    public ResponseEntity<String> updateType(@PathVariable String id, @RequestBody MemberDTO memberDTO) {
+        int type = memberDTO.getType();
+        service.updateType(id, type);
+        return ResponseEntity.ok("modify type successful");
     }
 
 }

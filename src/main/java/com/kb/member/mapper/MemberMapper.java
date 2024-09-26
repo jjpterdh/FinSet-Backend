@@ -16,4 +16,5 @@ public interface MemberMapper {
     int deleteAuth(Auth auth);
     int deleteMember(long uno);
     int updateName(@Param("id") String id, @Param("name") String name);
+    int updateType(@Param("id") String id, @Param("type") int type);
 }
