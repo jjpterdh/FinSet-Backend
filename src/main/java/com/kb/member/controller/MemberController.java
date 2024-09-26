@@ -47,4 +47,12 @@ public class MemberController {
         service.deleteMember(id);
         return ResponseEntity.ok("withdrawal successful");
     }
+
+    @PatchMapping("/{id}/name") // 회원 닉네임 변경
+    public ResponseEntity<String> updateName(@PathVariable String id, @RequestBody MemberDTO memberDTO) {
+        String name = memberDTO.getName();
+        service.updateName(id, name);
+        return ResponseEntity.ok("modify successful");
+    }
+
 }
