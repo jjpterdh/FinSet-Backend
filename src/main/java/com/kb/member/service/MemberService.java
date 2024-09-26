@@ -67,12 +67,25 @@ public class MemberService{
         return mapper.selectById(member.getId());
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Member deleteMember(String id) {
         Member member = mapper.selectById(id);
         if(member == null){
             throw new NoSuchElementException();
         }
          mapper.deleteMember(member.getUno());
+        return member;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Member updateName(String id, String name) {
+        log.info("update...");
+
+        Member member = mapper.selectById(id);
+        if(member == null){
+            throw new NoSuchElementException();
+        }
+        mapper.updateName(id, name);
         return member;
     }
 }

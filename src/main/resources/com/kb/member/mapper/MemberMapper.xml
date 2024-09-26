@@ -72,4 +72,8 @@
     <update id="deleteMember" parameterType="long">
         UPDATE tbl_user SET status = 0, status_date = now() WHERE uno = #{uno}
     </update>
+
+    <update id="updateName" parameterType="string">
+        UPDATE tbl_user SET user_name = #{name} WHERE email = #{id}
+    </update>
 </mapper>
