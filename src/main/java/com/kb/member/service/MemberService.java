@@ -1,6 +1,7 @@
 package com.kb.member.service;
 
 import com.kb.member.dto.Auth;
+import com.kb.member.dto.MemberTypeDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.kb.member.dto.Member;
@@ -47,6 +48,11 @@ public class MemberService{
     public Member getMember(String id) {
         return Optional.ofNullable(mapper.selectById(id))
                         .orElseThrow(NoSuchElementException::new);
+    }
+
+    public MemberTypeDTO getType(String id) {
+        return Optional.ofNullable(mapper.selectType(id))
+                .orElseThrow(NoSuchElementException::new);
     }
 
     @Transactional(rollbackFor = Exception.class)

@@ -2,6 +2,7 @@ package com.kb.member.controller;
 
 import com.kb.member.dto.Member;
 import com.kb.member.dto.MemberDTO;
+import com.kb.member.dto.MemberTypeDTO;
 import com.kb.member.service.MemberService;
 import com.sun.net.httpserver.Request;
 import io.swagger.annotations.Api;
@@ -32,6 +33,11 @@ public class MemberController {
     @GetMapping("/{id}") // 회원 조회
     public ResponseEntity<Member> get(@PathVariable String id) {
         return ResponseEntity.ok(service.getMember(id));
+    }
+
+    @GetMapping("/{id}/type") // 회원 투자 성향 결과 조회
+    public ResponseEntity<MemberTypeDTO> getType(@PathVariable String id) {
+        return ResponseEntity.ok(service.getType(id));
     }
 
 
