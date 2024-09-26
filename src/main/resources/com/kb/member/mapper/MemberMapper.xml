@@ -68,4 +68,8 @@
         DELETE FROM  member_auth
         WHERE id = #{id} AND authority = #{auth}
     </delete>
+
+    <update id="deleteMember" parameterType="long">
+        UPDATE tbl_user SET status = 0, status_date = now() WHERE uno = #{uno}
+    </update>
 </mapper>
