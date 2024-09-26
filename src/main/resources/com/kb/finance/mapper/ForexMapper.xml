@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.finance.mapper.ForexMapper">
+    <resultMap id="forexResultMap" type="com.kb.finance.dto.Forex">
+        <id property="feno" column="feno" />
+        <result property="forexName"  column="forex_name"/>
+        <result property="forexBasicRate"  column="forex_basic_rate"/>
+        <result property="forexBuy" column="forex_buy"/>
+        <result property="forexSell" column="forex_sell"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="forexResultMap">
+        SELECT
+            *
+        FROM tbl_forex
+    </select>
+
+    <select id="selectById" resultMap="forexResultMap" parameterType="long">
+        SELECT
+            *
+        FROM
+            tbl_forex
+        WHERE feno=#{feno}
+    </select>
+
+</mapper>
