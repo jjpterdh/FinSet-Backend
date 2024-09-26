@@ -18,9 +18,14 @@ public class MemberController {
 
     private final MemberService service;
 
-    @GetMapping("/checkid/{id}") // 이메일 중복 확인
-    public ResponseEntity<Boolean> checkDuplicate(@PathVariable String id) {
-        return ResponseEntity.ok().body(service.checkDuplicate(id));
+    @GetMapping("/checkemail/{id}") // 이메일 중복 확인
+    public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String id) {
+        return ResponseEntity.ok().body(service.checkEmailDuplicate(id));
+    }
+
+    @GetMapping("/checkname/{name}") // 이름 중복 확인
+    public ResponseEntity<Boolean> checkNameDuplicate(@PathVariable String name) {
+        return ResponseEntity.ok().body(service.checkNameDuplicate(name));
     }
 
     @GetMapping("/{id}")
