@@ -11,8 +11,8 @@
     </appender>
 
     <!-- Application Loggers -->
-    <logger name="secserver.ex04.vet">
-        <level value="info" />
+    <logger name="com.multi">
+        <level value="trace" />
     </logger>
 
     <!-- 3rdparty Loggers -->
@@ -22,28 +22,42 @@
     <logger name="org.springframework.beans">
         <level value="info" />
     </logger>
+
     <logger name="org.springframework.context">
         <level value="info" />
     </logger>
+
     <logger name="org.springframework.web">
         <level value="info" />
     </logger>
+
+
     <logger name="jdbc.audit">
         <level value="warn" />
     </logger>
-    <logger name="jdbc.resultset">
+
+    <logger name="org.springframework.web.servlet.DispatcherServlet">
         <level value="warn" />
     </logger>
-    <logger name="jdbc.connection">
+
+    <logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
         <level value="warn" />
     </logger>
+
+    <logger name="_org.springframework.web.servlet.HandlerMapping.Mappings">
+        <level value="debug" />
+    </logger>
+    <logger name="jdbc">
+        <level value="trace" />
+    </logger>
+
     <logger name="jdbc.sqlonly">
-        <level value="info" />
+        <level value="trace" />
     </logger>
 
     <!-- Root Logger -->
     <root>
-        <priority value="info" />
+        <priority value="trace" />
         <appender-ref ref="console" />
     </root>
 
