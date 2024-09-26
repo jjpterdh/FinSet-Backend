@@ -44,6 +44,15 @@
         WHERE u.status = 1 and u.email = #{id}
     </select>
 
+    <select id="selectByName" resultType="com.kb.member.dto.Member" parameterType="string">
+        SELECT
+            u.uno, u.email, u.password, u.user_name, u.status, u.createdAt, u.status_date, a.authority
+        FROM
+            tbl_user u
+                LEFT OUTER JOIN tbl_auth a ON u.email = a.id
+        WHERE u.status = 1 and u.user_name = #{name}
+    </select>
+
     <insert id="insertMember" parameterType="com.kb.member.dto.Member">
         INSERT INTO tbl_user(uno, email, password, user_name, status)
         VALUES(default, #{id}, #{password}, #{name}, default)

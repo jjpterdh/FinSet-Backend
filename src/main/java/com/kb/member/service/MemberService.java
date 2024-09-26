@@ -34,8 +34,13 @@ public class MemberService{
 //        }
 //    }
 
-    public boolean checkDuplicate(String id) {
+    public boolean checkEmailDuplicate(String id) {
         Member member = mapper.selectById(id);
+        return member != null ? true : false;
+    }
+
+    public boolean checkNameDuplicate(String name) {
+        Member member = mapper.selectByName(name);
         return member != null ? true : false;
     }
 
