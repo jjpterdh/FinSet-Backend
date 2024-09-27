@@ -117,6 +117,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/member").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/member").authenticated()
                 .antMatchers(HttpMethod.PATCH, "api/member").authenticated()
+
+                // finance 추가하기
+                .antMatchers(HttpMethod.DELETE, "/api/deposits").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/installments/").authenticated()
+                .antMatchers(HttpMethod.PUT, "/api/forex").authenticated()
+                .antMatchers(HttpMethod.PATCH, "/api/stocks").authenticated()
+
                 .anyRequest().permitAll()
         ;
 

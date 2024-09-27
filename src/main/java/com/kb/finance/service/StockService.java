@@ -1,6 +1,7 @@
 package com.kb.finance.service;
 
 import com.kb.finance.dto.Stock;
+import com.kb.finance.dto.StockChart;
 import com.kb.finance.mapper.StockMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,5 +33,15 @@ public class StockService {
         return Optional.ofNullable(mapper.selectById(id))
                 .orElseThrow(NoSuchElementException::new);
     }
+
+    public List<StockChart> getStockChart(long id) {
+        List<StockChart> stockCharts = mapper.selectChart(id);
+        if(stockCharts == null || stockCharts.isEmpty()) {
+            log.info("No stocks found");
+            throw new NoSuchElementException();
+        }
+        return stockCharts;
+    }
+
 
 }

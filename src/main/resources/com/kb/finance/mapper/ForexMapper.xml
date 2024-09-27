@@ -12,6 +12,14 @@
         <result property="forexSell" column="forex_sell"/>
     </resultMap>
 
+    <resultMap id="forexChartResultMap" type="com.kb.finance.dto.ForexChart">
+        <id property="fecno" column="fecno"/>
+        <result property="forexBasicRate" column="forex_basic_rate"/>
+        <result property="forexDatetime" column="forex_datetime"/>
+        <result property="forexName" column="forex_name"/>
+
+    </resultMap>
+
     <select id="selectAll" resultMap="forexResultMap">
         SELECT
             *
@@ -24,6 +32,17 @@
         FROM
             tbl_forex
         WHERE feno=#{feno}
+    </select>
+
+    <select id="selectChartById" resultMap="forexChartResultMap" parameterType="long">
+        SELECT
+            fc.fecno, fc.forex_basic_rate, fc.forex_datetime, fc.forex_name
+        FROM
+            tbl_forex f
+        JOIN tbl_forex_chart fc ON f.forex_name=fc.forex_name
+        WHERE feno=#{feno}
+        ORDER BY fc.forex_datetime DESC
+
     </select>
 
 </mapper>
