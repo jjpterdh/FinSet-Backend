@@ -10,13 +10,15 @@ CREATE TABLE `tbl_user_type` (
 
 CREATE TABLE `tbl_user` (
     `uno` INT NOT NULL AUTO_INCREMENT,
+    `itno` INT NULL,
     `email` VARCHAR(50) NOT NULL UNIQUE,
     `password` VARCHAR(255) NOT NULL,
     `user_name` VARCHAR(50) NOT NULL,
     `status` INT NOT NULL DEFAULT 1 COMMENT '기본: 1 / 탈퇴: 0',
     `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `status_date` TIMESTAMP NULL,
-    PRIMARY KEY (`uno`)
+    PRIMARY KEY (`uno`),
+    FOREIGN KEY (`itno`) REFERENCES `tbl_user_type`(`itno`)
 );
 
 create table tbl_auth
@@ -88,10 +90,12 @@ CREATE TABLE `tbl_dict` (
 CREATE TABLE `tbl_community` (
     `bno` INT NOT NULL AUTO_INCREMENT,
     `uno` INT NOT NULL,
+    `sno` INT NOT NULL,
     `content` TEXT NOT NULL,
     `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`bno`),
-    FOREIGN KEY (`uno`) REFERENCES `tbl_user`(`uno`)
+    FOREIGN KEY (`uno`) REFERENCES `tbl_user`(`uno`),
+    FOREIGN KEY (`sno`) REFERENCES `tbl_stock`(`sno`)
 );
 
 CREATE TABLE `tbl_stock_chart` (
@@ -191,7 +195,7 @@ CREATE TABLE `tbl_kospi` (
 
 CREATE TABLE `tbl_keyword` (
     `keno` INT NOT NULL AUTO_INCREMENT,
-    `uno` INT NOT NULL, 
+    `uno` INT NOT NULL,
     `keyword` VARCHAR(255) NOT NULL,
     `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`keno`),
@@ -1779,7 +1783,7 @@ VALUES
 ('005380', '2024-08-02', 239000),
 ('005380', '2024-08-01', 236500);
 
-INSERT INTO tbl_forex(forex_name, forex_basic_rate, forex_buy, forex_sell) VALUE 
+INSERT INTO tbl_forex(forex_name, forex_basic_rate, forex_buy, forex_sell) VALUE
 ('CNH',190.39,188.48,192.29),
 ('EUR',1495.24,1480.28,1510.19),
 ('GBP',1746.21,1728.74,1763.67),
@@ -2046,7 +2050,7 @@ image
 'https://ddi-cdn.deepsearch.com/news/economy/2024/09/13/1486020000446812390/000-cfdbe8759394d27f4af36ef4ca669bffa768d54d.jpg'
 );
 
-insert into tbl_kospi value 
+insert into tbl_kospi value
 (default, '2024-09-20', 2593.37),
 (default, '2024-09-19', 2580.8),
 (default, '2024-09-13', 2575.41),
@@ -2151,3 +2155,38 @@ insert into tbl_type value (default, '적금');
 insert into tbl_type value (default, '펀드');
 insert into tbl_type value (default, '주식');
 insert into tbl_type value (default, '외환');
+
+
+-- (커뮤니티 데이터) 2명 이상 회원가입하고 테스트 해보기
+INSERT INTO `tbl_community` (`uno`, `sno`, `content`) VALUES
+    (1, 1, '1번 주식에 대한 투자 전략 공유합니다. 최근 가격 변동성이 큽니다.'),
+    (2, 2, '2번 주식, 장기적으로 괜찮은 종목 같아요. 의견 부탁드립니다.'),
+    (1, 3, '3번 주식 급등했네요. 추가 매수 타이밍 언제일까요?'),
+    (2, 4, '4번 주식 최근에 이슈가 있었는데, 영향이 클까요?'),
+    (1, 5, '5번 주식, 이번 분기 실적 발표가 기대됩니다.'),
+    (2, 1, '1번 주식 추가 매수 고민 중입니다. 의견 부탁드립니다.'),
+    (1, 2, '2번 주식 매도할지 고민입니다. 여러분의 생각은 어떠신가요?'),
+    (2, 3, '3번 주식, 최근 상승세에 따라 분석이 필요해 보입니다.'),
+    (1, 4, '4번 주식은 중기적으로 괜찮은 투자처인가요?'),
+    (2, 5, '5번 주식에 대한 여러 의견을 듣고 싶습니다.'),
+    (1, 1, '1번 주식, 배당 정책에 대한 정보 공유 부탁드립니다.'),
+    (2, 2, '2번 주식, 기관 매수세가 강한데 향후 전망은 어떻게 보시나요?'),
+    (1, 3, '3번 주식, 최근 뉴스에서 언급되었는데, 추가 정보 있나요?'),
+    (2, 4, '4번 주식, 기술적 분석이 궁금합니다.'),
+    (1, 5, '5번 주식, 최근 실적이 발표되었는데 어떠신가요?'),
+    (2, 1, '1번 주식, 주주총회에서 중요한 발표가 있었습니다.'),
+    (1, 2, '2번 주식, 장기적으로 괜찮을까요?'),
+    (2, 3, '3번 주식, 매도 시점에 대한 고민이 큽니다.'),
+    (1, 4, '4번 주식에 대해 추가 분석을 해주실 분 있나요?'),
+    (2, 5, '5번 주식, 경쟁사 대비 어떤 강점이 있을까요?'),
+    (1, 1, '1번 주식, 최근 거래량이 급증했는데 그 이유가 궁금합니다.'),
+    (2, 2, '2번 주식, 지금이 매수 타이밍인가요?'),
+    (1, 3, '3번 주식, 단기적으로 어떤 전략을 취해야 할까요?'),
+    (2, 4, '4번 주식에 대한 최근 보고서 공유 부탁드립니다.'),
+    (1, 5, '5번 주식에 대한 전망이 궁금합니다. 여러분의 의견 부탁드립니다.'),
+    (2, 1, '1번 주식, 단기 투자에 대한 의견을 듣고 싶습니다.'),
+    (1, 2, '2번 주식, 장기 보유해도 괜찮을까요?'),
+    (2, 3, '3번 주식, 최근 변동성이 커서 대응 전략을 고민 중입니다.'),
+    (1, 4, '4번 주식의 배당금 정책이 궁금합니다.'),
+    (2, 5, '5번 주식, 중장기적인 투자 계획에 대한 의견 부탁드립니다.');
+

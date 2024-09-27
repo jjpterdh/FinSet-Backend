@@ -21,6 +21,14 @@
 
     </resultMap>
 
+    <resultMap id="communityResultMap" type="com.kb.finance.dto.Community">
+        <id property="bno" column="bno"/>
+        <result property="uno"  column="uno"/>
+        <result property="sno"  column="sno"/>
+        <result property="content" column="content"/>
+        <result property="updatedAt" column="updatedAt"/>
+    </resultMap>
+
     <select id="selectAll" resultMap="stockResultMap" parameterType="map">
         SELECT
         *
@@ -59,5 +67,15 @@
         ORDER BY sc.stock_datetime DESC
 
     </select>
+
+    <select id="selectCommunity" resultMap="communityResultMap" parameterType="long">
+        SELECT
+            *
+        FROM
+            tbl_community
+        WHERE sno=#{sno}
+        ORDER BY updatedAt DESC;
+    </select>
+
 
 </mapper>

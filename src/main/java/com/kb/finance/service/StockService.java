@@ -1,5 +1,6 @@
 package com.kb.finance.service;
 
+import com.kb.finance.dto.Community;
 import com.kb.finance.dto.Stock;
 import com.kb.finance.dto.StockChart;
 import com.kb.finance.mapper.StockMapper;
@@ -41,6 +42,16 @@ public class StockService {
             throw new NoSuchElementException();
         }
         return stockCharts;
+    }
+
+    public List<Community> getCommunities(long id) {
+        List<Community> communities = mapper.selectCommunity(id);
+        if(communities == null || communities.isEmpty()) {
+            log.info("No communities found");
+            throw new NoSuchElementException();
+        }
+
+        return communities;
     }
 
 
