@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.kb.finance.mapper.InstallmentMapper">
+    <resultMap id="installmentResultMap" type="com.kb.finance.dto.Installment">
+        <id property="ino" column="ino" />
+        <result property="installmentCategory"  column="installment_category"/>
+        <result property="installmentName"  column="installment_name"/>
+        <result property="installmentBank" column="installment_bank"/>
+        <result property="installmentMaxRate" column="installment_max_rate"/>
+        <result property="installmentNormalRate" column="installment_normal_rate"/>
+        <result property="installmentJoin" column="installment_join"/>
+        <result property="installmentStream" column="installment_stream"/>
+        <result property="installmentAmount" column="installment_amount"/>
+        <result property="installmentWay" column="installment_way"/>
+        <result property="installmentTarget" column="installment_target"/>
+        
+
+
+    </resultMap>
+
+    <select id="selectAll" resultMap="installmentResultMap">
+        SELECT
+            *
+        FROM tbl_installment
+    </select>
+
+    <select id="selectSimple" resultMap="installmentResultMap">
+        SELECT
+            *
+        FROM tbl_installment
+        WHERE installment_category = '단리'
+    </select>
+
+    <select id="selectCompound" resultMap="installmentResultMap">
+        SELECT
+            *
+        FROM tbl_installment
+        WHERE installment_category = '복리'
+    </select>
+
+
+    <select id="selectById" resultMap="installmentResultMap" parameterType="long">
+        SELECT
+            *
+        FROM
+            tbl_installment
+        WHERE ino=#{ino}
+    </select>
+
+</mapper>

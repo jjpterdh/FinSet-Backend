@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+
 public interface MemberMapper {
     List<Member> selectMemberAll();
     Member selectById(String id);
