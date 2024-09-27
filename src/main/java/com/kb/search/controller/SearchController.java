@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -19,7 +21,13 @@ import org.springframework.web.bind.annotation.*;
 public class SearchController {
     private final SearchService service;
 
-    @PostMapping("") // 최신 키워드 추가
+    @GetMapping("/{uno}") // 최신 검색 키워드 조회
+    public ResponseEntity<List<Keyword>> getKeywords(@PathVariable long uno) {
+        List<Keyword> keywords = service.getKeywordList(uno);
+        return ResponseEntity.ok(keywords);
+    }
+
+    @PostMapping("") // 검색 키워드 저장
     public ResponseEntity<Keyword> create(@RequestBody Keyword keyword) {
         return ResponseEntity.ok(service.createKeyword(keyword));
     }

@@ -11,8 +11,15 @@
         <result property="keyword"	column="keyword" />
     </resultMap>
 
-    <select id="selectKeywordByKeno" resultType="com.kb.search.dto.Keyword">
+    <select id="selectKeywordByKeno" resultMap="kewordResultMap">
         SELECT * FROM tbl_keyword WHERE keno = #{keno}
+    </select>
+
+    <select id="selectKeywordList" resultMap="kewordResultMap">
+        SELECT * FROM tbl_keyword
+        WHERE uno = #{uno}
+        ORDER BY keno DESC
+        LIMIT 3;
     </select>
 
     <insert id="insertKeyword" parameterType="com.kb.search.dto.Keyword">
