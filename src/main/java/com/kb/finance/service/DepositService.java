@@ -28,6 +28,22 @@ public class DepositService {
         return depositList;
     }
 
+    public List<Deposit> getSimpleDeposits() {
+        List<Deposit> depositList = mapper.selectSimple();
+        if(depositList.isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return depositList;
+    }
+
+    public List<Deposit> getCompoundDeposits() {
+        List<Deposit> depositList = mapper.selectCompound();
+        if(depositList.isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return depositList;
+    }
+
     public Deposit getDeposit(Long id) {
         return Optional.ofNullable(mapper.selectById(id))
                 .orElseThrow(NoSuchElementException::new);

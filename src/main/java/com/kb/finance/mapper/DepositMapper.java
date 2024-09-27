@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface DepositMapper {
     List<Deposit> selectAll();
+    List<Deposit> selectSimple();
+    List<Deposit> selectCompound();
     Deposit selectById(Long dno);
 }
