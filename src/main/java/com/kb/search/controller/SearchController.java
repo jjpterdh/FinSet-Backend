@@ -27,8 +27,9 @@ public class SearchController {
         return ResponseEntity.ok(keywords);
     }
 
-    @PostMapping("") // 검색 키워드 저장
-    public ResponseEntity<Keyword> create(@RequestBody Keyword keyword) {
+    @PostMapping("/{uno}") // 검색 키워드 저장
+    public ResponseEntity<Keyword> create(@PathVariable long uno, @RequestBody Keyword keyword) {
+        keyword.setUno(uno);
         return ResponseEntity.ok(service.createKeyword(keyword));
     }
 
