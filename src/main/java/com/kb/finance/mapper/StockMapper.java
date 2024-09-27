@@ -1,5 +1,6 @@
 package com.kb.finance.mapper;
 
+import com.kb.finance.dto.Community;
 import com.kb.finance.dto.Stock;
 import com.kb.finance.dto.StockChart;
 
@@ -11,4 +12,5 @@ public interface StockMapper {
     List<Stock> selectAll(Map sort);
     List<StockChart> selectChart(Long id);
     Stock selectById(Long id);
+    List<Community> selectCommunity(Long id);
 }

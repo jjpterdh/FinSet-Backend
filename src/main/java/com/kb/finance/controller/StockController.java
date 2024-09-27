@@ -1,6 +1,7 @@
 package com.kb.finance.controller;
 
 
+import com.kb.finance.dto.Community;
 import com.kb.finance.dto.Installment;
 import com.kb.finance.dto.Stock;
 import com.kb.finance.dto.StockChart;
@@ -40,4 +41,8 @@ public class StockController {
         return ResponseEntity.ok(stockService.getStockChart(sno));
     }
 
+    @GetMapping("/{sno}/community")
+    public ResponseEntity<List<Community>> getCommunities(@PathVariable long sno) {
+        return ResponseEntity.ok(stockService.getCommunities(sno));
+    }
 }
