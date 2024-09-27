@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.dict.mapper.DictMapper">
+
+    <resultMap id="dictResultMap"  type="com.kb.dict.dto.Dict">
+        <id property="dino" 				column="dino" />
+        <result property="word"		    column="word" />
+        <result property="content"		column="content" />
+    </resultMap>
+    <select id="selectAll" resultType="com.kb.dict.dto.Dict">
+        SELECT * from tbl_dict;
+    </select>
+    <select id="Search" parameterType="String" resultType="com.kb.dict.dto.Dict">
+        SELECT * FROM tbl_dict
+        WHERE word LIKE CONCAT('%', #{word}, '%')
+    </select>
+
+    <select id="selectById" resultType="com.kb.dict.dto.Dict">
+        SELECT
+            *
+        FROM
+            tbl_dict
+        WHERE dino=#{dino}
+
+    </select>
+
+<!--    <sql id="search">-->
+<!--        <if test="word !=null and content=!null">-->
+<!--            <trim prefix="(" suffix=") And" prefixOverrides="OR">-->
+<!--                <foreach item="type" collection="typeArr">-->
+<!--                    <trim prefix="OR">-->
+<!--                        <choose>-->
+<!--                            <when test="type == 'T'.toStirng()">-->
+<!--                                (WORD LIKE '%'||#{keyword}||'%')-->
+<!--                            </when>-->
+<!--                        </choose>-->
+<!--                    </trim>-->
+<!--                </foreach>-->
+<!--            </trim>-->
+<!--        </if>-->
+<!--    </sql>-->
+</mapper>
