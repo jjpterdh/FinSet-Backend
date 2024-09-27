@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.search.mapper.SearchMapper">
+
+    <resultMap id="kewordResultMap"  type="com.kb.search.dto.Keyword">
+        <id property="keno" column="keno" />
+        <id property="uno" column="uno" />
+        <result property="keyword"	column="keyword" />
+    </resultMap>
+
+    <select id="selectKeywordByKeno" resultType="com.kb.search.dto.Keyword">
+        SELECT * FROM tbl_keyword WHERE keno = #{keno}
+    </select>
+
+    <insert id="insertKeyword" parameterType="com.kb.search.dto.Keyword">
+        <selectKey keyProperty="keno" resultType="long" order="AFTER">
+            SELECT @@identity as keno
+        </selectKey>
+        INSERT INTO tbl_keyword(keno, uno, keyword)
+        VALUES (default, #{uno}, #{keyword})
+    </insert>
+
+</mapper>
