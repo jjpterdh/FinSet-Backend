@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface InstallmentMapper {
     List<Installment> selectAll();
+    List<Installment> selectSimple();
+    List<Installment> selectCompound();
     Installment selectById(Long ino);
 }
