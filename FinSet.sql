@@ -2,6 +2,12 @@ drop schema finset;
 create schema finset;
 use finset;
 
+CREATE TABLE `tbl_user_type` (
+                                `itno` INT NOT NULL AUTO_INCREMENT,
+                                `it_name` VARCHAR(20) NOT NULL COMMENT '안정형/안정추구형/위험중립형/적극투자형/공격투자형',
+                                PRIMARY KEY (`itno`)
+);
+
 CREATE TABLE `tbl_user` (
     `uno` INT NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(50) NOT NULL UNIQUE,
