@@ -3,6 +3,7 @@ package com.kb.finance.controller;
 
 import com.kb.finance.dto.Installment;
 import com.kb.finance.dto.Stock;
+import com.kb.finance.dto.StockChart;
 import com.kb.finance.service.InstallmentService;
 import com.kb.finance.service.StockService;
 import io.swagger.annotations.Api;
@@ -32,6 +33,11 @@ public class StockController {
     @GetMapping("/{sno}")
     public ResponseEntity<Stock> getStock(@PathVariable long sno) {
         return ResponseEntity.ok(stockService.getStockById(sno));
+    }
+
+    @GetMapping("/{sno}/chart")
+    public ResponseEntity<List<StockChart>> getStockChart(@PathVariable long sno) {
+        return ResponseEntity.ok(stockService.getStockChart(sno));
     }
 
 }

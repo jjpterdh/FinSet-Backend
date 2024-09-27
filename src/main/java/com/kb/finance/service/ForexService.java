@@ -1,6 +1,7 @@
 package com.kb.finance.service;
 
 import com.kb.finance.dto.Forex;
+import com.kb.finance.dto.ForexChart;
 import com.kb.finance.mapper.ForexMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,5 +30,9 @@ public class ForexService {
         return Optional.ofNullable(mapper.selectById(id))
                 .orElseThrow(NoSuchElementException::new);
 
+    }
+    public List<ForexChart> getForexChartById(Long id) {
+        return Optional.ofNullable(mapper.selectChartById(id))
+                .orElseThrow(NoSuchElementException::new);
     }
 }
