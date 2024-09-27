@@ -19,11 +19,30 @@ public class InstallmentService {
 
     public List<Installment> getAllInstallments() {
         List<Installment> list = mapper.selectAll();
+
         if(list.isEmpty()) {
             throw new NoSuchElementException();
         }
         return list;
     }
+
+
+    public List<Installment> getSimpleInstallments() {
+        List<Installment> list = mapper.selectSimple();
+        if(list.isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return list;
+    }
+
+    public List<Installment> getCompoundInstallments() {
+        List<Installment> list = mapper.selectCompound();
+        if(list.isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return list;
+    }
+
     public Installment getInstallment(Long id) {
         return Optional.ofNullable(mapper.selectById(id))
                 .orElseThrow(NoSuchElementException::new);

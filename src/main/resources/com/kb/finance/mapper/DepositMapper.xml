@@ -21,12 +21,27 @@
 
 
     </resultMap>
-    
     <select id="selectAll" resultMap="depositResultMap">
+        SELECT
+        *
+        FROM tbl_deposit
+
+    </select>
+    <select id="selectSimple" resultMap="depositResultMap">
         SELECT
             *
         FROM tbl_deposit
+        WHERE deposit_category = '단리'
     </select>
+
+
+    <select id="selectCompound" resultMap="depositResultMap">
+        SELECT
+            *
+        FROM tbl_deposit
+        WHERE deposit_category = '복리'
+    </select>
+
 
     <select id="selectById" resultMap="depositResultMap" parameterType="long">
         SELECT

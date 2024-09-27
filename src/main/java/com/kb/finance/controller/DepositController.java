@@ -7,10 +7,7 @@ import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,9 +21,22 @@ public class DepositController {
     private final DepositService depositService;
 
     @GetMapping("")
-    public ResponseEntity<List<Deposit>> findAll() {
-        return ResponseEntity.ok().body(depositService.getAllDeposits());
+    public ResponseEntity <List<Deposit>> findAll(@RequestParam(value = "sort", defaultValue = "total") String sort) {
+
+        if(sort.equals("simple")) {
+            return ResponseEntity.ok().body(depositService.getSimpleDeposits());
+        }
+
+        else if(sort.equals("compound")) {
+            return ResponseEntity.ok().body(depositService.getCompoundDeposits());
+        }
+        else {
+            return ResponseEntity.ok().body(depositService.getAllDeposits());
+        }
+
     }
+
+
 
     @GetMapping("/{dno}")
     public ResponseEntity<Deposit> findByDno(@PathVariable("dno") long dno) {

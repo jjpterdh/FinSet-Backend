@@ -28,6 +28,21 @@
         FROM tbl_installment
     </select>
 
+    <select id="selectSimple" resultMap="installmentResultMap">
+        SELECT
+            *
+        FROM tbl_installment
+        WHERE installment_category = '단리'
+    </select>
+
+    <select id="selectCompound" resultMap="installmentResultMap">
+        SELECT
+            *
+        FROM tbl_installment
+        WHERE installment_category = '복리'
+    </select>
+
+
     <select id="selectById" resultMap="installmentResultMap" parameterType="long">
         SELECT
             *

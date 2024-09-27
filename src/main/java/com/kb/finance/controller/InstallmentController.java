@@ -6,10 +6,7 @@ import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,8 +20,19 @@ public class InstallmentController {
     private final InstallmentService installmentService;
 
     @GetMapping("")
-    public ResponseEntity<List<Installment>> getAllInstallments() {
-        return ResponseEntity.ok(installmentService.getAllInstallments());
+    public ResponseEntity<List<Installment>> getAllInstallments(@RequestParam(value = "sort", defaultValue = "total") String sort) {
+
+        if(sort.equals("simple")) {
+            return ResponseEntity.ok(installmentService.getSimpleInstallments());
+        }
+
+        else if(sort.equals("compound")) {
+            return ResponseEntity.ok(installmentService.getCompoundInstallments());
+        }
+        else {
+            return ResponseEntity.ok(installmentService.getAllInstallments());
+        }
+
     }
 
     @GetMapping("/{ino}")
