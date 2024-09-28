@@ -200,7 +200,7 @@ CREATE TABLE `tbl_keyword` (
 
 INSERT INTO tbl_deposit (
     deposit_category,
-    depoist_name,
+    deposit_name,
     deposit_bank,
     deposit_max_rate,
     deposit_normal_rate,
