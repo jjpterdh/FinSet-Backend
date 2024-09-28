@@ -3,9 +3,9 @@ create schema finset;
 use finset;
 
 CREATE TABLE `tbl_user_type` (
-                                `itno` INT NOT NULL AUTO_INCREMENT,
-                                `it_name` VARCHAR(20) NOT NULL COMMENT '안정형/안정추구형/위험중립형/적극투자형/공격투자형',
-                                PRIMARY KEY (`itno`)
+                                `utno` INT NOT NULL AUTO_INCREMENT,
+                                `ut_name` VARCHAR(20) NOT NULL COMMENT '안정형/안정추구형/위험중립형/적극투자형/공격투자형',
+                                PRIMARY KEY (`utno`)
 );
 
 CREATE TABLE `tbl_user` (
@@ -13,10 +13,12 @@ CREATE TABLE `tbl_user` (
     `email` VARCHAR(50) NOT NULL UNIQUE,
     `password` VARCHAR(255) NOT NULL,
     `user_name` VARCHAR(50) NOT NULL,
+    `utno` INT NULL,
     `status` INT NOT NULL DEFAULT 1 COMMENT '기본: 1 / 탈퇴: 0',
     `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `status_date` TIMESTAMP NULL,
-    PRIMARY KEY (`uno`)
+    PRIMARY KEY (`uno`),
+    FOREIGN KEY (`utno`) REFERENCES `tbl_user_type`(`utno`)
 );
 
 create table tbl_auth
