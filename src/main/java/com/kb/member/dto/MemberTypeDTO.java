@@ -8,6 +8,6 @@ import lombok.*;
 @Setter
 @ToString
 public class MemberTypeDTO {
-    private int itno;
-    private String itName;
+    private int utno;
+    private String utName;
 }
