@@ -2,6 +2,7 @@ package com.kb.finance.controller;
 
 
 import com.kb.finance.dto.Forex;
+import com.kb.finance.dto.ForexChart;
 import com.kb.finance.service.ForexService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,11 @@ public class ForexController {
     @GetMapping("/{feno}")
     public ResponseEntity<Forex> findByFeno(@PathVariable("feno") long feno) {
         return ResponseEntity.ok(forexService.getForexById(feno));
+    }
+
+    @GetMapping("/{feno}/chart")
+    public ResponseEntity<List<ForexChart>> findChart(@PathVariable("feno") long feno) {
+        return ResponseEntity.ok(forexService.getForexChartById(feno));
     }
 
 }
