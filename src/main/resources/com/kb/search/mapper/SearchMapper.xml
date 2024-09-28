@@ -5,17 +5,17 @@
 
 <mapper namespace="com.kb.search.mapper.SearchMapper">
 
-    <resultMap id="kewordResultMap"  type="com.kb.search.dto.Keyword">
+    <resultMap id="keywordResultMap"  type="com.kb.search.dto.Keyword">
         <id property="keno" column="keno" />
-        <id property="uno" column="uno" />
-        <result property="keyword"	column="keyword" />
+        <result property="uno" column="uno" />
+        <result property="keyword" column="keyword" />
     </resultMap>
 
-    <select id="selectKeywordByKeno" resultMap="kewordResultMap">
+    <select id="selectKeywordByKeno" resultMap="keywordResultMap">
         SELECT * FROM tbl_keyword WHERE keno = #{keno}
     </select>
 
-    <select id="selectKeywordList" resultMap="kewordResultMap">
+    <select id="selectKeywordList" resultMap="keywordResultMap">
         SELECT * FROM tbl_keyword
         WHERE uno = #{uno}
         ORDER BY keno DESC
