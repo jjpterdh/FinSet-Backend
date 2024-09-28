@@ -153,6 +153,7 @@ CREATE TABLE `tbl_wish` (
                             `uno` INT NOT NULL,
                             `pno` INT NOT NULL,
                             `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                            `status` INT NOT NULL DEFAULT 0,
                             PRIMARY KEY (`wno`),
                             FOREIGN KEY (`tno`) REFERENCES `tbl_type`(`tno`),
                             FOREIGN KEY (`uno`) REFERENCES `tbl_user`(`uno`)
@@ -164,6 +165,7 @@ CREATE TABLE `tbl_dict_wish` (
                                  `dino` INT NOT NULL,
                                  `memo` TEXT NULL,
                                  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                 `status` INT NOT NULL DEFAULT 0,
                                  PRIMARY KEY (`dwno`),
                                  FOREIGN KEY (`uno`) REFERENCES `tbl_user`(`uno`),
                                  FOREIGN KEY (`dino`) REFERENCES `tbl_dict`(`dino`)
