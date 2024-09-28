@@ -8,6 +8,12 @@ CREATE TABLE `tbl_user_type` (
                                 PRIMARY KEY (`utno`)
 );
 
+INSERT INTO tbl_user_type(ut_name) VALUES('안정형');
+INSERT INTO tbl_user_type(ut_name) VALUES('안정추구형');
+INSERT INTO tbl_user_type(ut_name) VALUES('위험중립형');
+INSERT INTO tbl_user_type(ut_name) VALUES('적극투자형');
+INSERT INTO tbl_user_type(ut_name) VALUES('공격투자형');
+
 CREATE TABLE `tbl_user` (
     `uno` INT NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(50) NOT NULL UNIQUE,
