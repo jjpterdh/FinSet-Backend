@@ -8,5 +8,5 @@ public interface DictMapper {
     List<Dict> selectAll();
     Dict selectById(long id);
     List<Dict> Search(String word);
-
+     int updateStatus(Dict dict);
 }

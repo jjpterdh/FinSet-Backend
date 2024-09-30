@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class LoginDTO {
+public class  LoginDTO {
     private String id; // email
     private String password;
 

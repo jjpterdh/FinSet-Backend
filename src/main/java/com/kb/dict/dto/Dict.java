@@ -11,4 +11,5 @@ public class Dict {
     private long dino;
     private String word;
     private String content;
+    private int status;
 }

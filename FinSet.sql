@@ -90,6 +90,7 @@ CREATE TABLE `tbl_dict` (
                             `dino` INT NOT NULL AUTO_INCREMENT,
                             `word` VARCHAR(50) NOT NULL,
                             `content` TEXT NOT NULL,
+                            `status` INT NOT NULL default 0,
                             PRIMARY KEY (`dino`)
 );
 
@@ -165,7 +166,7 @@ CREATE TABLE `tbl_dict_wish` (
                                  `dino` INT NOT NULL,
                                  `memo` TEXT NULL,
                                  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                 `status` INT NOT NULL DEFAULT 0,
+
                                  PRIMARY KEY (`dwno`),
                                  FOREIGN KEY (`uno`) REFERENCES `tbl_user`(`uno`),
                                  FOREIGN KEY (`dino`) REFERENCES `tbl_dict`(`dino`)
