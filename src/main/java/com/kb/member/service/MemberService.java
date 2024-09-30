@@ -60,6 +60,8 @@ public class MemberService{
         if(member.checkRequiredValue()){
             throw new IllegalAccessException();
         }
+
+
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         int result = mapper.insertMember(member);
         if(result != 1){

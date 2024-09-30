@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@Data
 public class Member implements UserDetails {
     private long uno;			// PK
     private String id; 			// id(email)=username
