@@ -1,6 +1,5 @@
 package com.kb.search.controller;
 
-import com.kb.member.dto.Member;
 import com.kb.search.dto.Keyword;
 import com.kb.search.service.SearchService;
 import io.swagger.annotations.Api;
