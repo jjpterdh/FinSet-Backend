@@ -113,16 +113,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(HttpMethod.POST, "/api/member").authenticated()
-                .antMatchers(HttpMethod.PUT, "/api/member").authenticated()
-                .antMatchers(HttpMethod.PATCH, "api/member").authenticated()
 
-                // finance 추가하기
-                .antMatchers(HttpMethod.DELETE, "/api/deposits").authenticated()
-                .antMatchers(HttpMethod.POST, "/api/installments/").authenticated()
-                .antMatchers(HttpMethod.PUT, "/api/forex").authenticated()
-                .antMatchers(HttpMethod.PATCH, "/api/stocks").authenticated()
+                // 유저
+                .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers(HttpMethod.GET, "/api/member/{id}/type").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/member/**").authenticated()
+                .antMatchers(HttpMethod.PATCH, "api/member/**").authenticated()
+
+                // finance
+                .antMatchers(HttpMethod.GET, "/api/deposits/**").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/installments/**").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/forex/**").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/stocks/**").authenticated()
+
+                // 어휘 사전
+                .antMatchers(HttpMethod.GET, "/api/dictionary/**").authenticated()
+
+                // 검색
+                .antMatchers(HttpMethod.GET, "/api/search/{uno}").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/search/**").authenticated()
+
+                // 뉴스
+                .antMatchers(HttpMethod.GET, "/api/stocks/{sno}/news").authenticated()
 
                 .anyRequest().permitAll()
         ;

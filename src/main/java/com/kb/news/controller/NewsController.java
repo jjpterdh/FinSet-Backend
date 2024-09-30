@@ -26,7 +26,7 @@ public class NewsController {
        return ResponseEntity.ok(newsList);
    }
 
-   @GetMapping("/home/news") // 홈 화면 뉴스 조회
+   @GetMapping("/main/news") // 메인 화면 뉴스 조회
    public ResponseEntity<List<News>> getHomeNews() {
        List<News> newsList = newsService.getHomeNews();
        return ResponseEntity.ok(newsList);
