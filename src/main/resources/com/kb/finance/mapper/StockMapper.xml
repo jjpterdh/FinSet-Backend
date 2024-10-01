@@ -29,6 +29,11 @@
         <result property="updatedAt" column="updatedAt"/>
     </resultMap>
 
+    <resultMap id="communityDTOResultMap" type="com.kb.finance.dto.CommunityDTO">
+        <result property="uno" column="uno"/>
+        <result property="sno" column="sno"/>
+        <result property="content" column="content"/>
+    </resultMap>
 
     <select id="selectAll" resultMap="stockResultMap" parameterType="map">
         SELECT
@@ -99,24 +104,32 @@
             c.updatedAt DESC
     </select>
 
+    <select id="findLike" resultType="int" parameterType="com.kb.finance.dto.Like">
+        SELECT COUNT(*) FROM tbl_community_like
+        WHERE bno = #{bno} AND uno = #{uno}
+    </select>
 
-    <insert id="insertCommunity"  parameterType="com.kb.finance.dto.Community">
+    <insert id="insertCommunity"  parameterType="com.kb.finance.dto.CommunityDTO">
         INSERT INTO tbl_community(uno, sno, content)
         VALUES(#{uno}, #{sno}, #{content})
     </insert>
 
+
     <insert id="insertLike" parameterType="com.kb.finance.dto.Like">
-    INSERT INTO tbl_community_like(bno, uno)
-    VALUES (#{bno}, #{uno})
+        INSERT INTO tbl_community_like(bno, uno)
+        VALUES (#{bno}, #{uno})
     </insert>
 
+    <update id="updateCommunity" parameterType="com.kb.finance.dto.CommunityDTO">
+        UPDATE tbl_community SET content=#{content} WHERE bno=#{bno} AND uno=#{uno}
+    </update>
+
     <delete id="deleteLike" parameterType="com.kb.finance.dto.Like">
-    DELETE FROM tbl_community_like WHERE bno = #{bno} AND uno = #{uno}
+        DELETE FROM tbl_community_like WHERE bno = #{bno} AND uno = #{uno}
     </delete>
 
-    <select id="findLike" resultType="int" parameterType="com.kb.finance.dto.Like">
-    SELECT COUNT(*) FROM tbl_community_like
-    WHERE bno = #{bno} AND uno = #{uno}
-    </select>
+    <delete id="deleteCommunity" parameterType="com.kb.finance.dto.CommunityDTO">
+       DELETE FROM tbl_community WHERE bno=#{bno} AND uno=#{uno}
+    </delete>
 
 </mapper>
