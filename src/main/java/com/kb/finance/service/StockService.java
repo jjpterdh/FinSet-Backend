@@ -65,12 +65,13 @@ public class StockService {
         return stockSymbol;
     }
 
-    public List<Community> getCommunities(long id, String email) {
-        HashMap<String, Object> param = new HashMap<>();
-        param.put("id", id);
-        param.put("email", email);
+    public List<Community> getCommunities(long sno, long uno) {
 
-        List<Community> communities = mapper.selectCommunity(param);
+        List<Community> communities = mapper.selectCommunity(sno, uno);
+
+        for(Community community : communities) {
+            System.out.println(community);
+        }
 
         if(communities == null || communities.isEmpty()) {
             log.info("No communities found");

@@ -106,11 +106,9 @@ CREATE TABLE `tbl_community` (
 );
 
 CREATE TABLE `tbl_community_like` (
-                                      `lno` INT NOT NULL AUTO_INCREMENT,           -- 좋아요 ID (Primary Key)
                                       `bno` INT NOT NULL,                          -- 커뮤니티 ID (tbl_community의 Foreign Key)
                                       `uno` INT NOT NULL,                          -- 사용자 ID (tbl_user의 Foreign Key)
                                       `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  -- 등록 날짜
-                                      PRIMARY KEY (`lno`),
                                       FOREIGN KEY (`uno`) REFERENCES `tbl_user`(`uno`),
                                       FOREIGN KEY (`bno`) REFERENCES `tbl_community`(`bno`)
 );
@@ -161,13 +159,11 @@ CREATE TABLE `tbl_type` (
 );
 
 CREATE TABLE `tbl_wish` (
-                            `wno` INT NOT NULL AUTO_INCREMENT,
                             `tno` INT NOT NULL,
                             `uno` INT NOT NULL,
                             `pno` INT NOT NULL,
                             `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                             `status` INT NOT NULL DEFAULT 0,
-                            PRIMARY KEY (`wno`),
                             FOREIGN KEY (`tno`) REFERENCES `tbl_type`(`tno`),
                             FOREIGN KEY (`uno`) REFERENCES `tbl_user`(`uno`)
 );

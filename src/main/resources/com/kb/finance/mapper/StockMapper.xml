@@ -18,17 +18,16 @@
         <result property="sno"  column="sno"/>
         <result property="stockDatetime"  column="stock_datetime"/>
         <result property="stockPrice"  column="stock_price"/>
-
     </resultMap>
 
     <resultMap id="communityResultMap" type="com.kb.finance.dto.Community">
-        <id property="bno" column="bno"/>
-        <result property="uno"  column="uno"/>
-        <result property="sno"  column="sno"/>
+        <id property="bno" column="bno" />
+        <result property="sno" column="sno"/>
         <result property="content" column="content"/>
+        <result property="likes" column="likes"/>
+        <result property="isLiked" column="isLiked"/>
         <result property="updatedAt" column="updatedAt"/>
     </resultMap>
-
 
 
     <select id="selectAll" resultMap="stockResultMap" parameterType="map">
@@ -77,14 +76,27 @@
     </select>
 
 
-    <select id="selectCommunity" resultMap="communityResultMap" parameterType="map">
+    <select id="selectCommunity" resultMap="communityResultMap">
         SELECT
-            c.*
+            c.bno,
+            c.sno,
+            COUNT(cl.uno) as likes,
+            CASE WHEN #{uno} IN (SELECT uno FROM tbl_community_like WHERE bno = c.bno) THEN 1 ELSE 0 END AS isLiked,
+            c.content,
+            c.updatedAt
         FROM
             tbl_community c
-        WHERE sno=#{sno}
-        JOIN tbl_community_like cl ON c.bno=cl.bno
-        ORDER BY updatedAt DESC;
+        LEFT JOIN
+            tbl_community_like cl ON c.bno=cl.bno
+        WHERE
+            c.sno=#{sno}
+        GROUP BY
+            c.bno,
+            c.sno,
+            c.content,
+            c.updatedAt
+        ORDER BY
+            c.updatedAt DESC
     </select>
 
 
