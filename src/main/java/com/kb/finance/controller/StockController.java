@@ -2,10 +2,8 @@ package com.kb.finance.controller;
 
 
 import com.kb.finance.dto.*;
-import com.kb.finance.service.InstallmentService;
 import com.kb.finance.service.StockService;
 import com.kb.member.dto.Member;
-import com.kb.security.service.CustomUserDetailsService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,5 +53,28 @@ public class StockController {
         return ResponseEntity.ok(stockService.getCommunities(sno, uno));
     }
 
+    @PostMapping("{sno}/community/likes")
+    public ResponseEntity<String> addLike(@RequestBody Like like, @AuthenticationPrincipal Member member) {
+        like.setUno(member.getUno());
+        int likeCount = stockService.findLike(like);  // 기존에 존재하는지 확인
+        if (likeCount == 0) {
+            stockService.insertLike(like);
+            return ResponseEntity.ok("Like added successfully");
+        } else {
+            return ResponseEntity.ok("Like already exists");
+        }
+    }
+
+    @DeleteMapping("{sno}/community/likes")
+    public ResponseEntity<String> deleteLike(@RequestBody Like like, @AuthenticationPrincipal Member member) {
+        like.setUno(member.getUno());
+        int wishCount = stockService.findLike(like);
+        if (wishCount == 1) {
+            stockService.deleteLike(like);
+            return ResponseEntity.ok("Like deleted successfully");
+        } else {
+            return ResponseEntity.ok("Like not found");
+        }
+    }
 
 }

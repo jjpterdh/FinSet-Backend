@@ -105,6 +105,18 @@
         VALUES(#{uno}, #{sno}, #{content})
     </insert>
 
+    <insert id="insertLike" parameterType="com.kb.finance.dto.Like">
+    INSERT INTO tbl_community_like(bno, uno)
+    VALUES (#{bno}, #{uno})
+    </insert>
 
+    <delete id="deleteLike" parameterType="com.kb.finance.dto.Like">
+    DELETE FROM tbl_community_like WHERE bno = #{bno} AND uno = #{uno}
+    </delete>
+
+    <select id="findLike" resultType="int" parameterType="com.kb.finance.dto.Like">
+    SELECT COUNT(*) FROM tbl_community_like
+    WHERE bno = #{bno} AND uno = #{uno}
+    </select>
 
 </mapper>

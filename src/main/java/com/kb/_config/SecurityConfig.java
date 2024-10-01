@@ -130,15 +130,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/dictionary/**").authenticated()
 
                 // 검색
-                .antMatchers(HttpMethod.GET, "/api/search/{uno}").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/search/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/search/**").authenticated()
 
-                // 뉴스
-                .antMatchers(HttpMethod.GET, "/api/stocks/{sno}/news").authenticated()
-
                 // 관심 목록
-                .antMatchers(HttpMethod.POST, "/api/wishes").authenticated()
-                .antMatchers(HttpMethod.DELETE, "/api/wishes").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/wishes/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/wishes/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/wishes/**").authenticated()
 
                 .anyRequest().permitAll()
         ;

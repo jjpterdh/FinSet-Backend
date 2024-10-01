@@ -3,6 +3,7 @@ package com.kb.dict.controller;
 import com.kb.dict.dto.Dict;
 import com.kb.dict.dto.DictWish;
 import com.kb.dict.service.DictWishService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@Api(value = "DictwishController", tags = "사전 단어장 정보")
 public class DictWishController {
     private final  DictWishService dictWishService;
     @GetMapping("")
