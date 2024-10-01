@@ -51,4 +51,6 @@
         WHERE dno=#{dno}
     </select>
 
+
+
 </mapper>

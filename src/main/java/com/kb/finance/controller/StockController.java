@@ -1,16 +1,16 @@
 package com.kb.finance.controller;
 
 
-import com.kb.finance.dto.Community;
-import com.kb.finance.dto.Installment;
-import com.kb.finance.dto.Stock;
-import com.kb.finance.dto.StockChart;
+import com.kb.finance.dto.*;
 import com.kb.finance.service.InstallmentService;
 import com.kb.finance.service.StockService;
+import com.kb.member.dto.Member;
+import com.kb.security.service.CustomUserDetailsService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,8 +41,19 @@ public class StockController {
         return ResponseEntity.ok(stockService.getStockChart(sno));
     }
 
-    @GetMapping("/{sno}/community")
-    public ResponseEntity<List<Community>> getCommunities(@PathVariable long sno) {
-        return ResponseEntity.ok(stockService.getCommunities(sno));
+    @GetMapping("/{sno}/symbol")
+    public ResponseEntity<StockSymbol> getStockSymbol(@PathVariable long sno) {
+        return ResponseEntity.ok(stockService.getStockSymbol(sno));
     }
+
+
+
+    @GetMapping("/{sno}/community")
+    public ResponseEntity<List<Community>> getCommunities(@PathVariable long sno, @AuthenticationPrincipal Member principal) {
+        String email=principal.getUsername();
+        System.out.println(email);
+        return ResponseEntity.ok(stockService.getCommunities(sno, email));
+    }
+
+
 }

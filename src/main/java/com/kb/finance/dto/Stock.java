@@ -13,6 +13,6 @@ public class Stock {
     private String stockName;
     private int stockPrice;
     private double priceChangeRate;
-    private int stockVolume;
+    private long stockVolume;
 
 }
