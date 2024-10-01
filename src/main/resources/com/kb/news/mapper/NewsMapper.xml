@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.news.mapper.NewsMapper">
+
+    <resultMap id="newsResultMap"  type="com.kb.news.dto.News">
+        <id property="nno" column="nno" />
+        <result property="sno" column="sno" />
+        <result property="title" column="title" />
+        <result property="content" column="content"/>
+        <result property="link" column="link"/>
+        <result property="image" column="image"/>
+    </resultMap>
+
+    <select id="selectNewsBySno" resultMap="newsResultMap">
+        SELECT * FROM tbl_news WHERE sno = #{sno}
+    </select>
+
+    <select id="selectHomeNews" resultMap="newsResultMap">
+        SELECT * FROM tbl_news
+        ORDER BY nno DESC
+            LIMIT 5;
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.finance.mapper.StockMapper">
+    <resultMap id="stockResultMap" type="com.kb.finance.dto.Stock">
+        <id property="sno" column="sno" />
+        <result property="stockSymbol"  column="stock_symbol"/>
+        <result property="stockName"  column="stock_name"/>
+        <result property="stockPrice" column="stock_price"/>
+        <result property="priceChangeRate" column="price_change_rate"/>
+        <result property="stockVolume" column="stock_volume"/>
+    </resultMap>
+
+    <resultMap id="stockChartResultMap" type="com.kb.finance.dto.StockChart">
+        <id property="scno" column="scno" />
+        <result property="sno"  column="sno"/>
+        <result property="stockDatetime"  column="stock_datetime"/>
+        <result property="stockPrice"  column="stock_price"/>
+
+    </resultMap>
+
+    <resultMap id="communityResultMap" type="com.kb.finance.dto.Community">
+        <id property="bno" column="bno"/>
+        <result property="uno"  column="uno"/>
+        <result property="sno"  column="sno"/>
+        <result property="content" column="content"/>
+        <result property="updatedAt" column="updatedAt"/>
+    </resultMap>
+
+
+
+    <select id="selectAll" resultMap="stockResultMap" parameterType="map">
+        SELECT
+        *
+        FROM tbl_stock
+        <choose>
+            <when test="sort == 'volume'">
+                ORDER BY stock_volume DESC
+            </when>
+            <when test="sort == 'ascending'">
+                ORDER BY price_change_rate ASC
+            </when>
+            <when test="sort == 'descending'">
+                ORDER BY price_change_rate DESC
+            </when>
+            <otherwise>
+                ORDER BY stock_volume DESC  <!-- 기본 정렬 방식 -->
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="selectById" resultMap="stockResultMap" parameterType="long">
+        SELECT
+            *
+        FROM
+            tbl_stock
+        WHERE sno=#{sno}
+    </select>
+
+    <select id="selectChart" resultMap="stockChartResultMap" parameterType="long">
+        SELECT
+            *
+        FROM
+            tbl_stock_chart
+        WHERE sno=#{sno}
+        ORDER BY stock_datetime DESC
+
+    </select>
+
+    <select id="selectMinMax" resultType="int" parameterType="long">
+        SELECT MIN(stock_price), MAX(stock_price)
+        FROM
+            tbl_stock_chart
+        WHERE sno=#{sno}
+    </select>
+
+
+    <select id="selectCommunity" resultMap="communityResultMap" parameterType="map">
+        SELECT
+            c.*
+        FROM
+            tbl_community c
+        WHERE sno=#{sno}
+        JOIN tbl_community_like cl ON c.bno=cl.bno
+        ORDER BY updatedAt DESC;
+    </select>
+
+
+    <insert id="insertCommunity"  parameterType="com.kb.finance.dto.Community">
+        INSERT INTO tbl_community(uno, sno, content)
+        VALUES(#{uno}, #{sno}, #{content})
+    </insert>
+
+
+
+</mapper>

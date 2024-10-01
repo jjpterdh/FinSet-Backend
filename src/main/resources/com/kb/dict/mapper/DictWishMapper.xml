@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.dict.mapper.DictWishMapper">
+    <resultMap id="dictWishMap" type="com.kb.dict.dto.DictWish">
+        <id property="dwno" column="dwno"/>
+        <result property="uno" column="uno"/>
+        <result property="dino" column="dino"/>
+        <result property="memo" column="memo"/>
+        <result property="createdAt" column="createdAt"/>
+    </resultMap>
+
+    <insert id="addWish" parameterType="com.kb.dict.dto.DictWish">
+        INSERT INTO tbl_dict_wish (dino,uno,memo, createdAt)
+        VALUES (#{dino},#{uno},#{memo}, #{createdAt});
+    </insert>
+
+    <insert id="insertWish" parameterType="com.kb.dict.dto.DictWish">
+        INSERT INTO tbl_dict_wish (dino,uno,memo)
+        VALUES (#{dino},#{uno} ,NULL);
+    </insert>
+    <update id="updateWish">
+        UPDATE tbl_dict_wish SET
+        memo=#{memo},
+        createdAt=now()
+        where dwno=#{dwno}
+    </update>
+
+    <delete id="deleteWish" parameterType="com.kb.dict.dto.DictWish">
+        DELETE FROM tbl_dict_wish
+        WHERE dino = #{dino};
+    </delete>
+
+    <select id="getList" resultMap="dictWishMap">
+        SELECT
+            w.dwno,w.uno, w.dino,w.memo,d.word, d.content,w.createdAt
+        FROM
+            tbl_dict_wish w
+                JOIN
+            tbl_dict d ON w.dino = d.dino
+        WHERE
+            w.uno = #{uno};
+    </select>
+
+    <select id="get" resultMap="dictWishMap">
+        SELECT
+            w.dwno,w.uno,w.dino,w.memo,d.word,d.content, w.createdAt
+        FROM
+            tbl_dict_wish w
+                JOIN tbl_dict d ON w.dino = d.dino
+        WHERE.uno = #{uno} and w.dwno = #{dwno};
+    </select>
+</mapper>

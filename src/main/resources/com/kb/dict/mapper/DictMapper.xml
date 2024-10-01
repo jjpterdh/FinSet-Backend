@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.dict.mapper.DictMapper">
+
+    <resultMap id="dictResultMap" type="com.kb.dict.dto.Dict">
+        <id property="dino" column="dino" />
+        <result property="word" column="word" />
+        <result property="content" column="content" />
+        <result property="status" column="status"/>
+    </resultMap>
+
+
+
+    <update id="updateStatus">
+        UPDATE tbl_dict
+        SET status = #{status}
+        WHERE dino = #{dino};
+    </update>
+
+    <select id="selectAll" resultType="com.kb.dict.dto.Dict">
+        SELECT * from tbl_dict;
+    </select>
+    <select id="Search" parameterType="String" resultType="com.kb.dict.dto.Dict">
+        SELECT * FROM tbl_dict
+        WHERE word LIKE CONCAT('%', #{word}, '%')
+    </select>
+
+    <select id="selectById" resultType="com.kb.dict.dto.Dict">
+        SELECT * FROM tbl_dict
+        WHERE dino=#{dino}
+    </select>
+
+</mapper>
