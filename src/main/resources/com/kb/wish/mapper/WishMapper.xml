@@ -25,6 +25,10 @@
         WHERE tno = #{tno} AND uno = #{uno} AND pno = #{pno};
     </select>
 
+    <select id="getWishesById" parameterType="long" resultMap="wishResultMap">
+        SELECT * FROM tbl_wish
+        WHERE uno = #{uno};
+    </select>
 
 
 </mapper>
