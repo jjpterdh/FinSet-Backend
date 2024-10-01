@@ -1,14 +1,12 @@
 package com.kb.finance.service;
 
-import com.kb.finance.dto.Community;
-import com.kb.finance.dto.Stock;
-import com.kb.finance.dto.StockChart;
-import com.kb.finance.dto.StockSymbol;
+import com.kb.finance.dto.*;
 import com.kb.finance.mapper.StockMapper;
+import com.kb.wish.dto.Wish;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -78,6 +76,28 @@ public class StockService {
         }
 
         return communities;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Like insertLike(Like like) {
+        int result = mapper.insertLike(like);
+        if (result != 1) {
+            throw new NoSuchElementException();
+        }
+        return like;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Like deleteLike(Like like) {
+        int result = mapper.deleteLike(like);
+        if (result != 1) {
+            throw new NoSuchElementException();
+        }
+        return like;
+    }
+
+    public int findLike(Like like) {
+        return mapper.findLike(like);
     }
 
 
