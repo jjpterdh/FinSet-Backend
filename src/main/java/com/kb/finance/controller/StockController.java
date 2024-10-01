@@ -45,12 +45,51 @@ public class StockController {
     }
 
 
-
     @GetMapping("/{sno}/community")
     public ResponseEntity<List<Community>> getCommunities(@PathVariable long sno, @AuthenticationPrincipal Member principal) {
         long uno=principal.getUno();
         log.info("uno:"+uno);
         return ResponseEntity.ok(stockService.getCommunities(sno, uno));
+    }
+
+    @PostMapping("{sno}/community")
+    public ResponseEntity<String> createCommunity(@PathVariable long sno, @RequestBody CommunityDTO communityDTO, @AuthenticationPrincipal Member principal) {
+        long uno=principal.getUno();
+        communityDTO.setUno(uno);
+        communityDTO.setSno(sno);
+
+        int flag=stockService.insertCommunityDTO(communityDTO);
+        if(flag==0)
+            return ResponseEntity.ok("post failed");
+        else
+            return ResponseEntity.ok("post success");
+    }
+
+    @PatchMapping("{sno}/community/{bno}")
+    public ResponseEntity<String> updateCommunity(@PathVariable long sno, @PathVariable long bno, @RequestBody CommunityDTO communityDTO, @AuthenticationPrincipal Member principal) {
+        long uno=principal.getUno();
+        communityDTO.setUno(uno);
+        communityDTO.setSno(sno);
+        communityDTO.setBno(bno);
+        int flag=stockService.updateCommunityDTO(communityDTO);
+        if(flag==0)
+            return ResponseEntity.ok("update failed");
+        else
+            return ResponseEntity.ok("update success");
+
+    }
+
+    @DeleteMapping("{sno}/community/{bno}")
+    public ResponseEntity<String> deleteCommunity(@PathVariable long sno, @PathVariable long bno, @AuthenticationPrincipal Member principal) {
+        CommunityDTO communityDTO = new CommunityDTO();
+        communityDTO.setSno(sno);
+        communityDTO.setBno(bno);
+        communityDTO.setUno(principal.getUno());
+        int flag=stockService.deleteCommunityDTO(communityDTO);
+        if(flag==0)
+            return ResponseEntity.ok("delete failed");
+        else
+            return ResponseEntity.ok("delete success");
     }
 
     @PostMapping("{sno}/community/likes")

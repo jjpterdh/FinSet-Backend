@@ -79,6 +79,21 @@ public class StockService {
         return communities;
     }
 
+    public int insertCommunityDTO(CommunityDTO communityDTO) {
+        int flag=mapper.insertCommunity(communityDTO);
+        return flag;
+    }
+
+    public int updateCommunityDTO(CommunityDTO communityDTO) {
+        int flag=mapper.updateCommunity(communityDTO);
+        return flag;
+    }
+
+    public int deleteCommunityDTO(CommunityDTO communityDTO) {
+        int flag=mapper.deleteCommunity(communityDTO);
+        return flag;
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public Like insertLike(Like like) {
         int result = mapper.insertLike(like);
