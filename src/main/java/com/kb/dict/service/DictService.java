@@ -3,8 +3,10 @@ package com.kb.dict.service;
 import com.kb.dict.dto.Dict;
 import com.kb.dict.mapper.DictMapper;
 import com.kb.dict.mapper.DictWishMapper;
+import com.kb.member.dto.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,7 +48,7 @@ public class DictService {
     }
 
 
-    public Dict updateStatus(Dict dict) {
+    public Dict updateStatus(Dict dict ) {
         System.out.println("Current status: " + dict.getStatus() + ", dino: " + dict.getDino());
 
 
@@ -56,14 +58,6 @@ public class DictService {
         } else if (dict.getStatus() == 1) {
             dict.setStatus(0);
             wishMapper.deleteWish(dict);
-        }
-
-
-        int affectedRows = mapper.updateStatus(dict);
-        System.out.println("Affected rows after update: " + affectedRows); // 변경된 행 수 출력
-
-        if (affectedRows == 0) {
-            throw new NoSuchElementException("Failed to update status for dict: " + dict.getDino());
         }
 
         return dict;
