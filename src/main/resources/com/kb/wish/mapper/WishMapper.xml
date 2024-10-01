@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.wish.mapper.WishMapper">
+
+    <resultMap id="wishResultMap"  type="com.kb.wish.dto.Wish">
+        <id property="tno" column="tno" />
+        <result property="uno" column="uno" />
+        <result property="pno"	column="pno" />
+    </resultMap>
+
+    <insert id="insertWish" parameterType="com.kb.wish.dto.Wish">
+        INSERT INTO tbl_wish(tno, uno, pno)
+        VALUES (#{tno}, #{uno}, #{pno})
+    </insert>
+
+    <delete id="deleteWish" parameterType="com.kb.wish.dto.Wish">
+        DELETE FROM tbl_wish WHERE tno = #{tno} AND uno = #{uno} AND pno = #{pno}
+    </delete>
+
+    <select id="findWish" resultType="int" parameterType="com.kb.wish.dto.Wish">
+        SELECT COUNT(*) FROM tbl_wish
+        WHERE tno = #{tno} AND uno = #{uno} AND pno = #{pno};
+    </select>
+
+
+
+</mapper>

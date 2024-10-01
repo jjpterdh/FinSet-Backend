@@ -136,6 +136,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 뉴스
                 .antMatchers(HttpMethod.GET, "/api/stocks/{sno}/news").authenticated()
 
+                // 관심 목록
+                .antMatchers(HttpMethod.POST, "/api/wishes").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/wishes").authenticated()
+
                 .anyRequest().permitAll()
         ;
 
