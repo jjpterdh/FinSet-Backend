@@ -6,9 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import com.kb.security.util.JwtProcessor;
 
 @Log4j
 @RequestMapping("/api/security")
@@ -32,5 +34,19 @@ public class SecurityController {
     public ResponseEntity<Member> doAdmin(@AuthenticationPrincipal Member member) {
         log.info("username = " + member);
         return ResponseEntity.ok(member);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response, @RequestHeader("Authorization") String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            String jwtToken = token.substring(7);
+            JwtProcessor.invalidateToken(jwtToken);
+        }
+
+        // Invalidate session
+        request.getSession().invalidate();
+
+        // Send logout confirmation
+        return ResponseEntity.ok("Logout successful");
     }
 }
