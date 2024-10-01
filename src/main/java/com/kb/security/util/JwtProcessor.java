@@ -9,10 +9,12 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class JwtProcessor {
-    static private final long TOKEN_VALID_MILISECOND = 1000L * 60 * 60  *60 * 2; // 5 분
+    static private final long TOKEN_VALID_MILISECOND = 1000L * 60 * 60 * 2 * 60; // 5 분
 
     private String secretKey = "충분히 긴 임의의(랜덤한) 비밀키 문자열 배정 ";
     private Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
@@ -50,6 +52,16 @@ public class JwtProcessor {
             return false;
         }
         return !claims.getBody().getExpiration().before(new Date());
+    }
+
+    private static Set<String> invalidatedTokens = new HashSet<>();
+
+    public static void invalidateToken(String token) { // 토큰 무효화
+        invalidatedTokens.add(token);
+    }
+
+    public static boolean isTokenInvalidated(String token) { // 무효화된 토큰인지 확인
+        return invalidatedTokens.contains(token);
     }
 
 }
