@@ -17,11 +17,11 @@ public class SearchService {
 
     @Transactional
     public Keyword getKeyword(long keno) {
-        Keyword keyword = searchMapper.selectKeywordByKeno(keno);
-        if (keyword == null) {
+        Keyword keywords = searchMapper.selectKeywordByKeno(keno);
+        if (keywords == null) {
             throw new NoSuchElementException();
         }
-        return Optional.of(keyword).orElseThrow(NoSuchElementException::new);
+        return Optional.of(keywords).orElseThrow(NoSuchElementException::new);
     }
 
     public List<Keyword> getKeywordList(long keno) {
