@@ -3,9 +3,11 @@ package com.kb.finance.service;
 import com.kb.finance.dto.Community;
 import com.kb.finance.dto.Stock;
 import com.kb.finance.dto.StockChart;
+import com.kb.finance.dto.StockSymbol;
 import com.kb.finance.mapper.StockMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -44,8 +46,32 @@ public class StockService {
         return stockCharts;
     }
 
-    public List<Community> getCommunities(long id) {
-        List<Community> communities = mapper.selectCommunity(id);
+    public StockSymbol getStockSymbol(long id) {
+        Stock stock = getStockById(id);
+        List<StockChart> stockCharts = getStockChart(id);
+        if(stock == null) {
+            log.info("No stock found");
+            throw new NoSuchElementException();
+        }
+        List<Integer> minMax = mapper.selectMinMax(id);
+
+        StockSymbol stockSymbol = new StockSymbol();
+        stockSymbol.setMinValue(minMax.get(0));
+        stockSymbol.setMaxValue(minMax.get(1));
+        stockSymbol.setTradingVol(stock.getStockVolume());
+
+
+
+        return stockSymbol;
+    }
+
+    public List<Community> getCommunities(long id, String email) {
+        HashMap<String, Object> param = new HashMap<>();
+        param.put("id", id);
+        param.put("email", email);
+
+        List<Community> communities = mapper.selectCommunity(param);
+
         if(communities == null || communities.isEmpty()) {
             log.info("No communities found");
             throw new NoSuchElementException();

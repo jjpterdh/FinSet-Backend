@@ -11,7 +11,7 @@ import lombok.*;
 
 public class StockChart {
     private long scno;
-    private String stockSymbol;
+    private long sno;
     private String stockDatetime;
     private long stockPrice;
 }

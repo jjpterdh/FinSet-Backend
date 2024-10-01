@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.finance.mapper.FundMapper">
+    <resultMap id="fundResultMap" type="com.kb.finance.dto.Fund">
+        <id property="fno" column="fno" />
+        <result property="fundCategory"  column="fund_category"/>
+        <result property="fundName"  column="fund_name"/>
+        <result property="fundEarningRatio" column="fund_earning_ratio"/>
+        <result property="fundStandard" column="fund_standard"/>
+        <result property="fundChangeRate" column="fund_change_rate"/>
+        <result property="fundScale" column="fund_scale"/>
+        <result property="fundCompany" column="fund_company"/>
+        <result property="fundLisk" column="fund_lisk"/>
+        <result property="fundType" column="fund_type"/>
+        <result property="fundCharge" column="fund_charge"/>
+        <result property="fundRegdate" column="fund_regdate"/>
+    </resultMap>
+
+    <resultMap id="fundChartResultMap" type="com.kb.finance.dto.FundChart">
+        <id property="fcno" column="fcno" />
+        <result property="fundName"  column="fund_name"/>
+        <result property="fundDatetime"  column="fund_datetime"/>
+        <result property="fundVal"  column="fund_val"/>
+        <result property="benVal"  column="ben_val"/>
+        <result property="typeVal"  column="type_val"/>
+    </resultMap>
+
+    <select id="selectProfit" resultMap="fundResultMap">
+        SELECT *
+        FROM tbl_fund
+        WHERE fund_category='수익률'
+        ORDER BY fund_regdate DESC
+    </select>
+
+    <select id="selectSales" resultMap="fundResultMap">
+        SELECT *
+        FROM tbl_fund
+        WHERE fund_category='판매액'
+        ORDER BY fund_regdate DESC
+    </select>
+
+
+
+    <select id="selectAccumulation" resultMap="fundResultMap">
+        SELECT *
+        FROM tbl_fund
+        WHERE fund_category='적립액'
+        ORDER BY fund_regdate DESC
+    </select>
+
+
+    <select id="selectFundById" resultMap="fundResultMap" parameterType="long">
+        SELECT
+            *
+        FROM tbl_fund
+        WHERE fno=#{fno}
+    </select>
+
+
+    <select id="selectFundChart" resultMap="fundChartResultMap" parameterType="long">
+        SELECT
+            fc.fcno, fc.fund_name, fc.fund_datetime, fc.fund_val, fc.ben_val, fc.type_val
+        FROM
+            tbl_fund f
+        JOIN
+            tbl_fund_chart fc ON f.fund_name=fc.fund_name
+        WHERE
+            fno=#{fno}
+    </select>
+
+</mapper>

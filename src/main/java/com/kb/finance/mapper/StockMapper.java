@@ -12,5 +12,6 @@ public interface StockMapper {
     List<Stock> selectAll(Map sort);
     List<StockChart> selectChart(Long id);
     Stock selectById(Long id);
-    List<Community> selectCommunity(Long id);
+    List<Community> selectCommunity(HashMap<> param);
+    List<Integer> selectMinMax(Long id);
 }

@@ -15,7 +15,7 @@
 
     <resultMap id="stockChartResultMap" type="com.kb.finance.dto.StockChart">
         <id property="scno" column="scno" />
-        <result property="stockSymbol"  column="stock_symbol"/>
+        <result property="sno"  column="sno"/>
         <result property="stockDatetime"  column="stock_datetime"/>
         <result property="stockPrice"  column="stock_price"/>
 
@@ -28,6 +28,8 @@
         <result property="content" column="content"/>
         <result property="updatedAt" column="updatedAt"/>
     </resultMap>
+
+
 
     <select id="selectAll" resultMap="stockResultMap" parameterType="map">
         SELECT
@@ -59,23 +61,38 @@
 
     <select id="selectChart" resultMap="stockChartResultMap" parameterType="long">
         SELECT
-            sc.scno, sc.stock_symbol, sc.stock_datetime, sc.stock_price
-        FROM
-            tbl_stock s
-        JOIN tbl_stock_chart sc ON s.stock_symbol=sc.stock_symbol
-        WHERE sno=#{sno}
-        ORDER BY sc.stock_datetime DESC
-
-    </select>
-
-    <select id="selectCommunity" resultMap="communityResultMap" parameterType="long">
-        SELECT
             *
         FROM
-            tbl_community
+            tbl_stock_chart
         WHERE sno=#{sno}
+        ORDER BY stock_datetime DESC
+
+    </select>
+
+    <select id="selectMinMax" resultType="int" parameterType="long">
+        SELECT MIN(stock_price), MAX(stock_price)
+        FROM
+            tbl_stock_chart
+        WHERE sno=#{sno}
+    </select>
+
+
+    <select id="selectCommunity" resultMap="communityResultMap" parameterType="map">
+        SELECT
+            c.*
+        FROM
+            tbl_community c
+        WHERE sno=#{sno}
+        JOIN tbl_community_like cl ON c.bno=cl.bno
         ORDER BY updatedAt DESC;
     </select>
+
+
+    <insert id="insertCommunity"  parameterType="com.kb.finance.dto.Community">
+        INSERT INTO tbl_community(uno, sno, content)
+        VALUES(#{uno}, #{sno}, #{content})
+    </insert>
+
 
 
 </mapper>

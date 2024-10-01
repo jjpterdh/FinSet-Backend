@@ -13,6 +13,8 @@ public class Community {
     long bno;
     long uno;
     long sno;
+    long likes;
+    boolean isLiked;
     String content;
     String updatedAt;
 }
