@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -13,6 +14,15 @@ import java.util.Optional;
 @Service
 public class WishService {
     private final WishMapper wishMapper;
+
+    public List<Wish> getWishList(long uno) {
+        List<Wish> wishes = wishMapper.getWishesById(uno);
+        if (wishes.isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return wishes;
+    }
+
 
     @Transactional(rollbackFor = Exception.class)
     public Wish insertWish(Wish wish) {

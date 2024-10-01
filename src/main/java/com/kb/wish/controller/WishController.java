@@ -21,6 +21,12 @@ import java.util.List;
 public class WishController {
     private final WishService wishService;
 
+    @GetMapping("")
+    public ResponseEntity<List<Wish>> getAllWish(@AuthenticationPrincipal Member member) {
+        List<Wish> wishes = wishService.getWishList(member.getUno());
+        return ResponseEntity.ok(wishes);
+    }
+
 
     @PostMapping("")
     public ResponseEntity<String> addWish(@RequestBody Wish wish, @AuthenticationPrincipal Member member) {
