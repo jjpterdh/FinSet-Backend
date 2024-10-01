@@ -48,9 +48,9 @@ public class StockController {
 
     @GetMapping("/{sno}/community")
     public ResponseEntity<List<Community>> getCommunities(@PathVariable long sno, @AuthenticationPrincipal Member principal) {
-        String email=principal.getUsername();
-        System.out.println(email);
-        return ResponseEntity.ok(stockService.getCommunities(sno, email));
+        long uno=principal.getUno();
+        log.info("uno:"+uno);
+        return ResponseEntity.ok(stockService.getCommunities(sno, uno));
     }
 
     @PostMapping("{sno}/community/likes")

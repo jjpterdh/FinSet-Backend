@@ -10,11 +10,10 @@ import lombok.*;
 @ToString
 
 public class Community {
-    long bno;
-    long uno;
-    long sno;
-    long likes;
-    boolean isLiked;
-    String content;
-    String updatedAt;
+    private long bno;
+    private long sno;
+    private long likes;
+    private int isLiked;
+    private String content;
+    private String updatedAt;
 }
