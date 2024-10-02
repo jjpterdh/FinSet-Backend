@@ -149,7 +149,7 @@ CREATE TABLE `tbl_news` (
                             `link` TEXT NULL COMMENT 'content_url',
                             `image` TEXT NULL COMMENT 'image_url',
                             PRIMARY KEY (`nno`),
-                            FOREIGN KEY (`sno`) REFERENCES `tbl_stock`(`sno`),
+                            FOREIGN KEY (`sno`) REFERENCES `tbl_stock`(`sno`)
 );
 
 CREATE TABLE `tbl_type` (
