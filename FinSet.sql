@@ -1545,11 +1545,11 @@ VALUES
     (5, '2024-08-01', 236500);
 
 INSERT INTO tbl_forex(forex_name, forex_basic_rate, forex_buy, forex_sell, forex_imgUrl) VALUE
-    ('CNH',190.39,188.48,192.29, '/asset/logo/Forex/CHN.png'),
-('EUR',1495.24,1480.28,1510.19, '/asset/logo/Forex/EU.jpg'),
-('GBP',1746.21,1728.74,1763.67, '/asset/logo/Forex/GBP.png'),
-('JPY(100)',929.08,919.78,938.37, '/asset/logo/Forex/Japan.png'),
-('USD',1367.70,1354.02,1381.37, '/asset/logo/Forex/USA.png');
+    ('중국 위안(CNY)',190.39,188.48,192.29, '/asset/logo/Forex/CHN.png'),
+    ('유럽 유로(EUR)',1495.24,1480.28,1510.19, '/asset/logo/Forex/EU.jpg'),
+    ('영국 파운드(GBP)',1746.21,1728.74,1763.67, '/asset/logo/Forex/GBP.png'),
+    ('일본 엔(JPY)',929.08,919.78,938.37, '/asset/logo/Forex/Japan.png'),
+    ('미국 달러(USD)',1367.70,1354.02,1381.37, '/asset/logo/Forex/USA.png');
 
 INSERT INTO `tbl_forex_chart` (forex_basic_rate, forex_datetime, forex_name) VALUES
                                                                                  (187.96, '2024-09-13', 'CNH'),
