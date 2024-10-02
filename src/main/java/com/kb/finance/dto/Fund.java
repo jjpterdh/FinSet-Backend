@@ -21,6 +21,7 @@ public class Fund {
     private String fundType;
     private String fundCharge;
     private String fundRegdate;
+    private String imgUrl;
 
 
 }

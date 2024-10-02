@@ -11,6 +11,7 @@
         <result property="stockPrice" column="stock_price"/>
         <result property="priceChangeRate" column="price_change_rate"/>
         <result property="stockVolume" column="stock_volume"/>
+        <result property="imgUrl" column="stock_imgUrl"/>
     </resultMap>
 
     <resultMap id="stockChartResultMap" type="com.kb.finance.dto.StockChart">

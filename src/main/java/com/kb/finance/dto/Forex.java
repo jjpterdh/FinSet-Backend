@@ -14,4 +14,5 @@ public class Forex {
     private double forexBasicRate;
     private double forexBuy;
     private double forexSell;
+    private String imgUrl;
 }

@@ -10,6 +10,7 @@
         <result property="forexBasicRate"  column="forex_basic_rate"/>
         <result property="forexBuy" column="forex_buy"/>
         <result property="forexSell" column="forex_sell"/>
+        <result property="imgUrl" column="forex_imgUrl"/>
     </resultMap>
 
     <resultMap id="forexChartResultMap" type="com.kb.finance.dto.ForexChart">

@@ -21,6 +21,7 @@ public class Deposit {
     private String depositWay;
     private String depositTarget;
     private String depositLink;
+    private String imgUrl;
 
 
 
