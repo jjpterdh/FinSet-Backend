@@ -17,6 +17,7 @@
         <result property="installmentAmount" column="installment_amount"/>
         <result property="installmentWay" column="installment_way"/>
         <result property="installmentTarget" column="installment_target"/>
+        <result property="imgUrl" column="installment_imgUrl"/>
         
 
 

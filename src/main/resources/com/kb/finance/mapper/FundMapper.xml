@@ -17,6 +17,7 @@
         <result property="fundType" column="fund_type"/>
         <result property="fundCharge" column="fund_charge"/>
         <result property="fundRegdate" column="fund_regdate"/>
+        <result property="imgUrl" column="fund_imgUrl"/>
     </resultMap>
 
     <resultMap id="fundChartResultMap" type="com.kb.finance.dto.FundChart">

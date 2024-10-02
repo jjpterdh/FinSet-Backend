@@ -14,5 +14,6 @@ public class Stock {
     private int stockPrice;
     private double priceChangeRate;
     private long stockVolume;
+    private String imgUrl;
 
 }

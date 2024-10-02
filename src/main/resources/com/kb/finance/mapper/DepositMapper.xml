@@ -18,6 +18,7 @@
         <result property="depositWay" column="deposit_way"/>
         <result property="depositTarget" column="deposit_target"/>
         <result property="depositLink" column="deposit_link"/>
+        <result property="imgUrl" column="deposit_imgUrl"/>
 
 
     </resultMap>
