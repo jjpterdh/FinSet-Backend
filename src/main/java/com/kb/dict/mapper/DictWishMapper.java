@@ -7,7 +7,7 @@ import com.kb.dict.dto.DictWish;
 import java.util.List;
 
 public interface DictWishMapper{
-    List<DictWish> getList();
+    List<DictWish> getList(long uno);
     int deleteWish(Dict dict);
     DictWish get(long id);
     int insertWish(Dict dict);

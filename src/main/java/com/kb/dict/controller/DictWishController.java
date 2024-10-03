@@ -20,9 +20,10 @@ import java.util.List;
 public class DictWishController {
     private final  DictWishService dictWishService;
     @GetMapping("")
-    public ResponseEntity<List<DictWish>> getList() {
-        return ResponseEntity.ok(dictWishService.getList());
+    public ResponseEntity<List<DictWish>> getList(@RequestParam long uno) {
+        return ResponseEntity.ok(dictWishService.getList(uno));
     }
+
     @GetMapping("/{dwno}")
     public ResponseEntity<DictWish> get(@PathVariable("dwno") long dwno) {
         return ResponseEntity.ok(dictWishService.get(dwno));
