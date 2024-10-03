@@ -11,7 +11,8 @@ import lombok.*;
 
 public class ForexChart {
     private long fecno;
+    private String forexName;
+    private String feno;
     private double forexBasicRate;
     private String forexDatetime;
-    private String forexName;
 }
