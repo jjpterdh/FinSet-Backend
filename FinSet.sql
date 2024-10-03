@@ -1546,7 +1546,7 @@ VALUES
     (5, '2024-08-01', 236500);
 
 INSERT INTO tbl_forex(forex_name, forex_basic_rate, forex_buy, forex_sell, forex_imgUrl) VALUE
-    ('중국 위안(CHN)',190.39,188.48,192.29, '/asset/logo/Forex/CHN.png'),
+    ('중국 위안(CNH)',190.39,188.48,192.29, '/asset/logo/Forex/CNH.png'),
     ('유럽 유로(EUR)',1495.24,1480.28,1510.19, '/asset/logo/Forex/EU.jpg'),
     ('영국 파운드(GBP)',1746.21,1728.74,1763.67, '/asset/logo/Forex/GBP.png'),
     ('일본 엔(JPY)',929.08,919.78,938.37, '/asset/logo/Forex/Japan.png'),
