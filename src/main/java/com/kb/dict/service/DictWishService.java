@@ -16,16 +16,16 @@ import java.util.Optional;
 @Slf4j
 public class DictWishService {
     final DictWishMapper wishMapper;
-    public List<DictWish> getList() {
-        List<DictWish> dict = wishMapper.getList();
+
+    public List<DictWish> getList(long uno) {
+        List<DictWish> dict = wishMapper.getList(uno);
         if (dict.isEmpty()) {
             throw new NoSuchElementException();
-
-        }else {
+        } else {
             return dict;
         }
-
     }
+
 
     public DictWish get(long id) {
         return Optional.ofNullable(wishMapper.get(id))
