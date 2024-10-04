@@ -2,6 +2,7 @@ package com.kb.search.service;
 
 import com.kb.search.dto.Keyword;
 import com.kb.search.mapper.SearchMapper;
+import com.kb.wish.dto.Wish;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,15 @@ public class SearchService {
             throw  new NoSuchElementException();
         }
         return getKeyword(keyword.getKeno());
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteKeyword(int keno) {
+        int result = searchMapper.deleteKeyword(keno);
+        if (result != 1) {
+            throw new NoSuchElementException();
+        }
+        return result;
     }
 
 }
