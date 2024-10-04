@@ -46,7 +46,6 @@ public class SecurityController {
         // Invalidate session
         request.getSession().invalidate();
 
-        // Send logout confirmation
         return ResponseEntity.ok("Logout successful");
     }
 }

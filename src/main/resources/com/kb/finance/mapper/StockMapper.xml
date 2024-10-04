@@ -24,6 +24,7 @@
     <resultMap id="communityResultMap" type="com.kb.finance.dto.Community">
         <id property="bno" column="bno" />
         <result property="sno" column="sno"/>
+        <result property="name" column="user_name"/>
         <result property="content" column="content"/>
         <result property="likes" column="likes"/>
         <result property="isLiked" column="isLiked"/>
@@ -86,6 +87,7 @@
         SELECT
             c.bno,
             c.sno,
+            tu.user_name,
             COUNT(cl.uno) as likes,
             CASE WHEN #{uno} IN (SELECT uno FROM tbl_community_like WHERE bno = c.bno) THEN 1 ELSE 0 END AS isLiked,
             c.content,
@@ -94,6 +96,7 @@
             tbl_community c
         LEFT JOIN
             tbl_community_like cl ON c.bno=cl.bno
+        LEFT JOIN tbl_user tu on tu.uno = c.uno
         WHERE
             c.sno=#{sno}
         GROUP BY
