@@ -30,4 +30,8 @@
         VALUES (default, #{uno}, #{keyword})
     </insert>
 
+    <delete id="deleteKeyword" parameterType="long">
+        DELETE FROM tbl_keyword WHERE keno = #{keno}
+    </delete>
+
 </mapper>

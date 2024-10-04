@@ -8,4 +8,5 @@ public interface SearchMapper {
     Keyword selectKeywordByKeno(long keno);
     List<Keyword> selectKeywordList(long keno);
     int insertKeyword(Keyword keyword);
+    int deleteKeyword(long keno);
 }

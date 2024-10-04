@@ -34,4 +34,13 @@ public class SearchController {
         return ResponseEntity.ok(service.createKeyword(keyword));
     }
 
+    @DeleteMapping("/{keno}") // 검색 키워드 삭제
+    public ResponseEntity<String> deleteKeyword(@PathVariable("keno") int keno) {
+        int result = service.deleteKeyword(keno);
+        if (result == 1) {
+            return ResponseEntity.ok("Keyword deleted success");
+        } else return ResponseEntity.ok("Keyword deleted fail");
+    }
+
+
 }
