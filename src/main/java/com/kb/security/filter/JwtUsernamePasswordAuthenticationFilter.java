@@ -27,16 +27,16 @@ public class JwtUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
         super(authenticationManager);
 
         setFilterProcessesUrl("/api/auth/login");	          // POST 로그인 요청 url
-        setAuthenticationSuccessHandler(loginSuccessHandler);	// 로그인 성공 핸들러 등록
-        setAuthenticationFailureHandler(loginFailureHandler);  // 로그인 실패 핸들러 등록
+        setAuthenticationSuccessHandler(loginSuccessHandler);	// 로그인 성공 핸들러
+        setAuthenticationFailureHandler(loginFailureHandler);  // 로그인 실패 핸들러
     }
 
-    // 로그인 요청 URL인 경우 로그인 작업 처리
+    // 로그인
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
 
-        // 요청 BODY의 JSON에서 id, password  LoginDTO
+        // 요청 BODY의 JSON에서 id, password
         LoginDTO login = LoginDTO.of(request);
 
         // 인증 토큰(UsernamePasswordAuthenticationToken) 구성
