@@ -12,12 +12,7 @@
         <result property="createdAt" column="createdAt"/>
     </resultMap>
 
-    <insert id="addWish" parameterType="com.kb.dict.dto.DictWish">
-        INSERT INTO tbl_dict_wish (dino,uno,memo, createdAt)
-        VALUES (#{dino},#{uno},#{memo}, #{createdAt});
-    </insert>
-
-    <insert id="insertWish" parameterType="com.kb.dict.dto.DictWish">
+    <insert id="insertWish" parameterType="com.kb.dict.dto.Dict">
         INSERT INTO tbl_dict_wish (dino,uno,memo)
         VALUES (#{dino},#{uno} ,NULL);
     </insert>
@@ -28,7 +23,7 @@
         where dwno=#{dwno}
     </update>
 
-    <delete id="deleteWish" parameterType="com.kb.dict.dto.DictWish">
+    <delete id="deleteWish" parameterType="com.kb.dict.dto.Dict">
         DELETE FROM tbl_dict_wish
         WHERE dino = #{dino};
     </delete>
@@ -53,4 +48,11 @@
                 JOIN tbl_dict d ON w.dino = d.dino
         WHERE w.uno = #{uno} and w.dwno = #{dwno};
     </select>
+
+    <update id="updateStatus" parameterType="com.kb.dict.dto.Dict">
+        UPDATE tbl_dict
+        SET status = #{status}
+        WHERE dino = #{dino}
+    </update>
+
 </mapper>
