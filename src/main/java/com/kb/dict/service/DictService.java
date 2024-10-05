@@ -49,16 +49,19 @@ public class DictService {
 
 
     public Dict updateStatus(Dict dict ) {
-        System.out.println("Current status: " + dict.getStatus() + ", dino: " + dict.getDino());
+        System.out.println("Current status: " + dict.getStatus() + ", dino: " + dict.getDino()+ ", uno: " + dict.getUno());
 
 
         if (dict.getStatus() == 0) {
-            dict.setStatus(1);
+            dict.setStatus(1);  // dict 객체의 속성은 변하지만 db 데이터는 변동 X
             wishMapper.insertWish(dict);
+            wishMapper.updateStatus(dict);  // updateStatus를 해야 db의 status 변경됨
         } else if (dict.getStatus() == 1) {
-            dict.setStatus(0);
+            dict.setStatus(0);  // dict 객체의 속성은 변하지만 db 데이터는 변동 X
             wishMapper.deleteWish(dict);
+            wishMapper.updateStatus(dict);  // updateStatus를 해야 db의 status 변경됨
         }
+
 
         return dict;
     }

@@ -12,4 +12,5 @@ public interface DictWishMapper{
     DictWish get(long id);
     int insertWish(Dict dict);
     int updateWish(DictWish dictWish);
+    int updateStatus(Dict dict);
 }

@@ -14,3 +14,5 @@ public class Dict {
     private int status;
     private long uno;
 }
+
+
