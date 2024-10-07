@@ -1,6 +1,8 @@
 package com.kb.finance.controller;
 
 
+import com.kb.finance.Batch.ForexBatch;
+import com.kb.finance.Batch.ForexScheduler;
 import com.kb.finance.dto.Forex;
 import com.kb.finance.dto.ForexChart;
 import com.kb.finance.service.ForexService;
@@ -8,10 +10,7 @@ import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +22,7 @@ import java.util.List;
 public class ForexController {
     // 외환
     private final ForexService forexService;
+    private final ForexScheduler forexScheduler;
 
     @GetMapping("")
     public ResponseEntity<List<Forex>> findAll() {
@@ -37,6 +37,17 @@ public class ForexController {
     @GetMapping("/{feno}/chart")
     public ResponseEntity<List<ForexChart>> findChart(@PathVariable("feno") long feno) {
         return ResponseEntity.ok(forexService.getForexChartById(feno));
+    }
+
+    @GetMapping("/runForexBatch")
+    @ResponseBody
+    public String runForexBatch() {
+        try {
+            forexScheduler.runForexJob();
+            return "Forex batch executed successfully.";
+        } catch (Exception e) {
+            return "Error executing Forex batch: " + e.getMessage();
+        }
     }
 
 }

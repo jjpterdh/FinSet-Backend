@@ -29,6 +29,7 @@ dependencies {
   implementation ("org.springframework:spring-context:${springVersion}")
           { exclude group: 'commons-logging', module: 'commons-logging' }
   implementation "org.springframework:spring-webmvc:${springVersion}"
+  implementation "org.springframework:spring-core:${springVersion}"
   implementation 'javax.inject:javax.inject:1'
 
   // AOP
@@ -97,6 +98,11 @@ dependencies {
 
   // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
   implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+
+  // 배치
+  implementation "org.springframework.batch:spring-batch-core:4.3.8"
+  implementation "org.springframework.batch:spring-batch-infrastructure:4.3.8"
+  implementation "org.springframework:spring-context-support:${springVersion}"
 
 }
 

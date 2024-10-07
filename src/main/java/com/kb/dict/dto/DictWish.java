@@ -15,6 +15,6 @@ public class DictWish {
     private long uno;
     private long dino;
     private String memo;
-    private Timestamp createdAt;
+    private String createdAt;
 
 }
