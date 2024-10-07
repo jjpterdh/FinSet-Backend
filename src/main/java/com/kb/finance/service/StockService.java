@@ -86,7 +86,11 @@ public class StockService {
         stockSymbol.setClosePrice(output.get("stck_prpr").toString());
 
 
-//        stockSymbol.setTradingVol(stock.getStockVolume());
+        // 주식테이블 DB에서 들고오기
+        Stock stockDB = getStockById(id);
+        stockSymbol.setSales(stockDB.getStockSales());
+        stockSymbol.setProfit(stockDB.getStockProfit());
+        stockSymbol.setIncome(stockDB.getStockIncome());
 
 
 
