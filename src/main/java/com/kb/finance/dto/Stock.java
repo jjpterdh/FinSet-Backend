@@ -14,6 +14,9 @@ public class Stock {
     private int stockPrice;
     private double priceChangeRate;
     private long stockVolume;
+    private String stockSales; // 매출
+    private String stockProfit; //
+    private String stockIncome; // 순수익
     private String imgUrl;
 
 }

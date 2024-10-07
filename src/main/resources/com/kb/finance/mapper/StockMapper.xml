@@ -11,6 +11,9 @@
         <result property="stockPrice" column="stock_price"/>
         <result property="priceChangeRate" column="price_change_rate"/>
         <result property="stockVolume" column="stock_volume"/>
+        <result property="stockSales" column="stock_sales"/>
+        <result property="stockProfit" column="stock_profit"/>
+        <result property="stockIncome" column="stock_income"/>
         <result property="imgUrl" column="stock_imgUrl"/>
     </resultMap>
 

@@ -36,14 +36,17 @@ create table tbl_auth
 );
 
 CREATE TABLE `tbl_stock` (
-                             `sno` INT NOT NULL AUTO_INCREMENT,
-                             `stock_symbol` VARCHAR(10) NOT NULL COMMENT '직접입력',
-                             `stock_name` VARCHAR(50) NOT NULL COMMENT '(주식현재가 시세) rprs_mrkt_kor_name',
-                             `stock_price` INT NOT NULL COMMENT '(주식현재가 시세) stck_prpr',
-                             `price_change_rate` DOUBLE NOT NULL COMMENT '(주식현재가 시세) prdy_ctrt',
-                             `stock_volume` INT NOT NULL COMMENT '(주식현재가 시셰) acml_vol',
-                             `stock_imgUrl` VARCHAR(255) NULL COMMENT '이미지 url',
-                             PRIMARY KEY (`sno`)
+    `sno` INT NOT NULL AUTO_INCREMENT,
+    `stock_symbol` VARCHAR(10) NOT NULL COMMENT '직접입력',
+    `stock_name` VARCHAR(50) NOT NULL COMMENT '(주식현재가 시세) rprs_mrkt_kor_name',
+    `stock_price` INT NOT NULL COMMENT '(주식현재가 시세) stck_prpr',
+    `price_change_rate` DOUBLE NOT NULL COMMENT '(주식현재가 시세) prdy_ctrt',
+    `stock_volume` INT NOT NULL COMMENT '(주식현재가 시세) acml_vol',
+    `stock_sales` VARCHAR(255) NOT NULL COMMENT '(주식 매출가)',
+    `stock_profit` VARCHAR(255) NOT NULL COMMENT '(주식 영업이익)',
+    `stock_income` VARCHAR(255) NOT NULL COMMENT '(주식 순수익)',
+    `stock_imgUrl` VARCHAR(255) NULL COMMENT '이미지 url',
+     PRIMARY KEY (`sno`)
 );
 
 CREATE TABLE `tbl_deposit` (
@@ -1342,38 +1345,38 @@ INSERT INTO tbl_fund_chart (fund_name, fund_datetime, fund_val, ben_val, type_va
                                                                                        ('미래에셋코어테크증권자투자신탁(주식)종류A-e', '2024-08-31', 66.95, 66.75, 41.45),
                                                                                        ('미래에셋코어테크증권자투자신탁(주식)종류A-e', '2024-09-01', 65.50, 65.00, 40.00);
 
-INSERT INTO tbl_stock (stock_symbol, stock_name, stock_price, price_change_rate, stock_volume, stock_imgUrl)
+INSERT INTO tbl_stock (stock_symbol, stock_name, stock_price, price_change_rate, stock_volume, stock_sales, stock_profit, stock_income, stock_imgUrl)
 VALUES
-    ('005930', '삼성전자', 65200, -1.66, 8175458, '/asset/logo/Stock/Samsung.jpg'),
-    ('000660', 'SK하이닉스', 164800, -2.37, 2036605, '/asset/logo/Stock/SKStock.jpg'),
-    ('373220', 'LG에너지솔루션', 405000, -2.17, 93841, '/asset/logo/Stock/LG.png'),
-    ('207940', '삼성바이오로직스', 986000, 1.54, 19369, '/asset/logo/Stock/Samsung.jpg'),
-    ('005380', '현대차', 236000, 1.72, 271134, '/asset/logo/Stock/Kia.jpg'),
-    ('005935', '삼성전자우', 53000, -0.75, 622801, '/asset/logo/Stock/Samsung.jpg'),
-    ('068270', '셀트리온', 194600, -0.51, 106123, '/asset/logo/Stock/'),
-    ('000270', '기아', 100500, 1.41, 530603, '/asset/logo/Stock/'),
-    ('105560', 'KB금융', 80700, 3.33, 587431, '/asset/logo/Stock/KB.jpg'),
-    ('005490', 'POSCO홀딩스', 365000, 1.81, 169670, '/asset/logo/Stock/PoscoStock.jpg'),
-    ('055550', '신한지주', 55400, 2.78, 330104, '/asset/logo/Stock/Shinhan.png'),
-    ('028260', '삼성물산', 148800, -0.20, 51780, '/asset/logo/Stock/Samsung.jpg'),
-    ('035420', 'NAVER', 160100, 0.06, 114680, '/asset/logo/Stock/naver.png'),
-    ('006400', '삼성SDI', 365500, 0.41, 137356, '/asset/logo/Stock/Samsung.jpg'),
-    ('051910', 'LG화학', 322000, 0.47, 59832, '/asset/logo/Stock/LG.png'),
-    ('012330', '현대모비스', 221500, 3.75, 141360, '/asset/logo/Stock/HyundaiStock.jpg'),
-    ('032830', '삼성생명', 96400, 0.21, 49934, '/asset/logo/Stock/Samsung.jpg'),
-    ('003670', '포스코퓨처엠', 229000, -2.14, 149171, '/asset/logo/Stock/PsocoFuture.jpg'),
-    ('138040', '메리츠금융지주', 92400, 2.33, 70403, '/asset/logo/Stock/Meritz.png'),
-    ('086790', '하나금융지주', 60800, 4.29, 384681, '/asset/logo/Stock/Hana.png'),
-    ('066570', 'LG전자', 104300, 1.86, 227424, '/asset/logo/Stock/LG.png'),
-    ('196170', '알테오젠', 320000, 1.27, 208997, '/asset/logo/Stock/Alteogen.jpg'),
-    ('000810', '삼성화재', 349000, -0.43, 27072, '/asset/logo/Stock/Samsung.jpg'),
-    ('329180', 'HD현대중공업', 185200, 4.10, 121654, '/asset/logo/Stock/HDJung.jpg'),
-    ('035720', '카카오', 35800, 1.27, 281308, '/asset/logo/Stock/Kakao.jpg'),
-    ('259960', '크래프톤', 327000, 1.87, 19316, '/asset/logo/Stock/Krafton.jpg'),
-    ('247540', '에코프로비엠', 157300, 0.00, 207137, '/asset/logo/Stock/EcoPro.jpg'),
-    ('012450', '한화에어로스페이스', 290000, 0.00, 0, '/asset/logo/Stock/HanwhaAero.png'),
-    ('033780', 'KT&G', 110100, 0.09, 56622, '/asset/logo/Stock/KTG.png'),
-    ('015760', '한국전력', 22050, 0.46, 352370, '/asset/logo/Stock/KoreaElec.jpg');
+    ('005930', '삼성전자', 65200, -1.66, 8175458, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Samsung.jpg'),
+    ('000660', 'SK하이닉스', 164800, -2.37, 2036605, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/SKStock.jpg'),
+    ('373220', 'LG에너지솔루션', 405000, -2.17, 93841, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/LG.png'),
+    ('207940', '삼성바이오로직스', 986000, 1.54, 19369, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Samsung.jpg'),
+    ('005380', '현대차', 236000, 1.72, 271134, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Kia.jpg'),
+    ('005935', '삼성전자우', 53000, -0.75, 622801, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Samsung.jpg'),
+    ('068270', '셀트리온', 194600, -0.51, 106123, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/'),
+    ('000270', '기아', 100500, 1.41, 530603, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/'),
+    ('105560', 'KB금융', 80700, 3.33, 587431, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/KB.jpg'),
+    ('005490', 'POSCO홀딩스', 365000, 1.81, 169670, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/PoscoStock.jpg'),
+    ('055550', '신한지주', 55400, 2.78, 330104, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Shinhan.png'),
+    ('028260', '삼성물산', 148800, -0.20, 51780, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Samsung.jpg'),
+    ('035420', 'NAVER', 160100, 0.06, 114680, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/naver.png'),
+    ('006400', '삼성SDI', 365500, 0.41, 137356, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Samsung.jpg'),
+    ('051910', 'LG화학', 322000, 0.47, 59832, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/LG.png'),
+    ('012330', '현대모비스', 221500, 3.75, 141360, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/HyundaiStock.jpg'),
+    ('032830', '삼성생명', 96400, 0.21, 49934, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Samsung.jpg'),
+    ('003670', '포스코퓨처엠', 229000, -2.14, 149171, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/PsocoFuture.jpg'),
+    ('138040', '메리츠금융지주', 92400, 2.33, 70403, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Meritz.png'),
+    ('086790', '하나금융지주', 60800, 4.29, 384681, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Hana.png'),
+    ('066570', 'LG전자', 104300, 1.86, 227424, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/LG.png'),
+    ('196170', '알테오젠', 320000, 1.27, 208997, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Alteogen.jpg'),
+    ('000810', '삼성화재', 349000, -0.43, 27072, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Samsung.jpg'),
+    ('329180', 'HD현대중공업', 185200, 4.10, 121654, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/HDJung.jpg'),
+    ('035720', '카카오', 35800, 1.27, 281308, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Kakao.jpg'),
+    ('259960', '크래프톤', 327000, 1.87, 19316, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/Krafton.jpg'),
+    ('247540', '에코프로비엠', 157300, 0.00, 207137, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/EcoPro.jpg'),
+    ('012450', '한화에어로스페이스', 290000, 0.00, 0, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/HanwhaAero.png'),
+    ('033780', 'KT&G', 110100, 0.09, 56622, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/KTG.png'),
+    ('015760', '한국전력', 22050, 0.46, 352370, '74조원', '10조원', '9.8조원', '/asset/logo/Stock/KoreaElec.jpg');
 
 INSERT INTO tbl_stock_chart (sno, stock_datetime, stock_price)
 VALUES
