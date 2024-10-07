@@ -8,12 +8,11 @@ import lombok.*;
 @Setter
 @ToString
 public class StockSymbol {
-    private int minValue;
-    private int maxValue;
-    private int openPrice;
-    private int endPrice;
-    private int closePrice;
-    private long tradingVol;
+    private String minValue;
+    private String maxValue;
+    private String openPrice;
+    private String closePrice;
+    private String tradingVol;
     private String sales;
     private String profit;
     private String income;
