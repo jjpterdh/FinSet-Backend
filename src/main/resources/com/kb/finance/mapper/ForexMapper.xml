@@ -22,6 +22,16 @@
 
     </resultMap>
 
+    <insert id="insertForexData" parameterType="com.kb.finance.dto.ForexChart">
+        INSERT INTO tbl_forex_chart(forex_basic_rate, forex_datetime, feno) VALUES (#{forexBasicRate}, now(), #{feno})
+    </insert>
+
+    <update id="updateForexInfo" parameterType="com.kb.finance.dto.Forex">
+        UPDATE tbl_forex
+        SET forex_basic_rate = #{forexBasicRate}, forex_buy = #{forexBuy}, forex_sell = #{forexSell}
+        WHERE feno = #{feno}
+    </update>
+
     <select id="selectAll" resultMap="forexResultMap">
         SELECT
             *
@@ -44,6 +54,10 @@
         JOIN tbl_forex_chart fc ON f.feno=fc.feno
         WHERE fc.feno=#{feno}
         ORDER BY fc.forex_datetime DESC
+    </select>
+
+    <select id="selectByName" resultType="com.kb.finance.dto.Forex" parameterType="String">
+        SELECT * FROM tbl_forex WHERE forex_name = #{forexName}
     </select>
 
 </mapper>
