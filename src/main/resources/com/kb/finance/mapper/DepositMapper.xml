@@ -32,7 +32,7 @@
         SELECT
             *
         FROM tbl_deposit
-        WHERE deposit_category = '단리'
+        WHERE deposit_category LIKE '%단리%'
     </select>
 
 
@@ -40,7 +40,7 @@
         SELECT
             *
         FROM tbl_deposit
-        WHERE deposit_category = '복리'
+        WHERE deposit_category LIKE '%복리%'
     </select>
 
 

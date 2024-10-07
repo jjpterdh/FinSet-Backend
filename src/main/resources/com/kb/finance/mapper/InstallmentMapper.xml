@@ -33,14 +33,14 @@
         SELECT
             *
         FROM tbl_installment
-        WHERE installment_category = '단리'
+        WHERE installment_category LIKE '%단리%'
     </select>
 
     <select id="selectCompound" resultMap="installmentResultMap">
         SELECT
             *
         FROM tbl_installment
-        WHERE installment_category = '복리'
+        WHERE installment_category LIKE '%복리%'
     </select>
 
 

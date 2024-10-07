@@ -4,13 +4,19 @@ package com.kb.finance.controller;
 import com.kb.finance.dto.*;
 import com.kb.finance.service.StockService;
 import com.kb.member.dto.Member;
+import com.kb.testService.dto.StockToken;
+import com.kb.testService.service.TokenService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.parser.ParseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -23,6 +29,9 @@ public class StockController {
     // 주식
     private final StockService stockService;
 
+    // 토큰발급
+    private final TokenService tokenService;
+    private StockToken stockToken;
     @GetMapping("")
     public ResponseEntity<List<Stock>> getAllStocks(@RequestParam(value = "sort", defaultValue = "volume") String sort) {
 
@@ -40,8 +49,22 @@ public class StockController {
     }
 
     @GetMapping("/{sno}/symbol")
-    public ResponseEntity<StockSymbol> getStockSymbol(@PathVariable long sno) {
-        return ResponseEntity.ok(stockService.getStockSymbol(sno));
+    public ResponseEntity<StockSymbol> getStockSymbol(@PathVariable long sno) throws ParseException, UnsupportedEncodingException {
+        if(stockToken == null) {
+            stockToken=tokenService.fetch();
+        }
+        // 문자열을 LocalDateTime으로 변환
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime givenDateTime = LocalDateTime.parse(stockToken.getAccessTokenTokenExpired(), formatter);
+        // 현재 시간 가져오기
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        // 토큰 만료 시 재발급
+        if(currentDateTime.isAfter(givenDateTime)) {
+            stockToken=tokenService.fetch();
+        }
+
+        return ResponseEntity.ok(stockService.getStockSymbol(sno, stockToken));
     }
 
 
