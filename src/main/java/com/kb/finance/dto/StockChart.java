@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 
 public class StockChart {
-    private long scno;
+//    private long scno;
     private long sno;
     private String stockDatetime;
     private long stockPrice;
