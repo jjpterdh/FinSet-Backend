@@ -44,15 +44,18 @@ public class StockController {
     }
 
     @GetMapping("/{sno}/chart")
-    public ResponseEntity<List<StockChart>> getStockChart(@PathVariable long sno) {
-        return ResponseEntity.ok(stockService.getStockChart(sno));
+    public ResponseEntity<List<StockChart>> getStockChart(@PathVariable long sno) throws ParseException, UnsupportedEncodingException {
+        stockToken=tokenService.getDefaultStockToken();
+        return ResponseEntity.ok(stockService.getStockChart(sno, stockToken));
     }
 
     @GetMapping("/{sno}/symbol")
     public ResponseEntity<StockSymbol> getStockSymbol(@PathVariable long sno) throws ParseException, UnsupportedEncodingException {
-        if(stockToken == null) {
-            stockToken=tokenService.fetch();
-        }
+        stockToken=tokenService.getDefaultStockToken();
+
+//        if(stockToken == null) {
+//            stockToken=tokenService.fetch();
+//        }
         // 문자열을 LocalDateTime으로 변환
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime givenDateTime = LocalDateTime.parse(stockToken.getAccessTokenTokenExpired(), formatter);
@@ -60,11 +63,12 @@ public class StockController {
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         // 토큰 만료 시 재발급
-        if(currentDateTime.isAfter(givenDateTime)) {
-            stockToken=tokenService.fetch();
-        }
+//        if(currentDateTime.isAfter(givenDateTime)) {
+//            stockToken=tokenService.fetch();
+//        }
 
         return ResponseEntity.ok(stockService.getStockSymbol(sno, stockToken));
+
     }
 
 
