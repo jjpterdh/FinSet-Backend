@@ -77,6 +77,7 @@ CREATE TABLE `tbl_fund` (
                             `fund_charge` VARCHAR(50) NULL,
                             `fund_regdate` DATE NULL,
                             `fund_imgUrl` VARCHAR(255) NULL COMMENT '이미지 url',
+                            `fund_link` TEXT NULL COMMENT '직접입력',
                             PRIMARY KEY (`fno`)
 );
 
@@ -328,7 +329,8 @@ INSERT INTO tbl_fund (
     fund_type,
     fund_charge,
     fund_regdate,
-    fund_imgUrl
+    fund_imgUrl,
+    fund_link
 ) VALUES
       (
           '수익률',
@@ -342,7 +344,8 @@ INSERT INTO tbl_fund (
           '글로벌리츠재간접',
           '수수료 없음',
           '2020-02-05',
-          '/asset/logo/Fund/SamSungJaSan.jpg'
+          '/asset/logo/Fund/SamSungJaSan.jpg',
+          'https://m.samsungfund.com/fund/product/view.do?id=K55105D00505'
       ),
       (
           '수익률',
@@ -356,7 +359,8 @@ INSERT INTO tbl_fund (
           '베어마켓',
           '수수료 없음',
           '2016-11-03',
-          '/asset/logo/Fund/NHAmundi.jpg'
+          '/asset/logo/Fund/NHAmundi.jpg',
+          'https://m.nhqv.com/finance/fund/fundView?pdCd=NFNM11'
       ),
       (
           '수익률',
@@ -370,7 +374,8 @@ INSERT INTO tbl_fund (
           '기타국가주식',
           '수수료 없음',
           '2008-01-11',
-          '/asset/logo/Fund/NHAmundi.jpg'
+          '/asset/logo/Fund/NHAmundi.jpg',
+          'https://m.nhqv.com/finance/fund/fundView?pdCd=NANC37'
       ),
       (
           '수익률',
@@ -384,7 +389,8 @@ INSERT INTO tbl_fund (
           '글로벌리츠재간접',
           '수수료 없음',
           '2016-09-02',
-          '/asset/logo/Fund/HANAFund.jpg'
+          '/asset/logo/Fund/HANAFund.jpg',
+          'https://www.hanaam.com/goods/goods/goodsDetail.jsp?fund=65233'
       ),
       (
           '수익률',
@@ -398,7 +404,8 @@ INSERT INTO tbl_fund (
           '공공서비스섹터',
           '수수료 없음',
           '2015-03-12',
-          '/asset/logo/Fund/HANAFund.jpg'
+          '/asset/logo/Fund/HANAFund.jpg',
+          'https://www.hanaam.com/goods/goods/goodsDetail.jsp?fund=65130'
       ),
       (
           '수익률',
@@ -412,7 +419,8 @@ INSERT INTO tbl_fund (
           '동남아주식',
           '수수료 없음',
           '2008-03-11',
-          '/asset/logo/Fund/SamSungJaSan.jpg'
+          '/asset/logo/Fund/SamSungJaSan.jpg',
+          'https://m.samsungfund.com/fund/product/view.do?id=KR5105805919'
       ),
       (
           '수익률',
@@ -426,7 +434,8 @@ INSERT INTO tbl_fund (
           '글로벌리츠재간접',
           '수수료 없음',
           '2019-09-20',
-          '/asset/logo/Fund/KBFund.jpg'
+          '/asset/logo/Fund/KBFund.jpg',
+          'https://www.kbam.co.kr/fundSearch/fundDetail?fundCd=2909'
       ),
       (
           '판매액',
@@ -440,7 +449,8 @@ INSERT INTO tbl_fund (
           '초단기채권',
           '수수료 없음',
           '2023-07-14',
-          '/asset/logo/Fund/KBFund.jpg'
+          '/asset/logo/Fund/KBFund.jpg',
+          'https://www.kbam.co.kr/fundSearch/fundDetail?fundCd=32D5'
       ),
       (
           '판매액',
@@ -454,7 +464,8 @@ INSERT INTO tbl_fund (
           '초단기채권',
           '수수료 없음',
           '2016-08-31',
-          '/asset/logo/Fund/HanwhaFund.jpg'
+          '/asset/logo/Fund/HanwhaFund.jpg',
+          'https://www.hanwhawm.com/main/finance/fundInfo/FI141_2.cmd?p=200&item_cd=3103251'
       ),
       (
           '판매액',
@@ -468,7 +479,8 @@ INSERT INTO tbl_fund (
           '일반채권',
           '수수료 없음',
           '2008-11-03',
-          '/asset/logo/Fund/Korea.png'
+          '/asset/logo/Fund/Korea.png',
+          'https://www.hanwhawm.com/main/finance/fundInfo/FI141_2.cmd?p=200&item_cd=3106951'
       ),
       (
           '판매액',
@@ -482,7 +494,8 @@ INSERT INTO tbl_fund (
           '초단기채권',
           '수수료 없음',
           '2023-01-04',
-          '/asset/logo/Fund/Corate.png'
+          '/asset/logo/Fund/Corate.png',
+          'https://www.koreitasset.com/investment/fund-view/l7S3R5FwIpsu6CMq?classUid=m5JKByHVtm74H1wR'
       ),
       (
           '판매액',
@@ -496,7 +509,8 @@ INSERT INTO tbl_fund (
           '기타인덱스',
           '수수료 없음',
           '2010-12-29',
-          '/asset/logo/Fund/HanwhaFund.jpg'
+          '/asset/logo/Fund/HanwhaFund.jpg',
+          'https://www.hanwhawm.com/main/finance/fundInfo/FI141_2.cmd?p=200&item_cd=5800151'
       ),
       (
           '판매액',
@@ -510,7 +524,8 @@ INSERT INTO tbl_fund (
           '일반주식혼합',
           '투자금액의 0.50%',
           '2018-04-05',
-          '/asset/logo/Fund/BrainFund.jpg'
+          '/asset/logo/Fund/BrainFund.jpg',
+          'http://brainib.com/k_fund_info2.html?fund_cd=P02ZZ'
       ),
       (
           '판매액',
@@ -524,7 +539,8 @@ INSERT INTO tbl_fund (
           '일반채권',
           '수수료 없음',
           '2016-04-18',
-          '/asset/logo/Fund/KBFund.jpg'
+          '/asset/logo/Fund/KBFund.jpg',
+          'https://www.kbam.co.kr/fundSearch/fundDetail?fundCd=2N45'
       ),
       (
           '적립액',
@@ -538,7 +554,8 @@ INSERT INTO tbl_fund (
           '정보기술섹터',
           '투자금액의 0.50%',
           '2016-11-07',
-          '/asset/logo/Fund/fidelityFund.png'
+          '/asset/logo/Fund/fidelityFund.png',
+          'https://www.fidelity.co.kr/fund-information/factsheet/TEC/G'
       ),
       (
           '적립액',
@@ -552,7 +569,8 @@ INSERT INTO tbl_fund (
           '정보기술섹터',
           '투자금액의 0.50%',
           '2017-10-31',
-          '/asset/logo/Fund/Korea.png'
+          '/asset/logo/Fund/Korea.png',
+          'https://securities.koreainvestment.com/main/mall/openfund/FundInfo_Pop.jsp?cmd=TF02a0000001_New&pfundCd=070302'
       ),
       (
           '적립액',
@@ -566,7 +584,8 @@ INSERT INTO tbl_fund (
           '북미주식',
           '투자금액의 0.50%',
           '2014-04-14',
-          '/asset/logo/Fund/ABFund.jpg'
+          '/asset/logo/Fund/ABFund.jpg',
+          'https://www.abfunds.co.kr/ko/funds/onshore/equities/american-growth-securities-investment-trust.ae.KR0000000016.html'
       ),
       (
           '적립액',
@@ -580,7 +599,8 @@ INSERT INTO tbl_fund (
           '인도주식',
           '투자금액의 0.50%',
           '2015-09-23',
-          '/asset/logo/Fund/MiraeAsset.png'
+          '/asset/logo/Fund/MiraeAsset.png',
+          'https://investments.miraeasset.com/fund/view.do?fundGb=2&fundCd=537200&childFundGb=2&childFundCd=537202'
       ),
       (
           '적립액',
@@ -594,7 +614,9 @@ INSERT INTO tbl_fund (
           '정보기술섹터',
           '수수료 없음',
           '2015-06-17',
-          '/asset/logo/Fund/fidelityFund.png'
+          '/asset/logo/Fund/fidelityFund.png',
+          'https://www.fidelity.co.kr/fund-information/factsheet/57127/D'
+
       ),
       (
           '적립액',
@@ -608,7 +630,8 @@ INSERT INTO tbl_fund (
           '글로벌주식',
           '투자금액의 0.50%',
           '2021-06-14',
-          '/asset/logo/Fund/KBFund.jpg'
+          '/asset/logo/Fund/KBFund.jpg',
+          'https://www.kbam.co.kr/fundSearch/fundDetail?fundCd=31B3'
       ),
       (
           '적립액',
@@ -622,8 +645,10 @@ INSERT INTO tbl_fund (
           '일반주식',
           '투자금액의 0.50%',
           '2019-10-23',
-          '/asset/logo/Fund/MiraeAsset.png'
+          '/asset/logo/Fund/MiraeAsset.png',
+          'https://investments.miraeasset.com/fund/view.do?fundGb=2&fundCd=536840&childFundGb=2&childFundCd=53684A'
       );
+
 
 
 INSERT INTO tbl_fund_chart (fund_name, fund_datetime, fund_val, ben_val, type_val) VALUES
