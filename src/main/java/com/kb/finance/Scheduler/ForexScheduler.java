@@ -15,12 +15,16 @@ public class ForexScheduler {
         this.forexSchedulerService = forexSchedulerService;
     }
 
-
-        @Scheduled(cron = "0 0 0 * * ?")  // 매일 00:00에 실행
-//    @Scheduled(cron = "0 0/1 * * * ?")  // 매 1분마다 실행
+    static int counter = 0;
+//        @Scheduled(cron = "0 0 0 * * ?")  // 매일 00:00에 실행
+    @Scheduled(cron = "0 0/1 * * * ?")  // 매 1분마다 실행
     public void runForexJob() {
         try {
-            forexSchedulerService.processForexData();
+            counter++;
+            if(counter % 2 == 0){
+                forexSchedulerService.processForexData();
+                System.out.println("실행!!" + counter);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
