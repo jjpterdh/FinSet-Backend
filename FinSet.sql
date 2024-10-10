@@ -113,9 +113,8 @@ CREATE TABLE `tbl_community` (
 CREATE TABLE `tbl_community_like` (
                                       `bno` INT NOT NULL,                          -- 커뮤니티 ID (tbl_community의 Foreign Key)
                                       `uno` INT NOT NULL,                          -- 사용자 ID (tbl_user의 Foreign Key)
-                                      `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  -- 등록 날짜
-                                      FOREIGN KEY (`uno`) REFERENCES `tbl_user`(`uno`),
-                                      FOREIGN KEY (`bno`) REFERENCES `tbl_community`(`bno`)
+                                      FOREIGN KEY (`uno`) REFERENCES `tbl_user`(`uno`) on delete cascade,
+                                      FOREIGN KEY (`bno`) REFERENCES `tbl_community`(`bno`) on delete cascade
 );
 
 CREATE TABLE `tbl_stock_chart` (
@@ -141,7 +140,7 @@ CREATE TABLE `tbl_forex_chart` (
                                    `fecno` INT NOT NULL AUTO_INCREMENT,
                                    `forex_basic_rate` DOUBLE NOT NULL COMMENT 'deal_bas_r',
                                    `forex_datetime` DATE NOT NULL COMMENT '직접입력',
-                                   `feno` INT NOT NULL COMMENT 'CNH 1, EUR 2, GBP 3, CHF 4, USD 5',
+                                   `feno` INT NOT NULL COMMENT 'CNH 1, EUR 2, GBP 3, JPY 4, USD 5',
                                    PRIMARY KEY (`fecno`),
                                    FOREIGN KEY (`feno`) REFERENCES `tbl_forex`(`feno`)
 );
@@ -1574,10 +1573,10 @@ VALUES
 
 INSERT INTO tbl_forex(forex_name, forex_basic_rate, forex_buy, forex_sell, forex_imgUrl) VALUE
     ('중국 위안(CNH)',190.39,188.48,192.29, '/asset/logo/Forex/CNH.png'),
-    ('유럽 유로(EUR)',1495.24,1480.28,1510.19, '/asset/logo/Forex/EU.jpg'),
+    ('유럽 유로(EUR)',1495.24,1480.28,1510.19, '/asset/logo/Forex/EUR.jpg'),
     ('영국 파운드(GBP)',1746.21,1728.74,1763.67, '/asset/logo/Forex/GBP.png'),
-    ('스위스 프랑(CHF)',929.08,919.78,938.37, '/asset/logo/Forex/Japan.png'),
-    ('미국 달러(USD)',1367.70,1354.02,1381.37, '/asset/logo/Forex/USA.png');
+    ('일본 엔(JPY)',929.08,919.78,938.37, '/asset/logo/Forex/JPY.png'),
+    ('미국 달러(USD)',1367.70,1354.02,1381.37, '/asset/logo/Forex/USD.png');
 
 INSERT INTO `tbl_forex_chart` (forex_basic_rate, forex_datetime, feno) VALUES
                                                                            (187.96, '2024-09-13', 1),
@@ -1933,97 +1932,9 @@ insert into tbl_type value (default, '외환');
 --                                                           (2, 3, '3번 주식, 최근 변동성이 커서 대응 전략을 고민 중입니다.'),
 --                                                           (1, 4, '4번 주식의 배당금 정책이 궁금합니다.'),
 --                                                           (2, 5, '5번 주식, 중장기적인 투자 계획에 대한 의견 부탁드립니다.');
--- 스프링 배치 기본 스키마 (MySQL)
-CREATE TABLE BATCH_JOB_INSTANCE  (
-                                     JOB_INSTANCE_ID BIGINT  NOT NULL PRIMARY KEY ,
-                                     VERSION BIGINT ,
-                                     JOB_NAME VARCHAR(100) NOT NULL,
-                                     JOB_KEY VARCHAR(32) NOT NULL,
-                                     constraint JOB_INST_UN unique (JOB_NAME, JOB_KEY)
-);
 
-CREATE TABLE BATCH_JOB_EXECUTION  (
-                                      JOB_EXECUTION_ID BIGINT  NOT NULL PRIMARY KEY ,
-                                      VERSION BIGINT  ,
-                                      JOB_INSTANCE_ID BIGINT NOT NULL,
-                                      CREATE_TIME DATETIME NOT NULL,
-                                      START_TIME DATETIME DEFAULT NULL ,
-                                      END_TIME DATETIME DEFAULT NULL ,
-                                      STATUS VARCHAR(10) ,
-                                      EXIT_CODE VARCHAR(2500) ,
-                                      EXIT_MESSAGE VARCHAR(2500) ,
-                                      LAST_UPDATED DATETIME,
-                                      JOB_CONFIGURATION_LOCATION VARCHAR(2500) NULL,
-                                      constraint JOB_INST_EXEC_FK foreign key (JOB_INSTANCE_ID)
-                                          references BATCH_JOB_INSTANCE(JOB_INSTANCE_ID)
-);
-
-CREATE TABLE BATCH_JOB_EXECUTION_PARAMS  (
-                                             JOB_EXECUTION_ID BIGINT NOT NULL ,
-                                             TYPE_CD VARCHAR(6) NOT NULL ,
-                                             KEY_NAME VARCHAR(100) NOT NULL ,
-                                             STRING_VAL VARCHAR(250) ,
-                                             DATE_VAL DATETIME DEFAULT NULL ,
-                                             LONG_VAL BIGINT ,
-                                             DOUBLE_VAL DOUBLE PRECISION ,
-                                             IDENTIFYING CHAR(1) NOT NULL ,
-                                             constraint JOB_EXEC_PARAMS_FK foreign key (JOB_EXECUTION_ID)
-                                                 references BATCH_JOB_EXECUTION(JOB_EXECUTION_ID)
-);
-
-CREATE TABLE BATCH_STEP_EXECUTION  (
-                                       STEP_EXECUTION_ID BIGINT NOT NULL PRIMARY KEY ,
-                                       VERSION BIGINT NOT NULL,
-                                       STEP_NAME VARCHAR(100) NOT NULL,
-                                       JOB_EXECUTION_ID BIGINT NOT NULL,
-                                       START_TIME DATETIME NOT NULL ,
-                                       END_TIME DATETIME DEFAULT NULL ,
-                                       STATUS VARCHAR(10) ,
-                                       COMMIT_COUNT BIGINT ,
-                                       READ_COUNT BIGINT ,
-                                       FILTER_COUNT BIGINT ,
-                                       WRITE_COUNT BIGINT ,
-                                       READ_SKIP_COUNT BIGINT ,
-                                       WRITE_SKIP_COUNT BIGINT ,
-                                       PROCESS_SKIP_COUNT BIGINT ,
-                                       ROLLBACK_COUNT BIGINT ,
-                                       EXIT_CODE VARCHAR(2500) ,
-                                       EXIT_MESSAGE VARCHAR(2500) ,
-                                       LAST_UPDATED DATETIME,
-                                       constraint JOB_EXEC_STEP_FK foreign key (JOB_EXECUTION_ID)
-                                           references BATCH_JOB_EXECUTION(JOB_EXECUTION_ID)
-);
-
-CREATE TABLE BATCH_STEP_EXECUTION_CONTEXT  (
-                                               STEP_EXECUTION_ID BIGINT NOT NULL PRIMARY KEY,
-                                               SHORT_CONTEXT VARCHAR(2500) NOT NULL,
-                                               SERIALIZED_CONTEXT TEXT ,
-                                               constraint STEP_EXEC_CTX_FK foreign key (STEP_EXECUTION_ID)
-                                                   references BATCH_STEP_EXECUTION(STEP_EXECUTION_ID)
-);
-
-CREATE TABLE BATCH_JOB_EXECUTION_CONTEXT  (
-                                              JOB_EXECUTION_ID BIGINT NOT NULL PRIMARY KEY,
-                                              SHORT_CONTEXT VARCHAR(2500) NOT NULL,
-                                              SERIALIZED_CONTEXT TEXT ,
-                                              constraint JOB_EXEC_CTX_FK foreign key (JOB_EXECUTION_ID)
-                                                  references BATCH_JOB_EXECUTION(JOB_EXECUTION_ID)
-);
-
-CREATE TABLE BATCH_JOB_SEQ (
-                               ID BIGINT NOT NULL,
-                               UNIQUE KEY (ID)
-);
-
-INSERT INTO BATCH_JOB_SEQ VALUES(0);
-
-CREATE TABLE BATCH_JOB_EXECUTION_SEQ (
-                                         ID BIGINT NOT NULL,
-                                         UNIQUE KEY (ID)
-);
-
-INSERT INTO BATCH_JOB_EXECUTION_SEQ VALUES(0);
-
-
--- 초기값 삽입
-INSERT INTO BATCH_JOB_EXECUTION_SEQ (ID) VALUES (1);
+# insert into `tbl_community_like` (`bno`, `uno`) values
+#                                                     (2, 2),
+#                                                     (7, 2),
+#                                                     (11,1),
+#                                                     (1,1);

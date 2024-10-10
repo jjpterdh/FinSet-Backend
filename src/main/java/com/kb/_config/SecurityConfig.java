@@ -123,7 +123,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // finance
                 .antMatchers(HttpMethod.GET, "/api/deposits/**").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/installments/**").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/forex/**").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/forex/{feno}").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/forex/{feno}/chart").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/stocks/**").authenticated()
 
                 // 어휘 사전
@@ -145,6 +146,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()       // CSRF 비활성화
                 .formLogin().disable()  // formLogin 비활성화  관련 필터 해제
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 세션 생성 모드 설정
+
     }
 
 }

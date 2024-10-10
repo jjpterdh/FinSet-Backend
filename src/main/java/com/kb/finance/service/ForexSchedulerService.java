@@ -10,9 +10,16 @@ import com.kb.finance.mapper.ForexMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
+import java.security.cert.X509Certificate;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +29,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class ForexBatchService {
+public class ForexSchedulerService {
     private String authkey = "Gu4j8tcKEVby0Kdkte6tUPhXu9tBpEDG";
     private String data = "AP01";
     private final RestTemplate restTemplate;
@@ -30,9 +37,42 @@ public class ForexBatchService {
     private final ForexMapper forexMapper;
 
     @Autowired
-    public ForexBatchService(RestTemplate restTemplate, ForexMapper forexMapper) {
-        this.restTemplate = restTemplate;
+    public ForexSchedulerService(ForexMapper forexMapper) {
+//        this.restTemplate = restTemplate;
         this.forexMapper = forexMapper;
+        this.restTemplate = createRestTemplateWithSsl();  // SSL 설정이 적용된 RestTemplate 사용
+    }
+
+    // SSL 설정이 비활성화된 RestTemplate 생성
+    private RestTemplate createRestTemplateWithSsl() {
+        try {
+            TrustManager[] trustAllCertificates = new TrustManager[]{
+                    new X509TrustManager() {
+                        @Override
+                        public void checkClientTrusted(X509Certificate[] chain, String authType) {
+                        }
+
+                        @Override
+                        public void checkServerTrusted(X509Certificate[] chain, String authType) {
+                        }
+
+                        @Override
+                        public X509Certificate[] getAcceptedIssuers() {
+                            return new X509Certificate[0];
+                        }
+                    }
+            };
+
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustAllCertificates, new java.security.SecureRandom());
+
+            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+            HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
+
+            return new RestTemplate();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create SSLContext for RestTemplate", e);
+        }
     }
 
 
@@ -95,7 +135,9 @@ public class ForexBatchService {
         return currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
     }
 
-    public void processForexData(List<ForexDTO> forexList) {
+    @Transactional(isolation = Isolation.REPEATABLE_READ) // 트랜잭션 격리 수준 설정
+    public void processForexData() {
+        List<ForexDTO> forexList = getForexList();
         log.info("Forex data fetched: {}", forexList);
 
         for (ForexDTO forexDto : forexList) {
@@ -116,7 +158,7 @@ public class ForexBatchService {
                     forex.setFeno(3);
                     forexChart.setFeno(3);
                 }
-                case "CHF" -> {
+                case "JPY(100)" -> {
                     forex.setFeno(4);
                     forexChart.setFeno(4);
                 }
@@ -130,10 +172,15 @@ public class ForexBatchService {
             }
 
             Forex existingForex = forexMapper.selectById(forex.getFeno());
+            System.out.println("existingForex\n" + existingForex);
 
             if (existingForex != null) {
+                double basicRate = Double.parseDouble(forexDto.getDeal_bas_r().replace(",",""));
+                double buy = Double.parseDouble(forexDto.getTtb().replace(",", ""));
+                double sell = Double.parseDouble(forexDto.getTts().replace(",", ""));
+
                 forexChart.setForexName(existingForex.getForexName());
-                forexChart.setForexBasicRate(existingForex.getForexBasicRate());
+                forexChart.setForexBasicRate(basicRate);
 
                 // 데이터베이스에 ForexChart 데이터 삽입
                 System.out.println("insert data");
@@ -142,8 +189,10 @@ public class ForexBatchService {
                     throw new RuntimeException("Insert Forex Failed for FENO: " + forex.getFeno());
                 }
 
-                // 기존 Forex 데이터 업데이트
-                existingForex.setForexBasicRate(Double.parseDouble(forexDto.getDeal_bas_r().replace(",","")));
+                // 기존 Forex 업데이트
+                existingForex.setForexBasicRate(basicRate);
+                existingForex.setForexBuy(buy);
+                existingForex.setForexSell(sell);
                 int resultUpdate = forexMapper.updateForexInfo(existingForex);
                 if (resultUpdate != 1) {
                     throw new RuntimeException("Update Forex Failed for FENO: " + forex.getFeno());

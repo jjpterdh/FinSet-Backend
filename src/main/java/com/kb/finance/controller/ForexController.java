@@ -1,8 +1,7 @@
 package com.kb.finance.controller;
 
 
-import com.kb.finance.Batch.ForexBatch;
-import com.kb.finance.Batch.ForexScheduler;
+import com.kb.finance.Scheduler.ForexScheduler;
 import com.kb.finance.dto.Forex;
 import com.kb.finance.dto.ForexChart;
 import com.kb.finance.service.ForexService;
