@@ -76,7 +76,7 @@ public class ForexSchedulerService {
     public JsonNode getExchangeDataSync() {
         String uri = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=" + authkey +
                 "&searchdate=" + searchdate + "&data=" + data;
-        System.out.println(uri);
+//        System.out.println(uri);
         return parseJson(restTemplate.getForObject(uri, String.class));
     }
 
