@@ -10,6 +10,7 @@ import java.util.Map;
 public interface StockMapper {
     List<Stock> selectAll(Map sort);
     List<StockChart> selectChart(Long id);
+    int insertStockChart(StockChart stockChart);
     Stock selectById(Long id);
     List<Community> selectCommunity(@Param("sno")long sno, @Param("uno") long uno);
     List<Integer> selectMinMax(Long id);

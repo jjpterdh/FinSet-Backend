@@ -18,7 +18,6 @@
     </resultMap>
 
     <resultMap id="stockChartResultMap" type="com.kb.finance.dto.StockChart">
-        <id property="scno" column="scno" />
         <result property="sno"  column="sno"/>
         <result property="stockDatetime"  column="stock_datetime"/>
         <result property="stockPrice"  column="stock_price"/>
@@ -115,6 +114,11 @@
         SELECT COUNT(*) FROM tbl_community_like
         WHERE bno = #{bno} AND uno = #{uno}
     </select>
+
+    <insert id="insertStockChart" parameterType="com.kb.finance.dto.StockChart">
+        INSERT INTO tbl_stock(sno, stock_datetime, stock_price)
+        VALUES(#{sno}, #{stock_datetime}, #{stock_price})
+    </insert>
 
     <insert id="insertCommunity"  parameterType="com.kb.finance.dto.CommunityDTO">
         INSERT INTO tbl_community(uno, sno, content)
