@@ -20,5 +20,6 @@ public class Installment {
     private String installmentAmount;
     private String installmentWay;
     private String installmentTarget;
+    private String installmentLink;
     private String imgUrl;
 }
