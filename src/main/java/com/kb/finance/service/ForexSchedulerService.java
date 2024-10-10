@@ -10,8 +10,6 @@ import com.kb.finance.mapper.ForexMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -38,7 +36,6 @@ public class ForexSchedulerService {
 
     @Autowired
     public ForexSchedulerService(ForexMapper forexMapper) {
-//        this.restTemplate = restTemplate;
         this.forexMapper = forexMapper;
         this.restTemplate = createRestTemplateWithSsl();  // SSL 설정이 적용된 RestTemplate 사용
     }
@@ -79,6 +76,7 @@ public class ForexSchedulerService {
     public JsonNode getExchangeDataSync() {
         String uri = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=" + authkey +
                 "&searchdate=" + searchdate + "&data=" + data;
+        System.out.println(uri);
         return parseJson(restTemplate.getForObject(uri, String.class));
     }
 
@@ -135,7 +133,6 @@ public class ForexSchedulerService {
         return currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ) // 트랜잭션 격리 수준 설정
     public void processForexData() {
         List<ForexDTO> forexList = getForexList();
         log.info("Forex data fetched: {}", forexList);
@@ -172,7 +169,6 @@ public class ForexSchedulerService {
             }
 
             Forex existingForex = forexMapper.selectById(forex.getFeno());
-            System.out.println("existingForex\n" + existingForex);
 
             if (existingForex != null) {
                 double basicRate = Double.parseDouble(forexDto.getDeal_bas_r().replace(",",""));
@@ -182,11 +178,16 @@ public class ForexSchedulerService {
                 forexChart.setForexName(existingForex.getForexName());
                 forexChart.setForexBasicRate(basicRate);
 
-                // 데이터베이스에 ForexChart 데이터 삽입
-                System.out.println("insert data");
+                // ForexChart 데이터 삽입
                 int resultInsert = forexMapper.insertForexData(forexChart);
                 if (resultInsert != 1) {
                     throw new RuntimeException("Insert Forex Failed for FENO: " + forex.getFeno());
+                }
+
+                try {
+                    Thread.sleep(1,1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
 
                 // 기존 Forex 업데이트
@@ -196,6 +197,12 @@ public class ForexSchedulerService {
                 int resultUpdate = forexMapper.updateForexInfo(existingForex);
                 if (resultUpdate != 1) {
                     throw new RuntimeException("Update Forex Failed for FENO: " + forex.getFeno());
+                }
+
+                try {
+                    Thread.sleep(1,1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
 
                 log.info("Processed Forex Data for FENO: {}", forex.getFeno());

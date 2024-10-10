@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.kb")
+@ComponentScan(basePackages = {"com.kb.**"})
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Bean
