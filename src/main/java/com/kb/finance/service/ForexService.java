@@ -29,7 +29,6 @@ public class ForexService {
     public Forex getForexById(Long id) {
         return Optional.ofNullable(mapper.selectById(id))
                 .orElseThrow(NoSuchElementException::new);
-
     }
     public List<ForexChart> getForexChartById(Long id) {
         return Optional.ofNullable(mapper.selectChartById(id))

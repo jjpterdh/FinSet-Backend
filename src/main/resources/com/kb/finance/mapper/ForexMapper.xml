@@ -53,11 +53,7 @@
             tbl_forex f
         JOIN tbl_forex_chart fc ON f.feno=fc.feno
         WHERE fc.feno=#{feno}
-        ORDER BY fc.forex_datetime DESC
-    </select>
-
-    <select id="selectByName" resultType="com.kb.finance.dto.Forex" parameterType="String">
-        SELECT * FROM tbl_forex WHERE forex_name = #{forexName}
+        ORDER BY fc.forex_datetime
     </select>
 
 </mapper>
