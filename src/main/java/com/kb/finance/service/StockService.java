@@ -81,7 +81,6 @@ public class StockService {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(responseEntity.getBody());
         JSONObject jsonObject = (JSONObject) obj;
-//        JSONObject output = (JSONObject) jsonObject.get("output2");
         JSONArray jsonArray = (JSONArray) jsonObject.get("output2");
 
         List<StockChart> stockCharts = new ArrayList<>();
@@ -98,6 +97,9 @@ public class StockService {
             log.info("No stocks found");
             throw new NoSuchElementException();
         }
+
+
+
         return stockCharts;
     }
 
