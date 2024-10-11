@@ -22,10 +22,11 @@ public class Member implements UserDetails {
     private String password;	// password
     private String name;        // 사용자이름
     private int type;           // 투자 성향 타입
-    private int status; 		// 활성화 여부, 1, 0
+    private int status;
+   // 활성화 여부, 1, 0
     private String createdAt;    // 생성일
     private String statusDate;    // 수정일
-
+    private String kakaoId;
     private String token; // JWT 토큰값, DB로는 저장하지 않음
 
     // 복수개의 권한을 관리

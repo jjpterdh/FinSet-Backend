@@ -19,4 +19,6 @@ public interface MemberMapper {
     int updateName(@Param("id") String id, @Param("name") String name);
     int updateType(@Param("id") String id, @Param("type") int type);
     MemberTypeDTO selectType(String id);
+    Member selectBykakaoId(String kakaoId);
+
 }

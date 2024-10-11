@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 @Data
 public class  LoginDTO {
     private String id; // email
+    private String code;
     private String password;
 
     public static LoginDTO of(HttpServletRequest request) throws AuthenticationException {

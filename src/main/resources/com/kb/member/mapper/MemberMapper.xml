@@ -60,8 +60,8 @@
     </select>
 
     <insert id="insertMember" parameterType="com.kb.member.dto.Member">
-        INSERT INTO tbl_user(uno, email, password, user_name, status)
-        VALUES(default, #{id}, #{password}, #{name}, default)
+        INSERT INTO tbl_user(uno, email, password, user_name, status,kakao_id)
+        VALUES(default, #{id}, #{password}, #{name}, default,#{kakaoId})
     </insert>
 
 
@@ -92,5 +92,13 @@
         FROM tbl_user u
         JOIN tbl_user_type ut ON ut.utno = u.utno
         WHERE email = #{id}
+    </select>
+    <select id="selectBykakaoId" resultMap="memberResultMap" parameterType="string">
+        SELECT
+            uno, u.email, password, user_name,  status, createdAt, status_date,kakao_id , a.authority
+        FROM
+            tbl_user u
+                LEFT OUTER JOIN tbl_auth a ON u.email = a.id
+        WHERE u.status = '1' and u.kakao_id = #{kakao_id}
     </select>
 </mapper>

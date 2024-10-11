@@ -23,6 +23,7 @@ CREATE TABLE `tbl_user` (
                             `status` INT NOT NULL DEFAULT 1 COMMENT '기본: 1 / 탈퇴: 0',
                             `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                             `status_date` TIMESTAMP NULL,
+                            `kakao_id` VARCHAR(50),
                             PRIMARY KEY (`uno`),
                             FOREIGN KEY (`utno`) REFERENCES `tbl_user_type`(`utno`)
 );

@@ -13,8 +13,9 @@ public class MemberDTO {
     private String password;	// password
     private String name;        // 사용자이름
     private int type;
+    private String kakaoId;
 
     public Member toMember() {
-        return Member.builder().id(id).password(password).name(name).type(type).build();
+        return Member.builder().id(id).password(password).name(name).type(type).kakaoId(kakaoId).build();
     }
 }

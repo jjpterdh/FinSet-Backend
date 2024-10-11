@@ -44,7 +44,10 @@ public class MemberService{
         Member member = mapper.selectByName(name);
         return member != null ? true : false;
     }
-
+    public Member getMemberByKakaoId(String id) {
+        return Optional.ofNullable(mapper.selectBykakaoId(id))
+                .orElseThrow(NoSuchElementException::new);
+    }
     public Member getMember(String id) {
         return Optional.ofNullable(mapper.selectById(id))
                         .orElseThrow(NoSuchElementException::new);
