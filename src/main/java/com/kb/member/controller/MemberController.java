@@ -3,12 +3,16 @@ package com.kb.member.controller;
 import com.kb.member.dto.Member;
 import com.kb.member.dto.MemberDTO;
 import com.kb.member.dto.MemberTypeDTO;
+import com.kb.member.service.KaKaoLoginService;
 import com.kb.member.service.MemberService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -18,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService service;
-
+    private final KaKaoLoginService kaKaoLoginService;
     @GetMapping("/checkemail/{id}") // 이메일 중복 확인
     public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String id) {
         return ResponseEntity.ok().body(service.checkEmailDuplicate(id));
@@ -66,5 +70,11 @@ public class MemberController {
         service.updateType(id, type);
         return ResponseEntity.ok("modify type successful");
     }
-
+    @GetMapping("/signup/kakaoInfo/{code}")
+    public ResponseEntity<Map<String, Object>> getKakaoInfo(@PathVariable String code) throws IOException {
+        String enrollUrl = "http://localhost:5173/auth/kakaojoin";
+        String token = kaKaoLoginService.getToken(code, enrollUrl);
+        Map<String, Object> map = kaKaoLoginService.getUserInfo(token);
+        return ResponseEntity.ok(map);
+    }
 }
