@@ -73,10 +73,10 @@ public class StockController {
 
 
     @GetMapping("/{sno}/community")
-    public ResponseEntity<List<Community>> getCommunities(@PathVariable long sno, @AuthenticationPrincipal Member principal) {
+    public ResponseEntity<List<Community>> getCommunities(@RequestParam(required = false, value = "sort", defaultValue = "latest") String sort, @PathVariable long sno, @AuthenticationPrincipal Member principal) {
         long uno=principal.getUno();
         log.info("uno:"+uno);
-        return ResponseEntity.ok(stockService.getCommunities(sno, uno));
+        return ResponseEntity.ok(stockService.getCommunities(sno, uno, sort));
     }
 
     @PostMapping("{sno}/community")
