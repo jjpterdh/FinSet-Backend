@@ -106,8 +106,15 @@
             c.sno,
             c.content,
             c.updatedAt
-        ORDER BY
-            c.updatedAt DESC
+        <choose>
+            <when test="sort == 'like'">
+                ORDER BY likes DESC
+            </when>
+            <otherwise>
+                ORDER BY c.updatedAt DESC
+            </otherwise>
+        </choose>
+
     </select>
 
     <select id="findLike" resultType="int" parameterType="com.kb.finance.dto.Like">
