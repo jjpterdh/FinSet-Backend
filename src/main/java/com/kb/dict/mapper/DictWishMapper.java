@@ -3,6 +3,7 @@ package com.kb.dict.mapper;
 
 import com.kb.dict.dto.Dict;
 import com.kb.dict.dto.DictWish;
+import com.kb.dict.dto.DictWishOrder;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface DictWishMapper{
     int insertWish(Dict dict);
     int updateWish(DictWish dictWish);
     int updateStatus(Dict dict);
+    int updateWishOrder(DictWishOrder dictWishOrder);
+    int initWishOrder(DictWishOrder dictWishOrder);
 }

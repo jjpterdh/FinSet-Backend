@@ -55,4 +55,12 @@
         WHERE dino = #{dino}
     </update>
 
+    <update id="updateWishOrder" parameterType="com.kb.dict.dto.DictWishOrder">
+        UPDATE tbl_dict_wish SET dwno = #{newDwno} where dwno = #{dwno};
+    </update>
+
+    <update id="initWishOrder" parameterType="com.kb.dict.dto.DictWishOrder">
+        UPDATE tbl_dict_wish SET dwno = -1 where dwno = #{dwno};
+    </update>
+
 </mapper>
