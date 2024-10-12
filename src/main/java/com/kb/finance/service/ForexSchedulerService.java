@@ -28,7 +28,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class ForexSchedulerService {
-    private String authkey = "Gu4j8tcKEVby0Kdkte6tUPhXu9tBpEDG";
+    private String authkey = APIKEY;
     private String data = "AP01";
     private final RestTemplate restTemplate;
     private final String searchdate = getSearchdate();
