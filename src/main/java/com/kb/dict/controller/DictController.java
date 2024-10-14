@@ -41,6 +41,8 @@ public class DictController {
     @GetMapping("/search")
     public ResponseEntity<List<Dict>> search(@RequestParam("word") String word) {
         try {
+
+            word=word.replaceAll("\n", "");
             List<Dict> dict = service.search(word);
             return ResponseEntity.ok(dict);
         } catch (NoSuchElementException e) {

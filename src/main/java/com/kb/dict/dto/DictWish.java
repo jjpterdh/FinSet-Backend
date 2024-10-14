@@ -15,6 +15,7 @@ public class DictWish {
     private long uno;
     private long dino;
     private String memo;
+    private long dictOrder;
     private String createdAt;
 
 }

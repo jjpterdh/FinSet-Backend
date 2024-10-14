@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DictWishOrder {
-    private int dwno;
-    private String newDwno;
+    private long dwno;
+    private long newDwno;
 }

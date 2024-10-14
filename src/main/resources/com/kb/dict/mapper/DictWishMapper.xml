@@ -9,12 +9,13 @@
         <result property="uno" column="uno"/>
         <result property="dino" column="dino"/>
         <result property="memo" column="memo"/>
+        <result property="dictOrder" column="dict_order"/>
         <result property="createdAt" column="createdAt"/>
     </resultMap>
 
-    <insert id="insertWish" parameterType="com.kb.dict.dto.Dict">
-        INSERT INTO tbl_dict_wish (dino,uno,memo)
-        VALUES (#{dino},#{uno} ,NULL);
+    <insert id="insertWish" parameterType="com.kb.dict.dto.DictWish">
+        INSERT INTO tbl_dict_wish (dino,uno, memo, dict_order)
+        VALUES (#{dino},#{uno} ,NULL, #{dictOrder});
     </insert>
     <update id="updateWish">
         UPDATE tbl_dict_wish SET
@@ -30,13 +31,14 @@
 
     <select id="getList" parameterType="long" resultMap="dictWishMap">
         SELECT
-            w.dwno, w.uno, w.dino, w.memo, d.word, d.content, w.createdAt
+            w.dwno, w.uno, w.dino, w.memo, d.word, d.content, w.createdAt, w.dict_order
         FROM
             tbl_dict_wish w
                 JOIN
             tbl_dict d ON w.dino = d.dino
         WHERE
-            w.uno = #{uno};
+            w.uno = #{uno}
+        ORDER BY w.dict_order
     </select>
 
 
@@ -56,11 +58,8 @@
     </update>
 
     <update id="updateWishOrder" parameterType="com.kb.dict.dto.DictWishOrder">
-        UPDATE tbl_dict_wish SET dwno = #{newDwno} where dwno = #{dwno};
+        UPDATE tbl_dict_wish SET dict_order = #{newDwno} where dwno = #{dwno};
     </update>
 
-    <update id="initWishOrder" parameterType="com.kb.dict.dto.DictWishOrder">
-        UPDATE tbl_dict_wish SET dwno = -1 where dwno = #{dwno};
-    </update>
 
 </mapper>

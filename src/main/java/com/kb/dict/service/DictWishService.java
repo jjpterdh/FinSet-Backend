@@ -40,26 +40,16 @@ public class DictWishService {
 
     public int updateWishOrder(DictWishOrderDTO dictWishOrderDTO) {
         List<DictWishOrder> wishOrders = dictWishOrderDTO.getDictWishOrders();
-        int result = 0;
+        int result = 1;
 
-        DictWishOrder dictWishOrder1 = wishOrders.get(0);
-        DictWishOrder dictWishOrder2 = wishOrders.get(1);
+        for(DictWishOrder dictWishOrder : wishOrders) {
 
-        result = wishMapper.initWishOrder(dictWishOrder2);
-        if (result != 1) {
-            throw new NoSuchElementException("Init failed for order: " + dictWishOrder2.getDwno());
-        }
-        result = wishMapper.updateWishOrder(dictWishOrder1);
-        if (result != 1) {
-            throw new NoSuchElementException("Update failed for order: " + dictWishOrder1.getDwno());
+            if (wishMapper.updateWishOrder(dictWishOrder) != 1) {
+                result = 0;
+                throw new NoSuchElementException();
+            }
         }
 
-        dictWishOrder2.setDwno(-1);
-        System.out.println(dictWishOrder2.getDwno());
-        result = wishMapper.updateWishOrder(dictWishOrder2);
-        if (result != 1) {
-            throw new NoSuchElementException("Update failed for order: " + dictWishOrder2.getDwno());
-        }
 
         return result;
     }
