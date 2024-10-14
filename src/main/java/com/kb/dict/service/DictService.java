@@ -1,6 +1,7 @@
 package com.kb.dict.service;
 
 import com.kb.dict.dto.Dict;
+import com.kb.dict.dto.DictWish;
 import com.kb.dict.mapper.DictMapper;
 import com.kb.dict.mapper.DictWishMapper;
 import com.kb.member.dto.Member;
@@ -51,10 +52,17 @@ public class DictService {
     public Dict updateStatus(Dict dict ) {
         System.out.println("Current status: " + dict.getStatus() + ", dino: " + dict.getDino()+ ", uno: " + dict.getUno());
 
+        List<DictWish> dictWishList = wishMapper.getList(dict.getUno());
+        long orderSize= dictWishList.size();
+        DictWish dictWish = new DictWish();
+        dictWish.setDino(dict.getDino());
+        dictWish.setUno(dict.getUno());
+        dictWish.setDictOrder(orderSize+1);
 
         if (dict.getStatus() == 0) {
             dict.setStatus(1);  // dict 객체의 속성은 변하지만 db 데이터는 변동 X
-            wishMapper.insertWish(dict);
+
+            wishMapper.insertWish(dictWish);
             wishMapper.updateStatus(dict);  // updateStatus를 해야 db의 status 변경됨
         } else if (dict.getStatus() == 1) {
             dict.setStatus(0);  // dict 객체의 속성은 변하지만 db 데이터는 변동 X

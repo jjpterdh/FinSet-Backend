@@ -182,6 +182,7 @@ CREATE TABLE `tbl_dict_wish` (
                                  `uno` INT NOT NULL,
                                  `dino` INT NOT NULL,
                                  `memo` TEXT NULL,
+                                 `dict_order` INT NOT NULL,
                                  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
                                  PRIMARY KEY (`dwno`),
@@ -219,15 +220,6 @@ CREATE TABLE `tbl_kospi` (
                              `kospi_date` DATE NOT NULL,
                              `kospi_val` DOUBLE NOT NULL ,
                              PRIMARY KEY (`kno`)
-);
-
-CREATE TABLE `tbl_keyword` (
-                               `keno` INT NOT NULL AUTO_INCREMENT,
-                               `uno` INT NOT NULL,
-                               `keyword` VARCHAR(255) NOT NULL,
-                               `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                               PRIMARY KEY (`keno`),
-                               FOREIGN KEY (`uno`) REFERENCES `tbl_user`(`uno`)
 );
 
 INSERT INTO tbl_deposit (
@@ -274,6 +266,15 @@ VALUES
     ('복리/단리', 'e-프리미엄예금', '대구은행', '3.20', '3.20', '2', '4', '300000000', '스마트폰', '개인(개인사업자 포함)', 'https://www.dgb.co.kr/com_ebz_fpm_main.act', '/asset/logo/Bank/Daegu.jpg'),
     ('단리', '정기예금', '광주은행', '2.85', '2.85', '1', '6', '500000000', '인터넷', '개인', 'https://www.kjbank.com/ib20/mnu/FPMDPTR030100', '/asset/logo/Bank/GwangJu.png'),
     ('복리', '정기적금', '전북은행', '3.35', '3.35', '2', '5', '200000000', '스마트폰', '개인(개인사업자 포함)', 'https://www.jbbank.co.kr/', '/asset/logo/Bank/JeonBuk.png');
+
+CREATE TABLE `tbl_keyword` (
+                               `keno` INT NOT NULL AUTO_INCREMENT,
+                               `uno` INT NOT NULL,
+                               `keyword` VARCHAR(255) NOT NULL,
+                               `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                               PRIMARY KEY (`keno`),
+                               FOREIGN KEY (`uno`) REFERENCES `tbl_user`(`uno`)
+);
 
 INSERT INTO tbl_installment (
     installment_category,

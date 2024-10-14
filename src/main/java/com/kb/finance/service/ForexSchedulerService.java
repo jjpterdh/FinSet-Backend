@@ -7,11 +7,13 @@ import com.kb.finance.dto.Forex;
 import com.kb.finance.dto.ForexChart;
 import com.kb.finance.dto.ForexDTO;
 import com.kb.finance.mapper.ForexMapper;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
+import org.springframework.beans.factory.annotation.Value;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -27,7 +29,10 @@ import java.util.List;
 
 @Slf4j
 @Service
+@PropertySource({"classpath:/application.properties"})
 public class ForexSchedulerService {
+    @Value("${FOREX_API_KEY}") String APIKEY;
+
     private String authkey = APIKEY;
     private String data = "AP01";
     private final RestTemplate restTemplate;
