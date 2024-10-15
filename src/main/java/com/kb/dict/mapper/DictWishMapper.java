@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface DictWishMapper{
     List<DictWish> getList(long uno);
-    int deleteWish(Dict dict);
-    DictWish get(long id);
+    int deleteWish(DictWish dictWish);
+    int getWishByDino(DictWish dictWish);
     int insertWish(DictWish dictWish);
     int updateWish(DictWish dictWish);
     int updateStatus(Dict dict);

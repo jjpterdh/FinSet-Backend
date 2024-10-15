@@ -8,6 +8,7 @@ import com.kb.member.dto.Member;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,18 +20,13 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@Api(value = "DictwishController", tags = "사전 단어장 정보")
+
+@Api(value = "DictwishController", tags = "사전 단어장 즐겨찾기 정보")
 public class DictWishController {
     private final  DictWishService dictWishService;
     @GetMapping("")
     public ResponseEntity<List<DictWish>> getList(@AuthenticationPrincipal Member member) {
         return ResponseEntity.ok(dictWishService.getList(member.getUno()));
-    }
-
-    @GetMapping("/{dwno}")
-    public ResponseEntity<DictWish> get(@PathVariable("dwno") long dwno) {
-        return ResponseEntity.ok(dictWishService.get(dwno));
-
     }
 
     @PutMapping("/update/{dwno}")
