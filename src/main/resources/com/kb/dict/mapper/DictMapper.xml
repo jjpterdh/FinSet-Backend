@@ -9,16 +9,7 @@
         <id property="dino" column="dino" />
         <result property="word" column="word" />
         <result property="content" column="content" />
-        <result property="status" column="status"/>
     </resultMap>
-
-
-
-    <update id="updateStatus">
-        UPDATE tbl_dict
-        SET status = #{status}
-        WHERE dino = #{dino};
-    </update>
 
     <select id="selectAll" resultType="com.kb.dict.dto.Dict">
         SELECT * from tbl_dict;
@@ -32,5 +23,13 @@
         SELECT * FROM tbl_dict
         WHERE dino=#{dino}
     </select>
+
+    <update id="updateStatus">
+        UPDATE tbl_dict
+        SET status = #{status}
+        WHERE dino = #{dino};
+    </update>
+
+
 
 </mapper>

@@ -91,6 +91,7 @@ public class StockService {
             stockChart.setStockPrice(Integer.parseInt(item.get("stck_clpr").toString()));
             stockCharts.add(stockChart);
         }
+
 //        List<StockChart> stockCharts = mapper.selectChart(id);
         if(stockCharts == null || stockCharts.isEmpty()) {
             log.info("No stocks found");
@@ -118,7 +119,7 @@ public class StockService {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-//        System.out.println(responseEntity.getBody());
+
 
 
         //JSON 파싱

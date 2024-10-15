@@ -13,21 +13,14 @@
         <result property="createdAt" column="createdAt"/>
     </resultMap>
 
-    <insert id="insertWish" parameterType="com.kb.dict.dto.DictWish">
-        INSERT INTO tbl_dict_wish (dino,uno, memo, dict_order)
-        VALUES (#{dino},#{uno} ,NULL, #{dictOrder});
-    </insert>
-    <update id="updateWish">
-        UPDATE tbl_dict_wish SET
-        memo=#{memo},
-        createdAt=now()
-        where dwno=#{dwno}
-    </update>
+    <select id="getWishByDino" resultType="int" parameterType="com.kb.dict.dto.DictWish">
+        SELECT
+            COUNT(*)
+        FROM
+            tbl_dict_wish w
+        WHERE w.uno = #{uno} and w.dino = #{dino};
+    </select>
 
-    <delete id="deleteWish" parameterType="com.kb.dict.dto.Dict">
-        DELETE FROM tbl_dict_wish
-        WHERE dino = #{dino};
-    </delete>
 
     <select id="getList" parameterType="long" resultMap="dictWishMap">
         SELECT
@@ -41,15 +34,19 @@
         ORDER BY w.dict_order
     </select>
 
+    <insert id="insertWish" parameterType="com.kb.dict.dto.DictWish">
+        INSERT INTO tbl_dict_wish (dino,uno, memo, dict_order)
+        VALUES (#{dino},#{uno} ,NULL, #{dictOrder});
+    </insert>
 
-    <select id="get" resultMap="dictWishMap">
-        SELECT
-            w.dwno,w.uno,w.dino,w.memo,d.word,d.content, w.createdAt
-        FROM
-            tbl_dict_wish w
-                JOIN tbl_dict d ON w.dino = d.dino
-        WHERE w.uno = #{uno} and w.dwno = #{dwno};
-    </select>
+
+    <update id="updateWish">
+        UPDATE tbl_dict_wish SET
+        memo=#{memo},
+        createdAt=now()
+        where dwno=#{dwno}
+    </update>
+
 
     <update id="updateStatus" parameterType="com.kb.dict.dto.Dict">
         UPDATE tbl_dict
@@ -61,5 +58,10 @@
         UPDATE tbl_dict_wish SET dict_order = #{newDwno} where dwno = #{dwno};
     </update>
 
+
+    <delete id="deleteWish" parameterType="com.kb.dict.dto.DictWish">
+        DELETE FROM tbl_dict_wish
+        WHERE dino = #{dino};
+    </delete>
 
 </mapper>

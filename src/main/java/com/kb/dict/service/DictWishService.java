@@ -19,6 +19,7 @@ import java.util.Optional;
 public class DictWishService {
     final DictWishMapper wishMapper;
 
+
     public List<DictWish> getList(long uno) {
         List<DictWish> dict = wishMapper.getList(uno);
         if (dict.isEmpty()) {
@@ -28,14 +29,18 @@ public class DictWishService {
         }
     }
 
+    // Dino을 통해서 유저의 즐겨찾기 여부 확인하기
+    public int getWishByDino(DictWish dictWish) { //
 
-    public DictWish get(long id) {
-        return Optional.ofNullable(wishMapper.get(id))
+        return Optional.ofNullable(wishMapper.getWishByDino(dictWish))
                 .orElseThrow(NoSuchElementException::new);
-
     }
+
+
+
     public int updateWish(DictWish wish) {
-       return wishMapper.updateWish(wish);
+
+        return wishMapper.updateWish(wish);
     }
 
     public int updateWishOrder(DictWishOrderDTO dictWishOrderDTO) {
@@ -45,7 +50,7 @@ public class DictWishService {
         for(DictWishOrder dictWishOrder : wishOrders) {
 
             if (wishMapper.updateWishOrder(dictWishOrder) != 1) {
-                result = 0;
+
                 throw new NoSuchElementException();
             }
         }

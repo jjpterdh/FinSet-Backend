@@ -49,14 +49,12 @@ public class DictController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
+    // dino -> dwno 추출하고 -> 즐겨찾기 수정
     @PutMapping("/{dino}")
-    public ResponseEntity<Dict> updateStatus(@PathVariable("dino") long dino, @RequestBody Dict dict, @AuthenticationPrincipal Member principal) {
+    public ResponseEntity<Integer> updateWishDict(@PathVariable("dino") long dino, @RequestBody Dict dict, @AuthenticationPrincipal Member principal) {
         dict.setDino(dino);
         long uno=principal.getUno();
-        dict.setUno(uno);
-        Dict updatedDict = service.updateStatus(dict);
-        return ResponseEntity.ok(updatedDict);
+        return ResponseEntity.ok(service.updateWishDict(dict, uno));
     }
 
 
