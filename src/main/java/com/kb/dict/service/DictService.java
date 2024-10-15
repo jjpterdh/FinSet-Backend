@@ -1,6 +1,7 @@
 package com.kb.dict.service;
 
 import com.kb.dict.dto.Dict;
+import com.kb.dict.dto.DictDTO;
 import com.kb.dict.dto.DictWish;
 import com.kb.dict.mapper.DictMapper;
 import com.kb.dict.mapper.DictWishMapper;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -25,12 +27,13 @@ public class DictService {
 
 
     public List<Dict> findAll() {
-        List<Dict> dict = mapper.selectAll();
-        if (dict.isEmpty()) {
-            throw new NoSuchElementException();
+        List<Dict> dicts = mapper.selectAll();
 
+        if (dicts.isEmpty()) {
+            throw new NoSuchElementException();
+            //
         }else {
-            return dict;
+            return dicts;
         }
 
     }
@@ -38,12 +41,29 @@ public class DictService {
         return mapper.selectById(id);
     }
 
-    public List<Dict> search(String word) {
+    public List<DictDTO> search(String word, long uno) {
         List<Dict> dict = mapper.Search(word);
-        if (dict.isEmpty()) {
+        List<DictDTO> dictDTOs = new ArrayList<>();
+
+        for (Dict d : dict) {
+            DictWish dictWish = new DictWish();
+            DictDTO dictDTO = new DictDTO();
+
+            // dict DTO 정의
+            dictWish.setUno(uno);
+            dictWish.setDino(d.getDino());
+            int size= wishMapper.getWishByDino(dictWish) > 0 ? 1 : 0;
+            dictDTO.setWord(d.getWord());
+            dictDTO.setContent(d.getContent());
+            dictDTO.setDino(d.getDino());
+            dictDTO.setStatus(size);
+            dictDTOs.add(dictDTO);
+        }
+
+        if (dictDTOs.isEmpty()) {
             throw new NoSuchElementException();
         } else {
-            return dict;
+            return dictDTOs;
         }
     }
 
