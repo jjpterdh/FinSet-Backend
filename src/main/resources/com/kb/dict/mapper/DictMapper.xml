@@ -14,6 +14,7 @@
     <select id="selectAll" resultType="com.kb.dict.dto.Dict">
         SELECT * from tbl_dict;
     </select>
+
     <select id="Search" parameterType="String" resultType="com.kb.dict.dto.Dict">
         SELECT * FROM tbl_dict
         WHERE word LIKE CONCAT('%', #{word}, '%')

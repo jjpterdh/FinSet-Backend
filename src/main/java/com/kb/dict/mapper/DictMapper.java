@@ -1,6 +1,7 @@
 package com.kb.dict.mapper;
 
 import com.kb.dict.dto.Dict;
+import com.kb.dict.dto.DictDTO;
 
 import java.util.List;
 
