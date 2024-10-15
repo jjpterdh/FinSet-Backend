@@ -12,6 +12,7 @@ public interface StockMapper {
     List<StockChart> selectChart(Long id);
     int insertStockChart(StockChart stockChart);
     Stock selectById(Long id);
+    int updateStock(Stock stock);
     List<Community> selectCommunity(@Param("sno")long sno, @Param("uno") long uno, @Param("sort") String sort);
     List<Integer> selectMinMax(Long id);
     int insertCommunity(CommunityDTO communityDTO);

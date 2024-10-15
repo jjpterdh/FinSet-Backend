@@ -14,4 +14,5 @@ public class StockChart {
     private long sno;
     private String stockDatetime;
     private long stockPrice;
+    private double priceChangeRate;
 }

@@ -89,6 +89,7 @@ public class StockService {
             stockChart.setSno(id);
             stockChart.setStockDatetime(item.get("stck_bsop_date").toString());
             stockChart.setStockPrice(Integer.parseInt(item.get("stck_clpr").toString()));
+            stockChart.setPriceChangeRate(Double.parseDouble(item.get("prdy_vrss").toString()));
             stockCharts.add(stockChart);
         }
 
@@ -147,6 +148,43 @@ public class StockService {
 
 
         return stockSymbol;
+    }
+
+
+    // Stock DB 업데이트
+    // stock price, price change rate
+    public int updateStockDB() throws UnsupportedEncodingException, ParseException {
+        // 토큰 가져오기
+        StockToken stockToken = tokenService.getDefaultStockToken();
+
+
+        // getAllStocks
+        List<Stock> stocks = getAllStocks("");
+        int result=1;
+        for(Stock stock : stocks) {
+
+            // 심볼 & 차트 가져오기
+            List<StockChart> stockCharts = getStockChart(stock.getSno(), stockToken);
+            StockChart stockChart= stockCharts.get(0);
+            StockSymbol stockSymbol = getStockSymbol(stock.getSno(), stockToken);
+
+            // 업데이트할 정보
+            Stock newStock= new Stock();
+            newStock.setSno(stock.getSno());
+            newStock.setStockSymbol(stock.getStockSymbol());
+            newStock.setStockPrice(Integer.parseInt(stockSymbol.getClosePrice()));
+            double changeRate = Math.round(stockChart.getPriceChangeRate()/Double.parseDouble(stockSymbol.getClosePrice().replace(",", ""))*1000)/10.0;
+//            newStock.setPriceChangeRate(stockChart.getPriceChangeRate());
+            newStock.setPriceChangeRate(changeRate+"%");
+            newStock.setStockVolume(stockSymbol.getTradingVol());
+
+            result=mapper.updateStock(newStock);
+        }
+
+
+        return result;
+
+
     }
 
     public List<Community> getCommunities(long sno, long uno, String sort) {

@@ -33,8 +33,8 @@ public class StockController {
     private final TokenService tokenService;
     private StockToken stockToken;
     @GetMapping("")
-    public ResponseEntity<List<Stock>> getAllStocks(@RequestParam(value = "sort", defaultValue = "volume") String sort) {
-
+    public ResponseEntity<List<Stock>> getAllStocks(@RequestParam(value = "sort", defaultValue = "volume") String sort) throws UnsupportedEncodingException, ParseException {
+//        stockService.updateStockDB();
         return ResponseEntity.ok(stockService.getAllStocks(sort));
     }
 
@@ -70,7 +70,10 @@ public class StockController {
         return ResponseEntity.ok(stockService.getStockSymbol(sno, stockToken));
 
     }
-
+    @GetMapping("/update")
+    public ResponseEntity<Integer> updateStock() throws UnsupportedEncodingException, ParseException {
+        return ResponseEntity.ok(stockService.updateStockDB());
+    }
 
     @GetMapping("/{sno}/community")
     public ResponseEntity<List<Community>> getCommunities(@RequestParam(required = false, value = "sort", defaultValue = "latest") String sort, @PathVariable long sno, @AuthenticationPrincipal Member principal) {

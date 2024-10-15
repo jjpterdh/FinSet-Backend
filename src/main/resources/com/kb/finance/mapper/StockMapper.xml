@@ -142,6 +142,18 @@
         UPDATE tbl_community SET content=#{content} WHERE bno=#{bno} AND uno=#{uno}
     </update>
 
+
+    <update id="updateStock" parameterType="com.kb.finance.dto.Stock">
+
+        UPDATE tbl_stock
+        SET stock_price = #{stockPrice},
+            price_change_rate=#{priceChangeRate},
+            stock_volume=#{stockVolume}
+        WHERE stock_symbol=#{stockSymbol}
+
+
+    </update>
+
     <delete id="deleteLike" parameterType="com.kb.finance.dto.Like">
         DELETE FROM tbl_community_like WHERE bno = #{bno} AND uno = #{uno}
     </delete>
